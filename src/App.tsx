@@ -3,6 +3,7 @@ import './App.css';
 import Layout from 'components/Layout/Layout';
 import Calculation from 'pages/Calculation/Calculation';
 import CalculationDetail from 'pages/Calculation/Detail/Detail';
+import Profile from 'pages/Profile/Profile';
 import Main from './pages/main';
 import Login from './pages/login';
 import PlanList from './pages/plan-list';
@@ -22,6 +23,7 @@ function App(): JSX.Element {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/profile/:id" element={<Profile />} />
         </Routes>
         <Routes>
           <Route element={<Layout />}>
