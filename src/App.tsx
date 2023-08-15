@@ -6,12 +6,10 @@ import CalculationDetail from 'pages/Calculation/Detail/Detail';
 import Profile from 'pages/Profile/Profile';
 import RestaurantDetails from 'pages/Restaurant/Details';
 import Main from 'pages/Main/main';
-import Auth from 'pages/Auth/Auth';
-import Hotels from './pages/hotels';
-import Login from 'pages/login';
-import PlanList from 'pages/plan-list';
-import Plans from 'pages/Plans/plans';
 import Attractions from 'pages/Attractions/Attractions';
+import Auth from 'pages/Auth/Auth';
+import PlanList from './pages/plan-list';
+import Plans from './pages/Plans/plans';
 import Restaurant from './pages/Restaurant/Restaurant';
 
 declare global {
