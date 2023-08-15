@@ -6,7 +6,7 @@ import CalculationDetail from 'pages/Calculation/Detail/Detail';
 import Profile from 'pages/Profile/Profile';
 import HotelDetails from 'pages/AttractionsDetails/Hotel/Details';
 import Main from 'pages/Main/main';
-import Login from 'pages/login';
+import Auth from 'pages/Auth/Auth';
 import PlanList from 'pages/PlanList/PlanList';
 import Plan from 'pages/Plan/Plan';
 import Attractions from 'pages/Attractions/Attractions';
@@ -25,7 +25,7 @@ function App(): JSX.Element {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Auth />} />
           <Route path="/profile/:id" element={<Profile />} />
         </Routes>
         <Routes>
