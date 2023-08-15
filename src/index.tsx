@@ -8,6 +8,7 @@ import './index.css';
 
 // '!' is used for null-check
 const root = ReactDOM.createRoot(document.getElementById('root')!);
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>

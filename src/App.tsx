@@ -6,7 +6,7 @@ import CalculationDetail from 'pages/Calculation/Detail/Detail';
 import Profile from 'pages/Profile/Profile';
 import RestaurantDetails from 'pages/Restaurant/Details';
 import Main from 'pages/Main/main';
-import Login from './pages/login';
+import Auth from 'pages/Auth/Auth';
 import PlanList from './pages/plan-list';
 import Plans from './pages/Plans/plans';
 import Hotels from './pages/hotels';
@@ -24,8 +24,9 @@ function App(): JSX.Element {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Auth />} />
           <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/restaurant" element={<Restaurant />} />
         </Routes>
         <Routes>
           <Route element={<Layout />}>
@@ -37,7 +38,6 @@ function App(): JSX.Element {
               path="/calculate/:id/:name"
               element={<CalculationDetail />}
             />
-            <Route path="/restaurant" element={<Restaurant />} />
             <Route
               path="restaurant/details/:id"
               element={<RestaurantDetails />}
