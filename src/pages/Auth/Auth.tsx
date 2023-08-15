@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import EmailAuth from '../../components/Login/EmailAuth/EmailAuth';
 import GoogleLogin from '../../components/Login/GoogleLogin/GoogleLogin';
 import KakaoLogin from '../../components/Login/KakaoLogin/KakaoLogin';
@@ -26,11 +27,12 @@ function Login(): JSX.Element {
         </Link>
       </h1>
       <EmailAuth variant={variant} />
-      <GoogleLogin />
-      <KakaoLogin />
+      <GoogleLogin variant={variant} />
+      <KakaoLogin variant={variant} />
       <div className={styles.btn} onClick={toggleVariant} aria-hidden="true">
         {variant === 'LOGIN' ? '회원가입' : '로그인'}
       </div>
+      <ToastContainer />
     </div>
   );
 }

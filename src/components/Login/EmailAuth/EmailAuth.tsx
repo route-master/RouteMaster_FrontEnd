@@ -3,7 +3,7 @@ import {
   useLoginUserMutation,
   useRegisterUserMutation,
 } from 'services/authApi';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -133,7 +133,6 @@ function EmailAuth({ variant }: Props): JSX.Element {
       >
         {variant === 'LOGIN' ? 'Login' : 'Register'}
       </button>
-      <ToastContainer />
     </div>
   );
 }
