@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, forwardRef } from 'react';
 import styles from './SearchBar.module.css';
 
@@ -5,6 +6,7 @@ interface Props {
   inputRef: React.RefObject<HTMLInputElement>;
   placeListRef: React.RefObject<HTMLUListElement>;
   paginationRef: React.RefObject<HTMLDivElement>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setKeyword: React.Dispatch<React.SetStateAction<any>>;
 }
 
@@ -21,6 +23,7 @@ function MapColumnSearchBar({
 
   useEffect(() => {
     if (inputRef.current) {
+      // eslint-disable-next-line no-param-reassign
       inputRef.current.value = '';
     }
   }, []);

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef, useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import LikeButton from '../LikeButton/LikeButton';
@@ -31,6 +32,7 @@ function KakaoMaps({ map, setMap, keyword }: Props): JSX.Element {
     if (map) {
       const ps = new kakao.maps.services.Places(); // 장소 검색 객체
 
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const placesSearchCB = (data: any, status: any, pagination: any) => {
         if (status === kakao.maps.services.Status.OK) {
           const bounds = new kakao.maps.LatLngBounds();

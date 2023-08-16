@@ -8,7 +8,9 @@ function SearchBar(): JSX.Element {
       id="combo-box-demo"
       options={top100Films}
       sx={{ width: '500px', backgroundColor: 'white' }}
-      renderInput={(params) => <TextField {...params} label="어디를 정복하고 싶나요?" />}
+      renderInput={(params) => (
+        <TextField {...params} label="어디를 정복하고 싶나요?" />
+      )}
     />
   );
 }

@@ -6,6 +6,7 @@ import MapColumnSearchBar from './SearchBar/SearchBar';
 import styles from './MapColumn.module.css';
 
 function MapColumn(): JSX.Element {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [map, setMap] = useState<any>(null);
   const [keyword, setKeyword] = useState('');
   const searchBarRefs = {

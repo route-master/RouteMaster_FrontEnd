@@ -1,5 +1,5 @@
 import RestaurantDetailCard from 'components/RestaurantCard/RestaurantDetailCard';
-import MenuBox from 'MenuBox/MenuBox';
+import MenuBox from 'components/MenuBox/MenuBox';
 import Review from 'components/Reivew/Review';
 import styles from './Details.module.css';
 

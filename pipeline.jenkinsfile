@@ -9,15 +9,18 @@ pipeline {
        stage('Build') {
            steps {
                dir('route-master') {
-                   sh 'npm run build'
+                    nodejs(nodeJSInstallationName: 'node') {
+                        sh 'npm install && npm run build'
+                    }
                }
            }
        }
        stage('Deploy') {
            steps {
                dir('route-master') { 
-                    sshagent(credentials: ['ubuntu']) { 
-                        sh 'scp -r ./build /home/ubuntu/public/@route-master.org'
+                    sshagent(credentials: ['78c5e617-5867-48ee-8300-3ffc1637fcc8']) {
+                        sh 'ls -al'
+                        sh 'scp -r /var/jenkins_home/workspace/front-end/route-master/build /home/ubuntu/public/@route-master.org'
                     }
                }
            }

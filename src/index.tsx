@@ -7,6 +7,7 @@ import store from './store/store';
 import './index.css';
 
 // '!' is used for null-check
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 
 root.render(
