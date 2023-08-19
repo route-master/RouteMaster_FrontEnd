@@ -4,13 +4,13 @@ import Layout from 'components/Layout/Layout';
 import Calculation from 'pages/Calculation/Calculation';
 import CalculationDetail from 'pages/Calculation/Detail/Detail';
 import Profile from 'pages/Profile/Profile';
-import RestaurantDetails from 'pages/Restaurant/Details';
+import RestaurantDetails from 'pages/AttractionsDetails/Details';
 import Main from 'pages/Main/main';
 import Login from 'pages/login';
 import PlanList from 'pages/plan-list';
 import Plans from 'pages/Plans/plans';
 import Attractions from 'pages/Attractions/Attractions';
-import Restaurant from './pages/Restaurant/Restaurant';
+import Restaurant from './pages/AttractionsDetails/Restaurant';
 
 declare global {
   interface Window {
