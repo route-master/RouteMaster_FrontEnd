@@ -43,7 +43,7 @@ function FacilitiesInfo({ data }: Props): JSX.Element {
   const facilityList = {
     parking: 'https://img.icons8.com/ios/100/parking.png',
     valetparking: 'https://img.icons8.com/ios/100/valet-parking.png',
-    pickup: 'https://img.icons8.com/ios/100/pickup.png',
+    pickup: 'https://img.icons8.com/ios/100/sedan.png',
     barbeque: 'https://img.icons8.com/ios/100/weber.png',
     campfire: 'https://img.icons8.com/ios/100/campfire.png',
     // eslint-disable-next-line prettier/prettier
