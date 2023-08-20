@@ -50,22 +50,24 @@ interface DetailsResponse {
   detail: AttractionDetails;
 }
 
-function Details(): JSX.Element {
+function HotelDetails(): JSX.Element {
   const [data, setData] = useState<AttractionDetails>();
   const param = useParams<{ pagetype: string; id: string }>();
 
   useEffect(() => {
     const fetchDetails = async () => {
-      const response = await axios.get<DetailsResponse>(
-        `/attraction/detail/${param.pagetype}?contentId=${param.id}`,
-      );
-      setData(response.data.detail);
+      try {
+        const response = await axios.get<DetailsResponse>(
+          `/attraction/detail/stay?contentId=${param.id}`,
+        );
+        setData(response.data.detail);
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.log(e);
+      }
     };
-    try {
-      fetchDetails();
-    } catch (e) {
-      console.log(e);
-    }
+
+    fetchDetails();
   }, []);
 
   return (
@@ -78,4 +80,4 @@ function Details(): JSX.Element {
   );
 }
 
-export default Details;
+export default HotelDetails;

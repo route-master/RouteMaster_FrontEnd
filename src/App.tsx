@@ -4,7 +4,7 @@ import Layout from 'components/Layout/Layout';
 import Calculation from 'pages/Calculation/Calculation';
 import CalculationDetail from 'pages/Calculation/Detail/Detail';
 import Profile from 'pages/Profile/Profile';
-import AttractionsDetails from 'pages/AttractionsDetails/Details';
+import HotelDetails from 'pages/AttractionsDetails/Hotel/Details';
 import Main from 'pages/Main/main';
 import Login from 'pages/login';
 import PlanList from 'pages/plan-list';
@@ -40,8 +40,8 @@ function App(): JSX.Element {
             />
             <Route path="/restaurants" element={<Restaurant />} />
             <Route
-              path="attractions/:pagetype/details/:id"
-              element={<AttractionsDetails />}
+              path="attractions/stay/details/:id"
+              element={<HotelDetails />}
             />
           </Route>
         </Routes>
