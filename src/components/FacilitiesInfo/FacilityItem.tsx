@@ -11,7 +11,7 @@ function FacilityItem({ title, imgsrc }: Props): JSX.Element {
   };
   const koreantitles: Titles = {
     parking: '주차장',
-    pickup: '픽업서비스 가능',
+    pickup: '픽업서비스',
     reservation: '예약안내',
     reservationUrl: '예약안내',
     roomType: '객실유형',
