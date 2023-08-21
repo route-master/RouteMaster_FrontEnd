@@ -16,3 +16,8 @@
     padding: 100px auto;
     background-color: #C0FFBA;
 }
+
+.recommend_container {
+    width: 100%;
+    text-align: left;
+}
