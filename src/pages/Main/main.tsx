@@ -6,9 +6,9 @@ import styles from './main.module.css';
 
 function Main(): JSX.Element {
   return (
-    <div className={styles.body}>
+    <div className={styles.container}>
       <MainHeader />
-      <div className={styles.searchContainer}>
+      <div className={styles.search_container}>
         <SearchBar />
       </div>
       <div className={styles.recommend_container}>
@@ -17,14 +17,7 @@ function Main(): JSX.Element {
         <RecommendCardContainer title="20대 인기" />
         <RecommendCardContainer title="날씨별 추천" />
       </div>
-      <div
-        style={{
-          width: '50%',
-          aspectRatio: '1/1',
-          margin: '0 auto',
-          marginTop: '5%',
-        }}
-      >
+      <div className={styles.calendar}>
         <Calendar />
       </div>
     </div>
