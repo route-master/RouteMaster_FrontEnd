@@ -3,38 +3,20 @@ import { useState } from 'react';
 import EmptyHeart from '../../assets/images/emptyheart.png';
 import FullHeart from '../../assets/images/fullheart.png';
 
-function LikeButton() {
+import styles from './LikeButton.module.css';
+
+function LikeButton(): JSX.Element {
   const [imgSrc, setImgSrc] = useState<string>(EmptyHeart);
+  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setImgSrc(imgSrc === EmptyHeart ? FullHeart : EmptyHeart);
+  }
 
   return (
-    <button
-      // eslint-disable-next-line react/no-array-index-key
-      type="button"
-      style={{
-        position: 'absolute',
-        right: '5px',
-        width: '30px',
-        height: '30px',
-        padding: '4px 3px 3px',
-        backgroundColor: 'white',
-        border: '1 solid black',
-        borderRadius: '50%',
-      }}
-      onClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setImgSrc(imgSrc === EmptyHeart ? FullHeart : EmptyHeart);
-      }}
-    >
-      <img
-        alt="add"
-        src={imgSrc}
-        style={{
-          width: '100%',
-          height: '100%',
-          cursor: 'pointer',
-        }}
-      />
+    // eslint-disable-next-line react/no-array-index-key
+    <button type="button" className={styles.container} onClick={onClick}>
+      <img alt="add" src={imgSrc} className={styles.img} />
     </button>
   );
 }
