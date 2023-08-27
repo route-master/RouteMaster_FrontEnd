@@ -1,0 +1,18 @@
+.container {
+    width: 100%;
+    height: fit-content;
+    text-align: left;
+}
+
+.cards_wrapper {
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.cards {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
