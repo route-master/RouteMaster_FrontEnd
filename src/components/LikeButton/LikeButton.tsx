@@ -11,7 +11,7 @@ function LikeButton(): JSX.Element {
     e.preventDefault();
     e.stopPropagation();
     setImgSrc(imgSrc === EmptyHeart ? FullHeart : EmptyHeart);
-  }
+  };
 
   return (
     // eslint-disable-next-line react/no-array-index-key
