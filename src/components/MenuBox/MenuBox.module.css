@@ -1,6 +1,5 @@
 .container {
   width: 80%;
-  margin-top: 30px;
   display: flex;
   flex-direction: column;
   text-align: start;
