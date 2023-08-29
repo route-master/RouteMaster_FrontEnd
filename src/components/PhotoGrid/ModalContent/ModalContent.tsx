@@ -1,4 +1,4 @@
-import styles from './PhotoModal.module.css';
+import styles from './ModalContent.module.css';
 
 interface Props {
   photos: string[];
