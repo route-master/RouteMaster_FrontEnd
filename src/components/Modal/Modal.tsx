@@ -20,7 +20,7 @@ function Modal({
   const size = { width: mywidth, height: myheight };
 
   const closeModal = (
-    e: React.MouseEvent<HTMLDivElement> | React.MouseEvent<HTMLButtonElement>
+    e: React.MouseEvent<HTMLDivElement> | React.MouseEvent<HTMLButtonElement>,
   ) => {
     e.preventDefault();
     if (e.target === bgRef.current || e.target instanceof HTMLButtonElement) {
