@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from 'components/Modal/Modal';
 import ModalContent from './ModalContent/ModalContent';
 import styles from './PhotoGrid.module.css';
@@ -10,8 +10,12 @@ interface Props {
 }
 
 function PhotoGrid({ photos }: Props): JSX.Element {
-  const [bigPhotos, setBigPhotos] = useState<string[]>(photos.slice(0, 5));
+  const [bigPhotos, setBigPhotos] = useState<string[]>([]);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    setBigPhotos(photos.slice(0, 5));
+  }, [photos]);
 
   const onClick = (e: React.MouseEvent<HTMLDivElement>, index: number) => {
     const newBigPhotos = [...bigPhotos];
