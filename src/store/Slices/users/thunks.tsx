@@ -112,3 +112,38 @@ export const checkCodeEmail = createAsyncThunk(
     return response.data.username;
   },
 );
+
+export const privacyCheck = createAsyncThunk(
+  'user/privacy/me',
+  async() => {
+    const requestURL = `${baseURL}/v1/user/info/privacy/me`
+
+    const response = await axios({
+      url: requestURL,
+      method: 'GET',
+      headers: {...baseHeader},
+    })
+    if(!response) {
+      throw new Error('회원가입 실패!');
+    }
+    return response.data.userPrivacies;
+  }
+)
+
+export const privacyApprove = createAsyncThunk(
+  'user/privacy',
+  async(arg: {privacyGroupId:  string; isApproved:  string}) => {
+    const requestURL = `${baseURL}/v1/user/info/privacy`
+
+    const response = await axios({
+      url: requestURL,
+      method: 'POST',
+      headers: {...baseHeader},
+    })
+    if(!response) {
+      throw new Error('문제 발생!!')
+    }
+    return response.data.userPrivacies;
+  } 
+)
+
