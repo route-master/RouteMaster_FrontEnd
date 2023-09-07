@@ -1,91 +1,117 @@
 import { useEffect, useState } from 'react';
-import {
-  useLoginUserMutation,
-  useRegisterUserMutation,
-} from 'services/authApi';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+import {
+  loginWithEmail,
+  registerWithEmail,
+  checkCodeEmail,
+} from 'store/Slices/users/thunks';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setUser } from 'features/auth/authSlice';
 import styles from './EmailAuth.module.css';
 
 type Variant = 'LOGIN' | 'REGISTER';
 
 interface Props {
   variant: Variant;
+  setVariant: any;
 }
 
-function EmailAuth({ variant }: Props): JSX.Element {
+function EmailAuth({ variant, setVariant }: Props): JSX.Element {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
 
-  const dispatch = useDispatch();
-
-  const [
-    loginUser,
-    {
-      data: loginData,
-      isSuccess: isLoginSuccess,
-      isError: isLoginError,
-      error: loginError,
-    },
-  ] = useLoginUserMutation();
-
-  const [
-    registerUser,
-    {
-      data: registerData,
-      isSuccess: isRegisterSuccess,
-      isError: isRegisterError,
-      error: registerError,
-    },
-  ] = useRegisterUserMutation();
-
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleClickEvent = () => {
+  const tokens = useAppSelector((state) => state.auth.tokens);
+  const isLoading = useAppSelector((state) => state.auth.loading);
+  const error = useAppSelector((state) => state.auth.error);
+  const success = useAppSelector((state) => state.auth.success);
+  const isLogin = useAppSelector((state) => state.auth.isLogin);
+  const isCheck = useAppSelector((state) => state.auth.isCheck);
+
+  const [code, setCode] = useState('');
+
+  const authWithEmail = () => {
     if (variant === 'LOGIN') {
-      handleLogin();
-    } else {
-      handleRegister();
-    }
-  };
-
-  const handleLogin = async () => {
-    if (username && password) {
-      await loginUser({ username, password });
-    } else {
-      toast.error('please fill all input fields');
-    }
-  };
-
-  const handleRegister = async () => {
-    if (username && password && passwordConfirm) {
-      if (password !== passwordConfirm) {
-        toast.error('비밀번호를 다시확인해 주세요!');
+      if (!username) {
+        toast.error('이메일을 입력해주세요');
+      } else if (!password) {
+        toast.error('비밀번호를 입력해주세요');
       } else {
-        await registerUser({ username, password, authorities: 'ROLE_USER' });
+        dispatch(loginWithEmail({ username, password }));
+        if (error) {
+          toast.error('이메일이나 비밀번호를 다시한번 확인해주세요!!');
+        } else if (!isLoading) {
+          console.log(tokens);
+        }
       }
-    } else {
-      toast.error('please fill all input fields');
     }
+    if (variant === 'REGISTER') {
+      if (!username) {
+        toast.error('이메일을 입력해주세요');
+      } else if (!password) {
+        toast.error('비밀번호를 입력해주세요');
+      } else if (password !== passwordConfirm) {
+        toast.error('비밀번호가 일치 하지 않습니다!!');
+      } else {
+        dispatch(
+          registerWithEmail({
+            username,
+            password,
+            authorities: ['ROLE_USER'],
+          }),
+        );
+      }
+    }
+  };
+
+  const checkCode = () => {
+    dispatch(
+      checkCodeEmail({
+        username,
+        verificationCode: code,
+      }),
+    );
   };
 
   useEffect(() => {
-    if (isLoginSuccess) {
-      toast.success('user login');
-      dispatch(setUser({ tokens: loginData.tokens }));
+    if (variant === 'LOGIN' && isLogin) {
+      localStorage.setItem('accessToken', tokens.accessToken.token);
       navigate('/');
-    }
-
-    if (isRegisterSuccess) {
-      toast.success('register');
+    } else {
       navigate('/login');
     }
-  }, [isLoginSuccess, isRegisterSuccess]);
+  }, [success, isLogin]);
 
+  useEffect(() => {
+    if (isCheck) {
+      toast.success('회원가입 완료');
+      setVariant('LOGIN');
+      navigate('/login');
+    }
+  }, [isCheck]);
+
+  if (success && variant === 'REGISTER') {
+    return (
+      <div>
+        <div>이메일로 발송된 인증 코드를 입력해주세요</div>
+        <input
+          type="text"
+          name="code"
+          id="code"
+          onChange={({ target: { value } }) => {
+            setCode(value);
+          }}
+        />
+        <button type="submit" onClick={checkCode}>
+          확인
+        </button>
+      </div>
+    );
+  }
   return (
     <div className={styles.body}>
       <div className={styles.input_container}>
@@ -129,10 +155,11 @@ function EmailAuth({ variant }: Props): JSX.Element {
       <button
         className={styles.login_btn}
         type="submit"
-        onClick={handleClickEvent}
+        onClick={authWithEmail}
       >
         {variant === 'LOGIN' ? 'Login' : 'Register'}
       </button>
+      <ToastContainer />
     </div>
   );
 }
