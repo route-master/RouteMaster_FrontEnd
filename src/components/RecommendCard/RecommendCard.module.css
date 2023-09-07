@@ -1,0 +1,30 @@
+.container {
+    width: 250px;
+    height: 250px;
+    cursor: pointer;
+    transition: 0.3s all ease-in-out;
+    margin-right: 2rem;
+}
+.container:hover {
+    transform: scale(1.1);
+}
+.container:hover .img {
+    filter: brightness(0.5);
+}
+.container:hover .hidden_text{
+    display: block;
+}
+
+.img {
+    width: 100%;
+    height: 100%;
+}
+
+.hidden_text {
+    display: none;
+    position: absolute;
+    top: 15%;
+    left: 25%;
+    color: white;
+    font-size: 52px;
+}

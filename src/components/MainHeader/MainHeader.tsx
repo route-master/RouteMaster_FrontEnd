@@ -33,7 +33,7 @@ function MainHeader(): JSX.Element {
         <ul className={styles.nav}>
           <li className={styles.nav_item}>
             <button type="button" className={styles.nav_btn}>
-              <Link to="/attractions">Hotels</Link>
+              <Link to="/attractions/stay">Hotels</Link>
             </button>
           </li>
           <li className={styles.nav_item}>
@@ -43,7 +43,7 @@ function MainHeader(): JSX.Element {
           </li>
           <li className={styles.nav_item}>
             <button type="button" className={styles.nav_btn}>
-              <Link to="/attractions">Activities</Link>
+              <Link to="/attractions/event">Activities</Link>
             </button>
           </li>
           <li className={styles.nav_item}>
@@ -53,7 +53,7 @@ function MainHeader(): JSX.Element {
           </li>
           <li className={styles.nav_item}>
             <button type="button" className={styles.nav_btn}>
-              <Link to="/restaurant">Restaurants</Link>
+              <Link to="/restaurants">Restaurants</Link>
             </button>
           </li>
         </ul>

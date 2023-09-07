@@ -4,13 +4,13 @@ import Layout from 'components/Layout/Layout';
 import Calculation from 'pages/Calculation/Calculation';
 import CalculationDetail from 'pages/Calculation/Detail/Detail';
 import Profile from 'pages/Profile/Profile';
-import RestaurantDetails from 'pages/Restaurant/Details';
+import HotelDetails from 'pages/AttractionsDetails/Hotel/Details';
 import Main from 'pages/Main/main';
 import Attractions from 'pages/Attractions/Attractions';
 import Auth from 'pages/Auth/Auth';
 import PlanList from './pages/plan-list';
 import Plans from './pages/Plans/plans';
-import Restaurant from './pages/Restaurant/Restaurant';
+import Restaurant from './pages/AttractionsDetails/Restaurant';
 
 declare global {
   interface Window {
@@ -33,15 +33,15 @@ function App(): JSX.Element {
           <Route element={<Layout />}>
             <Route path="/plan-list" element={<PlanList />} />
             <Route path="/plan-list/plans" element={<Plans />} />
-            <Route path="/attractions" element={<Attractions />} />
+            <Route path="/attractions/:pagetype" element={<Attractions />} />
             <Route path="/calculate/:id" element={<Calculation />} />
             <Route
               path="/calculate/:id/:name"
               element={<CalculationDetail />}
             />
             <Route
-              path="restaurant/details/:id"
-              element={<RestaurantDetails />}
+              path="attractions/stay/details/:id"
+              element={<HotelDetails />}
             />
           </Route>
         </Routes>
