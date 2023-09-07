@@ -26,7 +26,7 @@ function Login(): JSX.Element {
           Route Master
         </Link>
       </h1>
-      <EmailAuth variant={variant} />
+      <EmailAuth variant={variant} setVariant={setVariant} />
       <GoogleLogin variant={variant} />
       <KakaoLogin variant={variant} />
       <div className={styles.btn} onClick={toggleVariant} aria-hidden="true">

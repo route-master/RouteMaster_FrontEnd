@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { authApi } from 'services/authApi';
 import { setupListeners } from '@reduxjs/toolkit/query/react';
 import authSlice from 'features/auth/authSlice';
 import attractionsSlice from './Slices/attractions/slice';
@@ -9,13 +8,11 @@ import plansReducer from './Slices/plans/slice';
 const store = configureStore({
   reducer: {
     auth: authSlice,
-    [authApi.reducerPath]: authApi.reducer,
     attractionsThunk: attractionsSlice,
     activities: activitiesReducer,
     plans: plansReducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authApi.middleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
 
 export type AppDispatch = typeof store.dispatch;

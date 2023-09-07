@@ -1,14 +1,9 @@
 import SocailGoogle from 'react-google-login';
 import { gapi } from 'gapi-script';
 import { useEffect } from 'react';
-import {
-  useLoginGoogleUserMutation,
-  useRegisterGoogleUserMutation,
-} from 'services/authApi';
-import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setUser } from 'features/auth/authSlice';
+import { loginWithSocial, registerWithSocial } from 'store/Slices/users/thunks';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 import styles from './GoogleLogin.module.css';
 
 type Variant = 'LOGIN' | 'REGISTER';
@@ -21,28 +16,14 @@ const clientId =
   '314019255150-2m0ruvjurs59lboae2uq276vhh4gpiaj.apps.googleusercontent.com';
 
 function GoogleLogin({ variant }: Props): JSX.Element {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [
-    loginUser,
-    {
-      data: loginData,
-      isSuccess: isLoginSuccess,
-      isError: isLoginError,
-      error: loginError,
-    },
-  ] = useLoginGoogleUserMutation();
-
-  const [
-    registerUser,
-    {
-      data: registerData,
-      isSuccess: isRegisterSuccess,
-      isError: isRegisterError,
-      error: registerError,
-    },
-  ] = useRegisterGoogleUserMutation();
+  const tokens = useAppSelector((state) => state.auth.tokens);
+  const isLoading = useAppSelector((state) => state.auth.loading);
+  const error = useAppSelector((state) => state.auth.error);
+  const success = useAppSelector((state) => state.auth.success);
+  const isLogin = useAppSelector((state) => state.auth.isLogin);
 
   useEffect(() => {
     function start() {
@@ -56,9 +37,22 @@ function GoogleLogin({ variant }: Props): JSX.Element {
 
   const onSuccess = (res: any) => {
     if (variant === 'LOGIN') {
-      loginUser({ accessToken: res.accessToken });
+      dispatch(
+        loginWithSocial({
+          provider: 'google',
+          body: { accessToken: res.accessToken },
+        }),
+      );
     } else {
-      registerUser({ accessToken: res.accessToken, authorities: 'ROLE_USER' });
+      dispatch(
+        registerWithSocial({
+          provider: 'google',
+          body: {
+            accessToken: res.accessToken,
+            authorities: ['ROLE_USER'],
+          },
+        }),
+      );
     }
   };
 
@@ -67,17 +61,13 @@ function GoogleLogin({ variant }: Props): JSX.Element {
   };
 
   useEffect(() => {
-    if (isLoginSuccess) {
-      toast.success('user login');
-      dispatch(setUser({ tokens: loginData.tokens }));
+    if (variant === 'LOGIN' && isLogin) {
+      localStorage.setItem('accessToken', tokens.accessToken.token);
       navigate('/');
-    }
-
-    if (isRegisterSuccess) {
-      toast.success('register');
+    } else {
       navigate('/login');
     }
-  }, [isLoginSuccess, isRegisterSuccess]);
+  }, [success, isLogin]);
 
   return (
     <SocailGoogle
