@@ -1,11 +1,36 @@
 import styles from './ActivityCard.module.css';
 
-function ActivityCard(): JSX.Element {
+interface Activity {
+  planGroupId: number;
+  title: string;
+  startTime: number;
+  endTime: number;
+  type: string;
+  imgsrc: string;
+}
+
+function ActivityCard(activity: Activity): JSX.Element {
+  const { title, type, imgsrc } = activity;
+  let borderColor: string;
+
+  if (type === 'hotel') {
+    borderColor = 'red';
+  } else if (type === 'attraction') {
+    borderColor = 'blue';
+  } else {
+    borderColor = 'purple';
+  }
+
   return (
-    <div className={styles.body}>
-      <div>🥰</div>
-      <h3>방금 여행을 만들었습니다!</h3>
-      <div>원하는 장소를 저장한 다음 계획을 저장하고 지도에서 봅시다</div>
+    <div
+      className={styles.container}
+      style={{ border: `1px solid ${borderColor}` }}
+    >
+      <img src={imgsrc} alt="" className={styles.img} />
+      <h3>{title}</h3>
+      <button className={styles.payment} type="button">
+        정산하기
+      </button>
     </div>
   );
 }

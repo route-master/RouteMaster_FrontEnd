@@ -10,6 +10,7 @@ interface Activity {
   startTime: number;
   endTime: number;
   type: string;
+  imgsrc: string;
 }
 
 function PlanColumn(): JSX.Element {
@@ -24,6 +25,8 @@ function PlanColumn(): JSX.Element {
       startTime: 12,
       endTime: 14,
       type: 'hotel',
+      imgsrc:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS56QpW4f453ZbCRrFu2yMwkkIJZEUmXgKYvw&usqp=CAU',
     },
     {
       planGroupId: 2,
@@ -31,6 +34,8 @@ function PlanColumn(): JSX.Element {
       startTime: 16,
       endTime: 17,
       type: 'attraction',
+      imgsrc:
+        'https://www.hyundai.co.kr/image/upload/asset_library/MDA00000000000033649/8e6daec8a90247c38f41913257586aff.jpg',
     },
     {
       planGroupId: 3,
@@ -38,6 +43,8 @@ function PlanColumn(): JSX.Element {
       startTime: 17,
       endTime: 18,
       type: 'restaurant',
+      imgsrc:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Restaurant_N%C3%A4sinneula.jpg/640px-Restaurant_N%C3%A4sinneula.jpg',
     },
   ];
 
@@ -58,9 +65,6 @@ function PlanColumn(): JSX.Element {
 
         setActivities(newactivities);
       });
-
-      console.log(activities.length);
-      console.log(activities);
     } catch (e) {
       console.log(e);
     }
@@ -69,7 +73,9 @@ function PlanColumn(): JSX.Element {
   return (
     <div className={styles.container}>
       <div className={styles.title_section}>
-        <button className={styles.invite} type="button"> 그룹 초대 </button>
+        <button className={styles.invite} type="button">
+          그룹 초대
+        </button>
         <PlanInfoBox />
       </div>
       <div className={styles.date_section}>
@@ -82,7 +88,13 @@ function PlanColumn(): JSX.Element {
             <li key={index} className={styles.line_wrapper}>
               <span className={styles.number}>{index}</span>
               <div className={styles.line}>
-                {'planGroupId' in activity ? <div className={styles.activitycard}><ActivityCard /> </div>: '\u00A0'}
+                {'planGroupId' in activity ? (
+                  <div className={styles.activitycard}>
+                    <ActivityCard {...activity} />
+                  </div>
+                ) : (
+                  '\u00A0'
+                )}
               </div>
             </li>
           ))}

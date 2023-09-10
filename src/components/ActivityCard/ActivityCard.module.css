@@ -1,4 +1,18 @@
-.body {
-    height: 100%;
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: calc(100% - 2px);
     background-color: white;
+    gap: 1rem;
+}
+
+.img {
+    width: 70px;
+    height: 100%;
+}
+
+.payment {
+    border: none;
+    cursor: pointer;
 }
