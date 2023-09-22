@@ -3,7 +3,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import MapColumn from '../../components/MapColumn/MapColumn';
 import PlanColumn from '../../components/PlanColumn/PlanColumn';
-import styles from './plans.module.css';
+import styles from './Plan.module.css';
 
 function Plans(): JSX.Element {
   return (
