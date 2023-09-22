@@ -1,16 +1,29 @@
+import DragImg from 'assets/images/drag.png';
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+
+import { useEffect, useState, useRef } from 'react';
+import { useDrag, useDrop } from 'react-dnd';
 import styles from './ActivityCard.module.css';
 
 interface Activity {
+  id?: number;
   planGroupId: number;
-  title: string;
-  startTime: number;
-  endTime: number;
+  name: string;
+  description?: string;
+  beginDate: number;
+  endDate: number;
   type: string;
-  imgsrc: string;
+  planMapInfo?: object;
+  thumbnailImageUrl: string;
+  planPaymentLog?: object[];
 }
 
-function ActivityCard(activity: Activity): JSX.Element {
-  const { title, type, imgsrc } = activity;
+interface Props {
+  activity: Activity;
+}
+
+function ActivityCard({ activity }: Props): JSX.Element {
+  const { name, type, thumbnailImageUrl } = activity;
   let borderColor: string;
 
   if (type === 'hotel') {
@@ -21,16 +34,33 @@ function ActivityCard(activity: Activity): JSX.Element {
     borderColor = 'purple';
   }
 
+  const [{ isDragging }, dragRef] = useDrag(
+    () => ({
+      type: 'activity',
+      item: { ...activity },
+      collect: (monitor) => ({
+        isDragging: !!monitor.isDragging(),
+      }),
+    }),
+    [],
+  );
+
+  const containerStyle = {
+    opacity: isDragging ? 0.5 : 1,
+    border: `1px solid ${borderColor}`,
+  };
+
   return (
-    <div
-      className={styles.container}
-      style={{ border: `1px solid ${borderColor}` }}
-    >
-      <img src={imgsrc} alt="" className={styles.img} />
-      <h3>{title}</h3>
-      <button className={styles.payment} type="button">
-        정산하기
-      </button>
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+    <div ref={dragRef} className={styles.container} style={containerStyle}>
+      <img src={thumbnailImageUrl} alt="" className={styles.thumb} />
+      <h3>{name}</h3>
+      <div className={styles.rightside_wrapper}>
+        <button className={styles.payment} type="button">
+          정산하기
+        </button>
+        <DragIndicatorIcon fontSize="large" cursor="pointer" />
+      </div>
     </div>
   );
 }

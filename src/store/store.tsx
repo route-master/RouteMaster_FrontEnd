@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import attractionsSlice from './Slices/attractions/slice';
+import activitiesReducer from './Slices/activitiesSlice';
 
 const store = configureStore({
   reducer: {
     attractionsThunk: attractionsSlice,
+    activities: activitiesReducer,
   },
 });
 

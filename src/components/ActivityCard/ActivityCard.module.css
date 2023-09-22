@@ -7,12 +7,27 @@
     gap: 1rem;
 }
 
-.img {
+.rightside_wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.thumb {
     width: 70px;
     height: 100%;
 }
 
 .payment {
+    height: 60%;
     border: none;
+    background-color: rgb(174, 247, 174);
+    cursor: pointer;
+}
+.payment:hover {
+    background-color: rgb(200, 252, 200);
+}
+
+.drag_icon {
     cursor: pointer;
 }
