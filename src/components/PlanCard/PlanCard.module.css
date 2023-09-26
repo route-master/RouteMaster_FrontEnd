@@ -1,5 +1,17 @@
 .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 100%;
     border: 1px solid lightgrey;
+}
+.container:hover {
+    filter: opacity(90%);
+}
+
+.contents_wrapper {
+    width: 65%;
+    height: 75%;
+    background-color: rgba(255,255,255,0.9);
 }

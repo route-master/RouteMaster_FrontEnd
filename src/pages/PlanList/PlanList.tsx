@@ -41,7 +41,7 @@ const testData: PlanObj[] = [
     writer: 'me',
     name: 'hihi',
     description: 'desc',
-    thumbnailimageUrl: 'https://picsum.photos/200',
+    thumbnailimageUrl: '',
     participants: ['a', 'b', 'c'],
     beginDate: '2023-08-16T14:00:00.000Z',
     endDate: '2023-08-17T14:00:00.000Z',
@@ -71,6 +71,7 @@ function PlanList(): JSX.Element {
               title={p.name}
               writer={p.writer}
               participants={p.participants}
+              imgsrc={p.thumbnailimageUrl}
             />
           </Link>
         ))}
