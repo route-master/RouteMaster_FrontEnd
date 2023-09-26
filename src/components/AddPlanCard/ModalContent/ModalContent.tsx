@@ -36,6 +36,7 @@ function Modalcontent({ setModalOpen }: Props): JSX.Element {
     }
 
     const data = {
+      id: null,
       name: title,
       description: desc,
       thumbnailimageUrl: '',
