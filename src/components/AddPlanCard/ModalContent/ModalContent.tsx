@@ -1,7 +1,10 @@
+/* eslint-disable no-alert */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import axios from 'axios';
 import { useState } from 'react';
+import { useAppDispatch } from 'store/hooks';
+import { postPlan } from 'store/Slices/plans/thunks';
+
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from './ModalContent.module.css';
@@ -11,8 +14,9 @@ interface Props {
 }
 
 function Modalcontent({ setModalOpen }: Props): JSX.Element {
+  const dispatch = useAppDispatch();
   const [title, setTitle] = useState<string>();
-  const [desc, setDesc] = useState<string>();
+  const [desc, setDesc] = useState<string>('');
   const [beginDateInput, setBeginDateInput] = useState<Date>();
   const [endDateInput, setEndDateInput] = useState<Date>();
 
@@ -31,21 +35,15 @@ function Modalcontent({ setModalOpen }: Props): JSX.Element {
       return;
     }
 
-    axios
-      .post('/plan/group', {
-        id: '1',
-        name: title,
-        description: desc,
-        beginDate: beginDateInput,
-        endDate: endDateInput,
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const data = {
+      name: title,
+      description: desc,
+      thumbnailimageUrl: '',
+      beginDate: beginDateInput.toISOString(),
+      endDate: endDateInput.toISOString(),
+    };
 
+    dispatch(postPlan({ planObj: data }));
     setModalOpen(false);
   };
 
