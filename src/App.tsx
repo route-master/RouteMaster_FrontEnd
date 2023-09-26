@@ -31,7 +31,7 @@ function App(): JSX.Element {
         <Routes>
           <Route element={<Layout />}>
             <Route path="/plan-list" element={<PlanList />} />
-            <Route path="/plan-list/plan" element={<Plan />} />
+            <Route path="/plan-list/plan/:planGroupId" element={<Plan />} />
             <Route path="/attractions/:pagetype" element={<Attractions />} />
             <Route path="/calculate/:id" element={<Calculation />} />
             <Route

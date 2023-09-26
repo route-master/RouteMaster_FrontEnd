@@ -62,14 +62,14 @@ function PlanColumn(): JSX.Element {
   const dispatch = useDispatch();
   const activities = useSelector((state: RootState) => state.activities);
 
-  const planId = 0;
+  const planGroupId = '1';
 
   useEffect(() => {
     const fetchData = async () => {
-      const data: [] = await axios.get(
-        `/plan/activity/list?planGroupId=${planId}&username=test`,
-      );
-      return [];
+      const data = await axios
+        .get(`/plan/activity/list?planGroupId=${planGroupId}&username=test`)
+        .catch((err) => console.log(err));
+      return data;
     };
 
     try {
