@@ -10,6 +10,8 @@ import Auth from 'pages/Auth/Auth';
 import PlanList from 'pages/PlanList/PlanList';
 import Plan from 'pages/Plan/Plan';
 import Attractions from 'pages/Attractions/Attractions';
+import CheckProfile from 'pages/CheckProfile/CheckProfile';
+import SetProfile from 'pages/SetProfile/SetProfile';
 import Restaurant from './pages/AttractionsDetails/Restaurant';
 
 declare global {
@@ -27,6 +29,9 @@ function App(): JSX.Element {
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Auth />} />
           <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/restaurant" element={<Restaurant />} />
+          <Route path="/check_profile" element={<CheckProfile />} />
+          <Route path="/set_profile" element={<SetProfile />} />
         </Routes>
         <Routes>
           <Route element={<Layout />}>

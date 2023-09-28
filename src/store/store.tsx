@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { setupListeners } from '@reduxjs/toolkit/query/react';
-import authSlice from 'features/auth/authSlice';
+import authSlice from './Slices/users/slice';
+import privacySlice from './Slices/users/privacySlice';
+import profileSlice from './Slices/users/profileSlice';
 import attractionsSlice from './Slices/attractions/slice';
 import activitiesReducer from './Slices/activitiesSlice';
 import plansReducer from './Slices/plans/slice';
@@ -9,6 +10,8 @@ const store = configureStore({
   reducer: {
     auth: authSlice,
     attractionsThunk: attractionsSlice,
+    privacy: privacySlice,
+    profile: profileSlice,
     activities: activitiesReducer,
     plans: plansReducer,
   },
@@ -17,5 +20,4 @@ const store = configureStore({
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
-setupListeners(store.dispatch);
 export default store;
