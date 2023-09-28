@@ -56,7 +56,7 @@ function KakaoLogin({ variant }: Props): JSX.Element {
   useEffect(() => {
     if (variant === 'LOGIN' && isLogin) {
       localStorage.setItem('accessToken', tokens.accessToken.token);
-      navigate('/');
+      navigate('/check_profile');
     } else {
       navigate('/login');
     }

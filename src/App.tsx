@@ -8,6 +8,8 @@ import HotelDetails from 'pages/AttractionsDetails/Hotel/Details';
 import Main from 'pages/Main/main';
 import Attractions from 'pages/Attractions/Attractions';
 import Auth from 'pages/Auth/Auth';
+import CheckProfile from 'pages/CheckProfile/CheckProfile';
+import SetProfile from 'pages/SetProfile/SetProfile';
 import PlanList from './pages/plan-list';
 import Plans from './pages/Plans/plans';
 import Restaurant from './pages/AttractionsDetails/Restaurant';
@@ -28,6 +30,8 @@ function App(): JSX.Element {
           <Route path="/login" element={<Auth />} />
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/restaurant" element={<Restaurant />} />
+          <Route path="/check_profile" element={<CheckProfile />} />
+          <Route path="/set_profile" element={<SetProfile />} />
         </Routes>
         <Routes>
           <Route element={<Layout />}>
