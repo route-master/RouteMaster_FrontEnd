@@ -1,0 +1,24 @@
+.container {
+    min-height: 420px;
+    margin-bottom: 5rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 200px;
+    grid-gap: 3rem;
+}
+.grid > div {
+    height: 200px;
+}
+
+.make_plan {
+    border: 1px dashed lightgrey;
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

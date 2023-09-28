@@ -6,6 +6,12 @@ import CalculationDetail from 'pages/Calculation/Detail/Detail';
 import Profile from 'pages/Profile/Profile';
 import HotelDetails from 'pages/AttractionsDetails/Hotel/Details';
 import Main from 'pages/Main/main';
+<<<<<<< HEAD
+=======
+import Login from 'pages/login';
+import PlanList from 'pages/PlanList/PlanList';
+import Plan from 'pages/Plan/Plan';
+>>>>>>> develop
 import Attractions from 'pages/Attractions/Attractions';
 import Auth from 'pages/Auth/Auth';
 import CheckProfile from 'pages/CheckProfile/CheckProfile';
@@ -36,7 +42,7 @@ function App(): JSX.Element {
         <Routes>
           <Route element={<Layout />}>
             <Route path="/plan-list" element={<PlanList />} />
-            <Route path="/plan-list/plans" element={<Plans />} />
+            <Route path="/plan-list/plan/:planGroupId" element={<Plan />} />
             <Route path="/attractions/:pagetype" element={<Attractions />} />
             <Route path="/calculate/:id" element={<Calculation />} />
             <Route

@@ -94,7 +94,9 @@ function KakaoMaps({ map, setMap, keyword }: Props): JSX.Element {
         >
           {info && info.content === marker.content && (
             <div style={{ minWidth: '200px', height: 'fit-content' }}>
-              <LikeButton />
+              <div className={styles.likebtn}>
+                <LikeButton />
+              </div>
               <div style={{ margin: '5px', color: 'black' }}>
                 <br />
                 <br />

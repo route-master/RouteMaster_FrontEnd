@@ -1,0 +1,58 @@
+.container {
+    width: 60%;
+    margin: 0 auto;
+    align-items: start;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+}
+.form > div {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 100%;
+    gap: 5px;
+}
+
+.title_input {
+    width: 100%;
+    height: 35px;
+    background-color: rgb(174, 255, 174);
+    border: none;
+}
+
+.desc_input {
+    width: 100%;
+    height: 35px;
+    background-color: rgb(221, 221, 221);
+    border: none;
+}
+
+.datepickers_wrapper {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
+
+.calendar {
+    z-index: 999;
+}
+
+.submit_btn {
+    width: 30%;
+    height: 50px;
+    background-color: rgb(174, 255, 174);
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.submit_btn:hover {
+    background-color: rgb(116, 234, 116);
+}
