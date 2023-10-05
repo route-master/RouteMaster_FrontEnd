@@ -6,10 +6,12 @@ import CalculationDetail from 'pages/Calculation/Detail/Detail';
 import Profile from 'pages/Profile/Profile';
 import HotelDetails from 'pages/AttractionsDetails/Hotel/Details';
 import Main from 'pages/Main/main';
-import Login from 'pages/login';
-import PlanList from 'pages/PlanList/PlanList';
 import Plan from 'pages/Plan/Plan';
 import Attractions from 'pages/Attractions/Attractions';
+import Auth from 'pages/Auth/Auth';
+import CheckProfile from 'pages/CheckProfile/CheckProfile';
+import SetProfile from 'pages/SetProfile/SetProfile';
+import PlanList from 'pages/PlanList/PlanList';
 import Restaurant from './pages/AttractionsDetails/Restaurant';
 
 declare global {
@@ -25,8 +27,11 @@ function App(): JSX.Element {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Auth />} />
           <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/restaurant" element={<Restaurant />} />
+          <Route path="/check_profile" element={<CheckProfile />} />
+          <Route path="/set_profile" element={<SetProfile />} />
         </Routes>
         <Routes>
           <Route element={<Layout />}>
@@ -38,7 +43,6 @@ function App(): JSX.Element {
               path="/calculate/:id/:name"
               element={<CalculationDetail />}
             />
-            <Route path="/restaurants" element={<Restaurant />} />
             <Route
               path="attractions/stay/details/:id"
               element={<HotelDetails />}

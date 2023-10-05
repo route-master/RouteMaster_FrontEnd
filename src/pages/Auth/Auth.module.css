@@ -1,0 +1,17 @@
+.container {
+  width: 50%;
+  height: calc(100vh - 20px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.logo {
+  color: #35e0a1;
+  font-size: 50px;
+}
+
+.btn {
+  margin-top: 15px;
+}
