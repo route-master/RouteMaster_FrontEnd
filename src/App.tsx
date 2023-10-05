@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Layout from 'components/Layout/Layout';
+import Main from 'pages/Main/Main';
 import Calculation from 'pages/Calculation/Calculation';
 import CalculationDetail from 'pages/Calculation/Detail/Detail';
 import Profile from 'pages/Profile/Profile';
 import HotelDetails from 'pages/AttractionsDetails/Hotel/Details';
-import Main from 'pages/Main/main';
 import Login from 'pages/login';
 import PlanList from 'pages/plan-list';
 import Plan from 'pages/Plans/Plan';
