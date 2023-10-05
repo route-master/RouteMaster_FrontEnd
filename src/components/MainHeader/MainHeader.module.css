@@ -6,9 +6,10 @@
 
 .header_top {
     width: 100%;
-    height: fit-content;
+    height: 100px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin: 0 0 20px 0;
 }
 
@@ -24,6 +25,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.searchbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 
 .img_container {

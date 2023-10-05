@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import styles from './MainHeader.module.css';
+import SearchBar from '../SearchBar/SearchBar';
 import LogoImage from '../../assets/images/logo_green.png';
+import styles from './MainHeader.module.css';
 
 function MainHeader(): JSX.Element {
   return (
@@ -15,6 +16,9 @@ function MainHeader(): JSX.Element {
           <div className={styles.header_name}>
             <h1>Route Master</h1>
           </div>
+        </div>
+        <div className={styles.searchbar}>
+          <SearchBar />
         </div>
         <div className={styles.header_btn_container}>
           <button type="button" className={styles.header_btn}>
