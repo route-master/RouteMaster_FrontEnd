@@ -5,7 +5,7 @@ import Calculation from 'pages/Calculation/Calculation';
 import CalculationDetail from 'pages/Calculation/Detail/Detail';
 import Profile from 'pages/Profile/Profile';
 import HotelDetails from 'pages/AttractionsDetails/Hotel/Details';
-import Main from 'pages/Main/main';
+import Main from 'pages/Main/Main';
 import Plan from 'pages/Plan/Plan';
 import Attractions from 'pages/Attractions/Attractions';
 import Auth from 'pages/Auth/Auth';

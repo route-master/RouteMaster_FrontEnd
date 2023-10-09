@@ -2,7 +2,7 @@ import MainHeader from 'components/MainHeader/MainHeader';
 import RecommendCardContainer from 'components/RecommendCard/RecommendCardContainer';
 import Calendar from '../../components/Calendar/Calendar';
 import SearchBar from '../../components/SearchBar/SearchBar';
-import styles from './main.module.css';
+import styles from './Main.module.css';
 
 function Main(): JSX.Element {
   return (
