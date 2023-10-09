@@ -2,12 +2,9 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-import RestaurantDetailCard from 'components/RestaurantCard/RestaurantDetailCard';
 import PhotoGrid from 'components/PhotoGrid/PhotoGrid';
 import FacilitiesInfo from 'components/FacilitiesInfo/FacilitiesInfo';
 import HotelDetailInfo from 'components/DetailInfo/Hotel/DetailInfo';
-import MenuBox from 'components/MenuBox/MenuBox';
-import Review from 'components/Reivew/Review';
 import styles from './Details.module.css';
 
 interface AttractionDetails {
@@ -93,7 +90,6 @@ function HotelDetails(): JSX.Element {
 
   return (
     <div className={styles.container}>
-      <RestaurantDetailCard />
       <div className={styles.photo_grid}>
         <PhotoGrid photos={photos} />
       </div>
@@ -111,9 +107,6 @@ function HotelDetails(): JSX.Element {
         )}
         <div className={styles.map}>지도</div>
       </div>
-
-      <MenuBox />
-      <Review />
     </div>
   );
 }
