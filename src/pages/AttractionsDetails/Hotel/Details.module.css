@@ -7,3 +7,13 @@
     width: 100%;
     height: 25rem;
 }
+
+.detail_wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.map {
+    width: 100%;
+    margin: 0 auto;
+}

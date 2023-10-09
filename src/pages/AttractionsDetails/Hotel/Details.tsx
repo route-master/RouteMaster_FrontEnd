@@ -5,6 +5,7 @@ import axios from 'axios';
 import RestaurantDetailCard from 'components/RestaurantCard/RestaurantDetailCard';
 import PhotoGrid from 'components/PhotoGrid/PhotoGrid';
 import FacilitiesInfo from 'components/FacilitiesInfo/FacilitiesInfo';
+import HotelDetailInfo from 'components/DetailInfo/Hotel/DetailInfo';
 import MenuBox from 'components/MenuBox/MenuBox';
 import Review from 'components/Reivew/Review';
 import styles from './Details.module.css';
@@ -97,6 +98,20 @@ function HotelDetails(): JSX.Element {
         <PhotoGrid photos={photos} />
       </div>
       {data && <FacilitiesInfo data={data} />}
+      <div className={styles.detail_wrapper}>
+        {data && (
+          <HotelDetailInfo
+            accomodationCount={data.accomodationCount}
+            checkInTime={data.checkInTime}
+            checkOutTime={data.checkOutTime}
+            roomCount={data.roomCount}
+            reservationUrl={data.reservationUrl}
+            tel={data.infoCenter}
+          />
+        )}
+        <div className={styles.map}>지도</div>
+      </div>
+
       <MenuBox />
       <Review />
     </div>
