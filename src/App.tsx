@@ -12,6 +12,7 @@ import Auth from 'pages/Auth/Auth';
 import CheckProfile from 'pages/CheckProfile/CheckProfile';
 import SetProfile from 'pages/SetProfile/SetProfile';
 import PlanList from 'pages/PlanList/PlanList';
+import EventDetails from 'pages/AttractionsDetails/Event/Details';
 import Restaurant from './pages/AttractionsDetails/Restaurant';
 
 declare global {
@@ -44,8 +45,12 @@ function App(): JSX.Element {
               element={<CalculationDetail />}
             />
             <Route
-              path="attractions/stay/details/:id"
+              path="/attractions/stay/details/:id"
               element={<HotelDetails />}
+            />
+            <Route
+              path="/attractions/event/details/:id"
+              element={<EventDetails />}
             />
           </Route>
         </Routes>
