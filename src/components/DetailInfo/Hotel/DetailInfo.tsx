@@ -79,6 +79,8 @@ function HotelDetailInfo(props: Props): JSX.Element {
             setMap={setMap}
             mapX={parseFloat(mapX)}
             mapY={parseFloat(mapY)}
+            mywidth="calc(100%-2px)"
+            myheight="200px"
           />
         </div>
       </div>

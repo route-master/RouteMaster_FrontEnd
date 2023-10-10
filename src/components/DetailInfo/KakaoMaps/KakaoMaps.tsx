@@ -7,9 +7,12 @@ interface Props {
   setMap: React.Dispatch<React.SetStateAction<any>>;
   mapX: number;
   mapY: number;
+  mywidth: string;
+  myheight: string;
 }
 
-function DetailInfoKakaoMaps({ setMap, mapX, mapY }: Props): JSX.Element {
+function DetailInfoKakaoMaps(props: Props): JSX.Element {
+  const { setMap, mapX, mapY, mywidth, myheight } = props;
   const [mapState, setMapState] = useState<{
     level: number;
     center: { lat: number; lng: number };
@@ -26,6 +29,7 @@ function DetailInfoKakaoMaps({ setMap, mapX, mapY }: Props): JSX.Element {
       center={mapState.center}
       level={mapState.level}
       onCreate={setMap}
+      style={{ width: mywidth, height: myheight }}
       className={styles.container}
       onZoomChanged={(map) => {
         setMapState({

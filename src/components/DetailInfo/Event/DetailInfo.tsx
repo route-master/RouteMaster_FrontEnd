@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect } from 'react';
+import KakaoMaps from '../KakaoMaps/KakaoMaps';
 import styles from './DetailInfo.module.css';
 
 interface Props {
@@ -7,6 +9,8 @@ interface Props {
   homepage: null | string;
   overview: string;
   bookTour: boolean;
+  mapX: number;
+  mapY: number;
 }
 
 interface Link {
@@ -16,7 +20,8 @@ interface Link {
 }
 
 function EventDetailInfo(props: Props): JSX.Element {
-  const { address, tel, homepage, overview, bookTour } = props;
+  const { address, tel, homepage, overview, bookTour, mapX, mapY } = props;
+  const [map, setMap] = useState();
   const [links, setLinks] = useState<Link[]>();
 
   useEffect(() => {
@@ -73,7 +78,16 @@ function EventDetailInfo(props: Props): JSX.Element {
               })}
           </div>
         </div>
-        <div className={styles.map}> {} </div>
+        <div className={styles.map}>
+          <h2>지도</h2>
+          <KakaoMaps
+            setMap={setMap}
+            mapX={mapX}
+            mapY={mapY}
+            mywidth="80%"
+            myheight="300px"
+          />
+        </div>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import DetailInfo from 'components/DetailInfo/Event/DetailInfo';
 
 interface Attraction {
@@ -41,6 +41,9 @@ interface Response {
 
 function EventDetails(): JSX.Element {
   const param = useParams<{ id: string }>();
+  const queryParams = new URLSearchParams(useLocation().search);
+  const mapX: string = queryParams.get('mapX') ?? '';
+  const mapY: string = queryParams.get('mapY') ?? '';
   const [data, setData] = useState<Attraction>();
 
   useEffect(() => {
@@ -63,6 +66,8 @@ function EventDetails(): JSX.Element {
           homepage={data.homepage}
           overview={data.overview}
           bookTour={data.bookTour}
+          mapX={parseFloat(mapX)}
+          mapY={parseFloat(mapY)}
         />
       )}
     </div>
