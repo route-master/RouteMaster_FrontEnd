@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react';
-import KakaoMaps from './KakaoMaps/KakaoMaps';
+import KakaoMaps from '../KakaoMaps/KakaoMaps';
 import styles from './DetailInfo.module.css';
 
 interface Props {
