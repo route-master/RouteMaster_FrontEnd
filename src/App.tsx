@@ -6,6 +6,7 @@ import CalculationDetail from 'pages/Calculation/Detail/Detail';
 import Profile from 'pages/Profile/Profile';
 import HotelDetails from 'pages/AttractionsDetails/Hotel/Details';
 import EventDetails from 'pages/AttractionsDetails/Event/Details';
+import RestaurantDetails from 'pages/AttractionsDetails/Restaurant/Details';
 import Main from 'pages/Main/main';
 import Plan from 'pages/Plan/Plan';
 import Attractions from 'pages/Attractions/Attractions';
@@ -13,7 +14,6 @@ import Auth from 'pages/Auth/Auth';
 import CheckProfile from 'pages/CheckProfile/CheckProfile';
 import SetProfile from 'pages/SetProfile/SetProfile';
 import PlanList from 'pages/PlanList/PlanList';
-import Restaurant from './pages/AttractionsDetails/Restaurant';
 
 declare global {
   interface Window {
@@ -30,7 +30,6 @@ function App(): JSX.Element {
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Auth />} />
           <Route path="/profile/:id" element={<Profile />} />
-          <Route path="/restaurant" element={<Restaurant />} />
           <Route path="/check_profile" element={<CheckProfile />} />
           <Route path="/set_profile" element={<SetProfile />} />
         </Routes>
@@ -46,6 +45,10 @@ function App(): JSX.Element {
             <Route
               path="/attractions/event/details/:id"
               element={<EventDetails />}
+            />
+            <Route
+              path="/attractions/restaurant/details/:id"
+              element={<RestaurantDetails />}
             />
             <Route path="/calculate/:id" element={<Calculation />} />
             <Route
