@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 import PhotoGrid from 'components/PhotoGrid/PhotoGrid';
@@ -53,7 +53,11 @@ interface DetailsResponse {
 function HotelDetails(): JSX.Element {
   const [data, setData] = useState<AttractionDetails>();
   const [photos, setPhotos] = useState<string[]>([]);
-  const param = useParams<{ pagetype: string; id: string }>();
+  const param = useParams<{ id: string }>();
+
+  const queryParams = new URLSearchParams(useLocation().search);
+  const mapX: string = queryParams.get('mapX') ?? '';
+  const mapY: string = queryParams.get('mapY') ?? '';
 
   useEffect(() => {
     const fetchFacilityDetails = async () => {
@@ -103,9 +107,10 @@ function HotelDetails(): JSX.Element {
             roomCount={data.roomCount}
             reservationUrl={data.reservationUrl}
             tel={data.infoCenter}
+            mapX={mapX}
+            mapY={mapY}
           />
         )}
-        <div className={styles.map}>지도</div>
       </div>
     </div>
   );
