@@ -1,0 +1,42 @@
+.container {
+    width: 100%;
+}
+
+.overview {
+    width: 80%;
+    margin: 0 auto;
+    font-size: 1.3rem;
+    background-color: azure;
+    white-space: pre-line !important;
+}
+
+.details {
+    width: fit-content;
+    margin: 0 auto;
+    text-align: left;
+}
+.details > div {
+    font-size: 1.1rem;
+}
+.details > div > span {
+    font-weight: bold;
+}
+
+.subheader {
+    text-align: center;
+}
+
+.link {
+    font-size: 1.1rem;
+    color: darkblue;
+}
+.link:hover {
+    color: red;
+}
+
+@media screen and (max-width: 1024px) {
+    .overview{
+        width: 100%;
+        margin: 0;
+    }
+}
