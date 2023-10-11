@@ -57,7 +57,7 @@ function MainHeader(): JSX.Element {
           </li>
           <li className={styles.nav_item}>
             <button type="button" className={styles.nav_btn}>
-              <Link to="/restaurants">Restaurants</Link>
+              <Link to="/attractions/restaurant">Restaurants</Link>
             </button>
           </li>
         </ul>

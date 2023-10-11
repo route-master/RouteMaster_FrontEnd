@@ -12,7 +12,7 @@ export const fetchAttractionsByType = createAsyncThunk(
     } else if (arg.type === 'event') {
       requestURL = `/attraction/search/${arg.type}?numOfRows=${NumOfRows}&pageNo=${arg.page}&arrange=A&eventStartDate=20230701&areaCode=1&sigunguCode=1`;
     } else {
-      requestURL = `/attraction/search/${arg.type}?numOfRows=${NumOfRows}&pageNo=${arg.page}&arrange=A&areaCode=1&sigunguCode=1`;
+      requestURL = `/attraction/search/${arg.type}/keyword-based?numOfRows=${NumOfRows}&pageNo=${arg.page}&keyword=%EC%84%9C%EC%9A%B8`;
     }
 
     const response = await axios.get(requestURL, {

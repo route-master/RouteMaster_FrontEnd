@@ -12,7 +12,7 @@ function AttractionList(): JSX.Element {
       {isLoading && <div>로딩중...</div>}
       {data.map((item) => (
         <Link
-          to={`/attractions/${param.pagetype}/details/${item.contentId}`}
+          to={`/attractions/${param.pagetype}/details/${item.contentId}?mapX=${item.mapX}&mapY=${item.mapY}`}
           key={`link-${item.contentId}`}
         >
           <AttractionItem

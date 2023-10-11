@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
-import RestaurantDetailCard from 'components/RestaurantCard/RestaurantDetailCard';
 import PhotoGrid from 'components/PhotoGrid/PhotoGrid';
 import FacilitiesInfo from 'components/FacilitiesInfo/FacilitiesInfo';
-import MenuBox from 'components/MenuBox/MenuBox';
-import Review from 'components/Reivew/Review';
+import HotelDetailInfo from 'components/DetailInfo/Hotel/DetailInfo';
 import styles from './Details.module.css';
 
 interface AttractionDetails {
@@ -55,7 +53,11 @@ interface DetailsResponse {
 function HotelDetails(): JSX.Element {
   const [data, setData] = useState<AttractionDetails>();
   const [photos, setPhotos] = useState<string[]>([]);
-  const param = useParams<{ pagetype: string; id: string }>();
+  const param = useParams<{ id: string }>();
+
+  const queryParams = new URLSearchParams(useLocation().search);
+  const mapX: string = queryParams.get('mapX') ?? '';
+  const mapY: string = queryParams.get('mapY') ?? '';
 
   useEffect(() => {
     const fetchFacilityDetails = async () => {
@@ -92,13 +94,24 @@ function HotelDetails(): JSX.Element {
 
   return (
     <div className={styles.container}>
-      <RestaurantDetailCard />
       <div className={styles.photo_grid}>
         <PhotoGrid photos={photos} />
       </div>
       {data && <FacilitiesInfo data={data} />}
-      <MenuBox />
-      <Review />
+      <div className={styles.detail_wrapper}>
+        {data && (
+          <HotelDetailInfo
+            accomodationCount={data.accomodationCount}
+            checkInTime={data.checkInTime}
+            checkOutTime={data.checkOutTime}
+            roomCount={data.roomCount}
+            reservationUrl={data.reservationUrl}
+            tel={data.infoCenter}
+            mapX={mapX}
+            mapY={mapY}
+          />
+        )}
+      </div>
     </div>
   );
 }
