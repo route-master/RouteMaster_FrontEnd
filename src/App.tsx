@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Layout from 'components/Layout/Layout';
+import Main from 'pages/Main/Main';
 import Calculation from 'pages/Calculation/Calculation';
 import CalculationDetail from 'pages/Calculation/Detail/Detail';
 import Profile from 'pages/Profile/Profile';
