@@ -5,7 +5,7 @@ import MainHeader from 'components/MainHeader/MainHeader';
 import RecommendCardContainer from 'components/RecommendCard/RecommendCardContainer';
 import Calendar from 'components/Calendar/Calendar';
 import SearchBar from 'components/SearchBar/SearchBar';
-import styles from './Main.module.css';
+import styles from './main.module.css';
 
 function Main(): JSX.Element {
   const dispatch = useAppDispatch();
