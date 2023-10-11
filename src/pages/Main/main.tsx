@@ -1,16 +1,13 @@
 import MainHeader from 'components/MainHeader/MainHeader';
 import RecommendCardContainer from 'components/RecommendCard/RecommendCardContainer';
 import Calendar from '../../components/Calendar/Calendar';
-import SearchBar from '../../components/SearchBar/SearchBar';
-import styles from './main.module.css';
+import styles from './Main.module.css';
 
 function Main(): JSX.Element {
   return (
     <div className={styles.container}>
       <MainHeader />
-      <div className={styles.search_container}>
-        <SearchBar />
-      </div>
+      <div className={styles.search_container}> {} </div>
       <div className={styles.recommend_container}>
         <h1>추천 검색어</h1>
         <RecommendCardContainer title="내 주변 인기" />
