@@ -6,6 +6,7 @@ import store, { RootState } from 'store/store';
 import { setActivities } from 'store/Slices/activitiesSlice';
 import { Link } from 'react-router-dom';
 
+import Menu from './Menu/Menu';
 import PlanInfoBox from './PlanInfoBox/PlanInfoBox';
 import ActivityCard from '../ActivityCard/ActivityCard';
 import DragTargetLine from './DragTargetLine/DragTargetLine';
@@ -133,9 +134,13 @@ function PlanColumn(): JSX.Element {
   return (
     <div className={styles.container}>
       <div className={styles.title_section}>
-        <button className={styles.invite} type="button">
-          그룹 초대
-        </button>
+        <div className={styles.top}>
+          <button className={styles.invite} type="button">
+            그룹 초대
+          </button>
+          <Menu />
+        </div>
+
         <PlanInfoBox />
         <Link to={`/calculate/${planGroupId}`}>
           <button type="button" className={styles.calculation_btn}>

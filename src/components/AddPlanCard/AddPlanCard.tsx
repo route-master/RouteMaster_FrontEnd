@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
-import Modal from 'components/Modal/Modal'; // setmodalOpen, content, mywidth, myheight
+import Modal from 'components/Modal/Modal';
 import ModalContent from './ModalContent/ModalContent';
 import styles from './AddPlanCard.module.css';
 
