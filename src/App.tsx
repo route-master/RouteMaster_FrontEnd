@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Layout from 'components/Layout/Layout';
+import Main from 'pages/Main/Main';
 import Calculation from 'pages/Calculation/Calculation';
 import CalculationDetail from 'pages/Calculation/Detail/Detail';
 import Profile from 'pages/Profile/Profile';
@@ -14,6 +15,8 @@ import Auth from 'pages/Auth/Auth';
 import CheckProfile from 'pages/CheckProfile/CheckProfile';
 import SetProfile from 'pages/SetProfile/SetProfile';
 import PlanList from 'pages/PlanList/PlanList';
+import EventDetails from 'pages/AttractionsDetails/Event/Details';
+import Restaurant from './pages/AttractionsDetails/Restaurant';
 
 declare global {
   interface Window {
@@ -30,6 +33,9 @@ function App(): JSX.Element {
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Auth />} />
           <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/check_profile" element={<CheckProfile />} />
+          <Route path="/set_profile" element={<SetProfile />} />
+          <Route path="/restaurant" element={<Restaurant />} />
           <Route path="/check_profile" element={<CheckProfile />} />
           <Route path="/set_profile" element={<SetProfile />} />
         </Routes>
@@ -54,6 +60,14 @@ function App(): JSX.Element {
             <Route
               path="/calculate/:id/:name"
               element={<CalculationDetail />}
+            />
+            <Route
+              path="/attractions/stay/details/:id"
+              element={<HotelDetails />}
+            />
+            <Route
+              path="/attractions/event/details/:id"
+              element={<EventDetails />}
             />
           </Route>
         </Routes>

@@ -23,8 +23,9 @@
 .hidden_text {
     display: none;
     position: absolute;
-    top: 15%;
-    left: 25%;
+    top: 20%;
+    left: 12%;
+    right: 5%;
     color: white;
-    font-size: 52px;
+    font-size: 30px;
 }
