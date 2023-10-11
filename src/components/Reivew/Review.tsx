@@ -1,29 +1,46 @@
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { RootState } from 'store/store';
+import { getReviewByContentId } from 'store/Slices/reviews/thunks';
+import { useEffect } from 'react';
 import styles from './Review.module.css';
 
-function ReviewItem(): JSX.Element {
-  return (
-    <div className={styles.review_container}>
-      <div className={styles.review_header}>
-        <div>작성자: lhjin0j</div>
-        <div>평점: 4.5/5.0</div>
-      </div>
-      <div>
-        <div>본문</div>
-        <div>: askjdfhshdfkhasshdssdhfkjahsdjfhjakshdfkahsjdffkahsdsf</div>
-      </div>
-    </div>
-  );
+interface Props {
+  contentId: string;
 }
 
-function Review(): JSX.Element {
+function Review(props: Props): JSX.Element {
+  const { contentId } = props;
+
+  const reviews = useAppSelector((state: RootState) => state.review.reviews);
+  const loading = useAppSelector((state: RootState) => state.review.loading);
+  const error = useAppSelector((state: RootState) => state.review.error);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getReviewByContentId({ contentId }));
+  }, [dispatch]);
+
+  if (loading === 'loading') {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
-    <div className={styles.container}>
-      <div>리뷰</div>
-      <ReviewItem />
-      <ReviewItem />
-      <ReviewItem />
-      <ReviewItem />
-      <ReviewItem />
+    <div>
+      <h1>Reviews</h1>
+      <ul>
+        {reviews.map((review, index) => (
+          <li key={review.id}>
+            {/* <p>Name: {review.name}</p> */}
+            <p>Rating: {review.rating}</p>
+            <p>Review: {review.reviewComment}</p>
+            {/* <img src={review.image} alt={`Image for ${review.name}`} /> */}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
