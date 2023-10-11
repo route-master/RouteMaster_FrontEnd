@@ -25,9 +25,7 @@ function Main(): JSX.Element {
   return (
     <div className={styles.container}>
       <MainHeader />
-      <div className={styles.search_container}>
-        <SearchBar />
-      </div>
+      <div className={styles.search_container}> {} </div>
       <div className={styles.recommend_container}>
         <h1>추천 검색어</h1>
         <RecommendCardContainer type="내주변" />
