@@ -4,6 +4,20 @@
     text-align: left;
 }
 
+
+.top {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.more{
+  margin-left: 1rem;
+}
+.more:hover {
+  color: blue;
+}
+
 .cards_wrapper {
   width: 100%;
   overflow-x: scroll;
