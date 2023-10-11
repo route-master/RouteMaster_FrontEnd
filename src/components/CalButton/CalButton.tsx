@@ -1,12 +1,14 @@
-import { Link } from 'react-router-dom';
+import styles from './CalButton.module.css';
 
-function CalButton(): JSX.Element {
+interface Props {
+  handleClick: () => void;
+}
+
+function CalButton({ handleClick }: Props): JSX.Element {
   return (
-    <div>
-      <Link to="/calculate/123/jin">
-        <button type="submit">정산하기</button>
-      </Link>
-    </div>
+    <button type="button" className={styles.btn} onClick={handleClick}>
+      정산하기
+    </button>
   );
 }
 

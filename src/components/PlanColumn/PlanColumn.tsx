@@ -1,8 +1,10 @@
-import { useEffect, useState, useCallback, useRef } from 'react';
+/* eslint-disable no-console */
+import { useEffect } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import store, { RootState } from 'store/store';
 import { setActivities } from 'store/Slices/activitiesSlice';
+import { Link } from 'react-router-dom';
 
 import PlanInfoBox from './PlanInfoBox/PlanInfoBox';
 import ActivityCard from '../ActivityCard/ActivityCard';
@@ -135,6 +137,11 @@ function PlanColumn(): JSX.Element {
           그룹 초대
         </button>
         <PlanInfoBox />
+        <Link to={`/calculate/${planGroupId}`}>
+          <button type="button" className={styles.calculation_btn}>
+            여행 정산하기
+          </button>
+        </Link>
       </div>
       <div className={styles.date_section}>
         <p>6월 1일 ~ 6월 30일</p>

@@ -1,26 +1,36 @@
+import DefaultImg from 'assets/images/logo_black.png';
 import styles from './PriceList.module.css';
 
-function PriceList(): JSX.Element {
+type CalcObject = {
+  sender: string;
+  receiver: string;
+  amount: number;
+};
+
+interface Props {
+  data: CalcObject[];
+}
+
+function PriceList({ data }: Props): JSX.Element {
   return (
     <div className={styles.container}>
-      <div className={styles.wrap}>
-        <div className={styles.person}>
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/10751/10751887.png"
-            alt="person"
-          />
-        </div>
-        <div className={styles.price}>₩ 000,000</div>
-      </div>
-      <div className={styles.wrap}>
-        <div className={styles.person}>
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/4440/4440953.png"
-            alt="person"
-          />
-        </div>
-        <div className={styles.price}>₩ 000,000</div>
-      </div>
+      {data && data.length > 0 ? (
+        <ul className={styles.wrap}>
+          {data.map((item) => (
+            <li key={item.receiver} className={styles.li}>
+              <div className={styles.person}>
+                <img src={DefaultImg} alt="person" />
+                {item.receiver}
+              </div>
+              <div className={styles.price}>
+                ₩ {item.amount.toLocaleString()}
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div>데이터가 없습니다.</div>
+      )}
     </div>
   );
 }

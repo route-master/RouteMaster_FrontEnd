@@ -30,6 +30,8 @@ function App(): JSX.Element {
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Auth />} />
           <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/check_profile" element={<CheckProfile />} />
+          <Route path="/set_profile" element={<SetProfile />} />
           <Route path="/restaurant" element={<Restaurant />} />
           <Route path="/check_profile" element={<CheckProfile />} />
           <Route path="/set_profile" element={<SetProfile />} />
