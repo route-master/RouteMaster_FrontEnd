@@ -5,6 +5,7 @@ import privacySlice from './Slices/users/privacySlice';
 import profileSlice from './Slices/users/profileSlice';
 import activitiesReducer from './Slices/activitiesSlice';
 import plansReducer from './Slices/plans/slice';
+import reviewReducer from './Slices/reviews/slice';
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     profile: profileSlice,
     activities: activitiesReducer,
     plans: plansReducer,
+    review: reviewReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
