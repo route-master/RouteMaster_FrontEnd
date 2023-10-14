@@ -1,4 +1,4 @@
-import LikeButton from 'components/LikeButton/LikeButton';
+import LikeButton from 'components/LikeButton/PlanLikeButton/LikeButton';
 import styles from './AttractionItem.module.css';
 
 interface Props {

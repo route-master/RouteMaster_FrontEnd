@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef, useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
-import LikeButton from '../LikeButton/LikeButton';
+import LikeButton from 'components/LikeButton/ActivityLikeButton/LikeButton';
 import styles from './KakaoMaps.module.css';
 
 interface Props {

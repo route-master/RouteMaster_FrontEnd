@@ -1,10 +1,8 @@
 import { useState } from 'react';
+import EmptyHeart from 'assets/images/emptyheart.png';
+import FullHeart from 'assets/images/fullheart.png';
 import Modal from 'components/Modal/Modal';
 import ModalContent from './ModalContent/ModalContent';
-
-import EmptyHeart from '../../assets/images/emptyheart.png';
-import FullHeart from '../../assets/images/fullheart.png';
-
 import styles from './LikeButton.module.css';
 
 function LikeButton(): JSX.Element {
