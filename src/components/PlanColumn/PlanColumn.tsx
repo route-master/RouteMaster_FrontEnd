@@ -13,51 +13,59 @@ import DragTargetLine from './DragTargetLine/DragTargetLine';
 import styles from './PlanColumn.module.css';
 
 interface Activity {
-  id?: number;
-  planGroupId: number;
+  createdAt: string;
+  updatedAt: string;
+  id: string;
+  planGroupId: string;
+  writer: string;
   name: string;
-  description?: string;
-  beginDate: number;
-  endDate: number;
-  type: string;
-  planMapInfo?: object;
+  description: string;
+  beginDate: string;
+  endDate: string;
+  mapInfo: { lat: number; lng: number };
   thumbnailImageUrl: string;
-  planPaymentLog?: object[];
+  activityType: string;
+  paymentInfo: PaymentLogs;
+  referenceType: string;
+  referenceId: string;
+  planPaymentInfo?: PaymentLogs;
+}
+interface PaymentLogs {
+  paymentLogs: Log[];
+}
+interface Log {
+  paid: string;
+  participants: string[];
+  payment: number;
 }
 
 const testData: Activity[] = [
   {
-    id: 1,
-    planGroupId: 1,
-    name: '1',
+    createdAt: '2021-10-14T14:24:37.618Z',
+    updatedAt: '2021-10-14T14:24:37.618Z',
+    id: '1',
+    planGroupId: '1',
+    writer: 'test1',
+    name: 'test1',
     description: '1',
-    beginDate: 12,
-    endDate: 14,
-    type: 'hotel',
-    planMapInfo: { lat: 37.5, lng: 127.5 },
+    beginDate: '2023-10-14T14:24:37.618Z',
+    endDate: '2023-10-14T14:24:37.618Z',
+    mapInfo: { lat: 37.5, lng: 127.5 },
     thumbnailImageUrl:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS56QpW4f453ZbCRrFu2yMwkkIJZEUmXgKYvw&usqp=CAU',
-    planPaymentLog: [],
-  },
-  {
-    id: 2,
-    planGroupId: 1,
-    name: '2',
-    beginDate: 16,
-    endDate: 17,
-    type: 'attraction',
-    thumbnailImageUrl:
-      'https://www.hyundai.co.kr/image/upload/asset_library/MDA00000000000033649/8e6daec8a90247c38f41913257586aff.jpg',
-  },
-  {
-    id: 3,
-    planGroupId: 1,
-    name: '3',
-    beginDate: 17,
-    endDate: 18,
-    type: 'restaurant',
-    thumbnailImageUrl:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Restaurant_N%C3%A4sinneula.jpg/640px-Restaurant_N%C3%A4sinneula.jpg',
+    paymentInfo: {
+      paymentLogs: [
+        { paid: 'test1', participants: ['test1', 'test2'], payment: 10000 },
+      ],
+    },
+    activityType: 'HOTEL',
+    referenceType: '',
+    referenceId: '',
+    planPaymentInfo: {
+      paymentLogs: [
+        { paid: 'test1', participants: ['test1', 'test2'], payment: 10000 },
+      ],
+    },
   },
 ];
 
@@ -67,31 +75,41 @@ function PlanColumn(): JSX.Element {
 
   const planGroupId = '1';
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await axios
-        .get(`/plan/activity/list?planGroupId=${planGroupId}&username=test`)
-        .catch((err) => console.log(err));
-      return data;
-    };
+  const getHour = (date: string) => {
+    const hour = new Date(date).getUTCHours();
+    return hour;
+  };
+  const updateHour = (date: string, hour: number) => {
+    const newDate = new Date(date);
+    newDate.setUTCHours(hour);
+    return newDate.toISOString();
+  };
 
-    try {
-      fetchData().then((data) => {
+  useEffect(() => {
+    axios
+      .get<Activity[]>(`/plan/activity/list?planGroupId=${planGroupId}`)
+      .then((res) => {
         const newactivities = [...activities];
-        testData.forEach((activity) => {
-          newactivities[activity.beginDate] = activity;
+        res.data.forEach((activity) => {
+          newactivities[getHour(activity.beginDate)] = activity;
         });
         dispatch(setActivities(newactivities));
+      })
+      .catch((err) => {
+        const newactivities = [...activities];
+        testData.forEach((activity) => {
+          newactivities[getHour(activity.beginDate)] = activity;
+        });
+        dispatch(setActivities(newactivities));
+        console.log(err);
       });
-    } catch (e) {
-      console.log(e);
-    }
   }, []);
 
   const handleDropComponent = (
     draggedActivity: Activity,
     targetLineId: number,
   ) => {
+    console.log('handleDropComponent');
     const currentActivities = store.getState().activities;
 
     const targetActivity: Activity | undefined | object =
@@ -99,14 +117,23 @@ function PlanColumn(): JSX.Element {
         (activity) => 'id' in activity && activity.id === draggedActivity.id,
       );
 
-    if (!targetActivity) {
-      throw new Error('updatedActivity is undefined in handleDropComponent');
+    // If targetActivity is empty object, throw error
+    if (targetActivity === undefined || !('id' in targetActivity)) {
+      throw new Error(
+        'targetActivity is undefined in handleDropComponent: ',
+        targetActivity,
+      );
     }
 
     // 타겟 라인이 현재 라인과 다르면 업데이트
-    const updatedActivity = { ...targetActivity };
-    if (targetLineId !== updatedActivity.beginDate)
-      updatedActivity.beginDate = targetLineId;
+    const updatedActivity = { ...targetActivity } as Activity;
+
+    const beginDate = getHour(updatedActivity.beginDate);
+    if (targetLineId !== beginDate)
+      updatedActivity.beginDate = updateHour(
+        updatedActivity.beginDate,
+        targetLineId,
+      );
 
     const newActivities = currentActivities.map((activity) => {
       if (!('id' in activity) || activity.id !== draggedActivity.id)

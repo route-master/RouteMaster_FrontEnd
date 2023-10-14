@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    min-height: 70px;
+    height: fit-content;
+    padding: 10px;
+    border: 1px solid green;
+}
+
+.payment_input {
+    height: 54px;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    font-size: 1.05rem;
+    padding: 0;
+}
+.payment_input::-webkit-outer-spin-button,
+.payment_input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

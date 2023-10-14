@@ -1,21 +1,35 @@
-import DragImg from 'assets/images/drag.png';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
-
-import { useEffect, useState, useRef } from 'react';
-import { useDrag, useDrop } from 'react-dnd';
+import { useState } from 'react';
+import { useDrag } from 'react-dnd';
+import Modal from 'components/Modal/Modal';
+import ModalContent from './ModalContent/ModalContent';
 import styles from './ActivityCard.module.css';
 
 interface Activity {
-  id?: number;
-  planGroupId: number;
+  createdAt: string;
+  updatedAt: string;
+  id: string;
+  planGroupId: string;
+  writer: string;
   name: string;
-  description?: string;
-  beginDate: number;
-  endDate: number;
-  type: string;
-  planMapInfo?: object;
+  description: string;
+  beginDate: string;
+  endDate: string;
+  mapInfo: { lat: number; lng: number };
   thumbnailImageUrl: string;
-  planPaymentLog?: object[];
+  activityType: string;
+  paymentInfo: PaymentLogs;
+  referenceType: string;
+  referenceId: string;
+  planPaymentInfo?: PaymentLogs;
+}
+interface PaymentLogs {
+  paymentLogs: Log[];
+}
+interface Log {
+  paid: string;
+  participants: string[];
+  payment: number;
 }
 
 interface Props {
@@ -23,12 +37,13 @@ interface Props {
 }
 
 function ActivityCard({ activity }: Props): JSX.Element {
-  const { name, type, thumbnailImageUrl } = activity;
+  const { id, name, activityType, thumbnailImageUrl } = activity;
+  const [modalOpen, setModalOpen] = useState(false);
   let borderColor: string;
 
-  if (type === 'hotel') {
+  if (activityType.toUpperCase() === 'HOTEL') {
     borderColor = 'red';
-  } else if (type === 'attraction') {
+  } else if (activityType.toUpperCase() === 'ATTRACTION') {
     borderColor = 'blue';
   } else {
     borderColor = 'purple';
@@ -37,6 +52,7 @@ function ActivityCard({ activity }: Props): JSX.Element {
   const [{ isDragging }, dragRef] = useDrag(
     () => ({
       type: 'activity',
+      canDrag: !modalOpen,
       item: { ...activity },
       collect: (monitor) => ({
         isDragging: !!monitor.isDragging(),
@@ -44,6 +60,10 @@ function ActivityCard({ activity }: Props): JSX.Element {
     }),
     [],
   );
+
+  const handlePayment = () => {
+    setModalOpen(true);
+  };
 
   const containerStyle = {
     opacity: isDragging ? 0.5 : 1,
@@ -56,9 +76,23 @@ function ActivityCard({ activity }: Props): JSX.Element {
       <img src={thumbnailImageUrl} alt="" className={styles.thumb} />
       <h3>{name}</h3>
       <div className={styles.rightside_wrapper}>
-        <button className={styles.payment} type="button">
+        <button
+          className={styles.payment}
+          type="button"
+          onClick={handlePayment}
+        >
           정산하기
         </button>
+        {modalOpen && (
+          <Modal
+            Content={
+              <ModalContent id={id} paymentInfo={activity.paymentInfo} />
+            }
+            setModalOpen={setModalOpen}
+            mywidth="600px"
+            myheight="400px"
+          />
+        )}
         <DragIndicatorIcon fontSize="large" cursor="pointer" />
       </div>
     </div>
