@@ -1,7 +1,7 @@
 /* eslint-disable no-alert */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useAppDispatch } from 'store/hooks';
 import { postPlan } from 'store/Slices/plans/thunks';
 
@@ -20,8 +20,7 @@ function Modalcontent({ setModalOpen }: Props): JSX.Element {
   const [beginDateInput, setBeginDateInput] = useState<Date>();
   const [endDateInput, setEndDateInput] = useState<Date>();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!title) {
       alert('여행 이름을 입력해주세요');
       return;
@@ -43,19 +42,21 @@ function Modalcontent({ setModalOpen }: Props): JSX.Element {
       beginDate: beginDateInput.toISOString(),
       endDate: endDateInput.toISOString(),
     };
-
     dispatch(postPlan({ planObj: data }));
+    e.preventDefault();
+    e.stopPropagation();
     setModalOpen(false);
   };
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+    e.preventDefault();
   };
 
   return (
     <div className={styles.container}>
       <h2>플랜 추가</h2>
-      <form action="" className={styles.form} onSubmit={handleSubmit}>
+      <form action="" className={styles.form}>
         <div>
           <label htmlFor="title">여행 이름</label>
           <input
@@ -109,10 +110,10 @@ function Modalcontent({ setModalOpen }: Props): JSX.Element {
           </div>
         </div>
         <button
-          type="submit"
+          type="button"
           value="submit"
           className={styles.submit_btn}
-          onClick={handleClick}
+          onClick={handleSubmit}
         >
           생성
         </button>

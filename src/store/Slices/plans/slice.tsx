@@ -4,7 +4,7 @@ import { fetchPlan, postPlan, deletePlan } from './thunks';
 interface PlanObj {
   createdAt: string;
   updatedAt: string;
-  id: number;
+  id: string;
   writer: string;
   name: string;
   description: string;
