@@ -17,14 +17,12 @@
     background-color: #C0FFBA;
 }
 
+.mainheader {
+    width: 100%;
+    height: fit-content;
+}
+
 .recommend_container {
     width: 100%;
     text-align: left;
-}
-
-.calender {
-    width: 50%;
-    aspect-ratio: 1/1;
-    margin: 0 auto;
-    margin-top: '5%';
 }
