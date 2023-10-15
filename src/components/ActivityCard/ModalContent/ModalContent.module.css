@@ -1,0 +1,46 @@
+.container {
+    width: 100%;
+}
+
+.loglist {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0;
+    list-style: none;
+    gap: 5px;
+}
+
+.btn_group {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.btn_group > button {
+    width: 150px;
+    height: 50px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin: 1rem 0;
+}
+
+.addbtn {
+    background-color: lightgray;
+}
+.addbtn:hover {
+    background-color: rgb(220, 220, 220);
+}
+
+.submit {
+    background-color: rgb(118, 249, 118);
+}
+.submit:hover {
+    background-color: rgb(134, 255, 134);
+}
+
+.alert {
+    text-align: right;
+    color: red;
+}

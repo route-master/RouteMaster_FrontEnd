@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 interface PlanObj {
-  id: null;
+  id: string | null;
   name: string;
   description: string;
   thumbnailimageUrl: string;

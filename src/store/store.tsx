@@ -6,6 +6,7 @@ import profileSlice from './Slices/users/profileSlice';
 import activitiesReducer from './Slices/activitiesSlice';
 import plansReducer from './Slices/plans/slice';
 import reviewReducer from './Slices/reviews/slice';
+import logsReducer from './Slices/paymentLogs/slice';
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     activities: activitiesReducer,
     plans: plansReducer,
     review: reviewReducer,
+    logs: logsReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
