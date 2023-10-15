@@ -1,4 +1,4 @@
-import LikeButton from 'components/LikeButton/LikeButton';
+import LikeButton from 'components/LikeButton/PlanLikeButton/LikeButton';
 import styles from './AttractionItem.module.css';
 
 interface Props {
@@ -9,11 +9,11 @@ interface Props {
 
 function AttractionItem({ id, thumb, title }: Props): JSX.Element {
   return (
-    <li key={`li-${id}`} className={styles.container}>
+    <li key={id} className={styles.container}>
       <div className={styles.thumb_container}>
         <img src={thumb} alt="" className={styles.thumb} />
         <div className={styles.likebtn}>
-          <LikeButton />
+          <LikeButton contentId={id} />
         </div>
       </div>
       <div className={styles.info_container}>

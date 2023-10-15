@@ -16,7 +16,7 @@ interface Activity {
   paymentInfo: PaymentLogs;
   referenceType: string;
   referenceId: string;
-  planPaymentInfo?: PaymentLogs;
+  planPaymentInfo: PaymentLogs;
 }
 interface PaymentLogs {
   paymentLogs: Log[];

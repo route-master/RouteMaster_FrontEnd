@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef, useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
-import LikeButton from '../LikeButton/LikeButton';
+import LikeButton from 'components/LikeButton/ActivityLikeButton/LikeButton';
 import styles from './KakaoMaps.module.css';
 
 interface Props {
@@ -93,16 +93,26 @@ function KakaoMaps({ map, setMap, keyword }: Props): JSX.Element {
           }}
         >
           {info && info.content === marker.content && (
-            <div style={{ minWidth: '200px', height: 'fit-content' }}>
-              <div className={styles.likebtn}>
-                <LikeButton />
+            <div className={styles.info}>
+              <div className={styles.info_top}>
+                <a
+                  href={`https://map.kakao.com/link/to/${info.content},${marker.position.lat},${marker.position.lng}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  길찾기
+                </a>
+                <div className={styles.likebtn}>
+                  <LikeButton
+                    title={marker.content.name}
+                    mapObj={{
+                      lat: parseFloat(marker.position.lat),
+                      lng: parseFloat(marker.position.lng),
+                    }}
+                  />
+                </div>
               </div>
-              <div style={{ margin: '5px', color: 'black' }}>
-                <br />
-                <br />
-                {info.content}
-              </div>
-              <br />
+              <div className={styles.info_content}> {info.content} </div>
             </div>
           )}
         </MapMarker>
