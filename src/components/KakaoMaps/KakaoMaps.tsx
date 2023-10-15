@@ -96,14 +96,20 @@ function KakaoMaps({ map, setMap, keyword }: Props): JSX.Element {
             <div className={styles.info}>
               <div className={styles.info_top}>
                 <a
-                  href={`https://map.kakao.com/link/to/${info.content},${marker?.position?.lat},${marker.position?.lng}`}
+                  href={`https://map.kakao.com/link/to/${info.content},${marker.position.lat},${marker.position.lng}`}
                   target="_blank"
                   rel="noreferrer"
                 >
                   길찾기
                 </a>
                 <div className={styles.likebtn}>
-                  <LikeButton />
+                  <LikeButton
+                    title={marker.content.name}
+                    mapObj={{
+                      lat: parseFloat(marker.position.lat),
+                      lng: parseFloat(marker.position.lng),
+                    }}
+                  />
                 </div>
               </div>
               <div className={styles.info_content}> {info.content} </div>
