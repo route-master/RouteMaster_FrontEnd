@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import MainHeader from 'components/MainHeader/MainHeader';
 import RecommendCardContainer from 'components/RecommendCard/RecommendCardContainer';
 import Calendar from 'components/Calendar/Calendar';
-import SearchBar from 'components/SearchBar/SearchBar';
 import styles from './Main.module.css';
 
 function Main(): JSX.Element {
@@ -30,7 +29,7 @@ function Main(): JSX.Element {
         <h1>추천 검색어</h1>
         <RecommendCardContainer type="내주변" />
         <RecommendCardContainer type="나이별" age={age} />
-        <RecommendCardContainer type="날씨별" />
+        <RecommendCardContainer type="내주변" />
       </div>
       <div className={styles.calendar}>
         <Calendar />
