@@ -3,7 +3,6 @@ import { getMyProfile } from 'store/Slices/users/thunks';
 import { useEffect, useState } from 'react';
 import MainHeader from 'components/MainHeader/MainHeader';
 import RecommendCardContainer from 'components/RecommendCard/RecommendCardContainer';
-import Calendar from '../../components/Calendar/Calendar';
 import styles from './Main.module.css';
 
 function Main(): JSX.Element {
@@ -30,9 +29,6 @@ function Main(): JSX.Element {
         <RecommendCardContainer type="내주변" />
         <RecommendCardContainer type="나이별" age={age} />
         <RecommendCardContainer type="날씨별" />
-      </div>
-      <div className={styles.calendar}>
-        <Calendar />
       </div>
     </div>
   );
