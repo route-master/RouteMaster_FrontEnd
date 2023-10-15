@@ -93,16 +93,16 @@ function KakaoMaps({ map, setMap, keyword }: Props): JSX.Element {
           }}
         >
           {info && info.content === marker.content && (
-            <div style={{ minWidth: '200px', height: 'fit-content' }}>
-              <div className={styles.likebtn}>
-                <LikeButton />
+            <div className={styles.info}>
+              <div className={styles.info_top}>
+                <a href="https://www.naver.com" target="_blanck">
+                  길찾기
+                </a>
+                <div className={styles.likebtn}>
+                  <LikeButton />
+                </div>
               </div>
-              <div style={{ margin: '5px', color: 'black' }}>
-                <br />
-                <br />
-                {info.content}
-              </div>
-              <br />
+              <div className={styles.info_content}> {info.content} </div>
             </div>
           )}
         </MapMarker>

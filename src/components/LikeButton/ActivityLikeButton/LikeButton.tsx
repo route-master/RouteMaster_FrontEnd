@@ -12,8 +12,8 @@ function ActivityLikeButton(): JSX.Element {
   };
 
   return (
-    <div>
-      <button type="button" className={styles.container} onClick={onClick}>
+    <div className={styles.container}>
+      <button type="button" className={styles.button} onClick={onClick}>
         <img alt="add" src={imgSrc} className={styles.img} />
       </button>
     </div>
