@@ -75,14 +75,16 @@ function LikeBtnModal({
   const addActivity = (id: string) => {
     // Get attraction
     axios
-      .get<Response>(`attraction/detail/common/contentId=${contentId}`)
+      .get<Response>(
+        `http://api.route-master.org/attraction/detail/common/contentId=${contentId}`,
+      )
       .then((res) => {
         const attraction = { ...res.data.attractions[0] };
         const myBeginDate = plans.filter((plan) => plan.id === id)[0].beginDate;
         const myEndDate = plans.filter((plan) => plan.id === id)[0].endDate;
         // Post activity
         axios
-          .post(`plan/activity`, {
+          .post(`http://api.route-master.org/plan/activity`, {
             id: null,
             planGroupId: id,
             name: attraction.title,
@@ -109,7 +111,7 @@ function LikeBtnModal({
   const removeActivity = (id: string) => {
     // Get activities
     axios
-      .get(`plan/activity/planGroupId=${id}`)
+      .get(`http://api.route-master.org/plan/activity/planGroupId=${id}`)
       .then((res) => {
         const activities = res.data;
         // Delete activity
@@ -118,7 +120,9 @@ function LikeBtnModal({
           (activity: any) => activity.referenceId === contentId.toString(),
         );
         axios
-          .delete(`plan/activity/${targetActivity[0].id}`)
+          .delete(
+            `http://api.route-master.org/plan/activity/${targetActivity[0].id}`,
+          )
           .then(() => {
             console.log('delete success');
           })

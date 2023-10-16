@@ -65,7 +65,7 @@ function HotelDetails(): JSX.Element {
     const fetchFacilityDetails = async () => {
       try {
         const response = await axios.get<DetailsResponse>(
-          `/attraction/detail/stay?contentId=${param.id}`,
+          `http://api.route-master.org/attraction/detail/stay?contentId=${param.id}`,
         );
         setData(response.data.detail);
       } catch (e) {

@@ -52,7 +52,9 @@ function EventDetails(): JSX.Element {
 
   useEffect(() => {
     axios
-      .get<Response>(`/attraction/detail/common?contentId=${param.id}`)
+      .get<Response>(
+        `http://api.route-master.org/attraction/detail/common?contentId=${param.id}`,
+      )
       .then((res) => {
         setData(res.data.attractions[0]);
       })

@@ -44,7 +44,9 @@ function RestaurantDetails(): JSX.Element {
 
   useEffect(() => {
     axios
-      .get<Response>(`/attraction/detail/restaurant?contentId=${param.id}`)
+      .get<Response>(
+        `http://api.route-master.org/attraction/detail/restaurant?contentId=${param.id}`,
+      )
       .then((res) => {
         setData(res.data.detail);
       })

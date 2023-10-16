@@ -141,7 +141,9 @@ function RecommendCardContainer(props: Props): JSX.Element {
     switch (type) {
       case '나이별':
         axios
-          .get<Response>(`/recommend/age-based?age=${age}`)
+          .get<Response>(
+            `http://api.route-master.org/recommend/age-based?age=${age}`,
+          )
           .then((res) => {
             setData(res.data.attractions);
             setTitle(`${age}대 추천`);
@@ -166,7 +168,7 @@ function RecommendCardContainer(props: Props): JSX.Element {
     if (type === '날씨별' && city) {
       axios
         .get<WeatherResponse[]>(
-          `/recommend/weather-based/tourism-climate-index?date=${date}&day=0&cityAreaId=${getCityAreaId()}`,
+          `http://api.route-master.org/recommend/weather-based/tourism-climate-index?date=${date}&day=0&cityAreaId=${getCityAreaId()}`,
         )
         .then((res) => {
           const mapInfo: { mapX: string; mapY: string } = getLatLng(
@@ -174,7 +176,7 @@ function RecommendCardContainer(props: Props): JSX.Element {
           );
           axios
             .get<Response[]>(
-              `/recommend/location-based?mapX=${mapInfo.mapX}&mapY=${mapInfo.mapY}`,
+              `http://api.route-master.org/recommend/location-based?mapX=${mapInfo.mapX}&mapY=${mapInfo.mapY}`,
             )
             .then((res) => {
               const activityData = res.data.map((item) => item.attractions[0]);
@@ -196,7 +198,7 @@ function RecommendCardContainer(props: Props): JSX.Element {
     if (location.lat !== 0 && location.lng !== 0 && type === '내주변') {
       axios
         .get<Response[]>(
-          `/recommend/location-based?mapX=${location.lng}&mapY=${location.lat}`,
+          `http://api.route-master.org/recommend/location-based?mapX=${location.lng}&mapY=${location.lat}`,
         )
         .then((res) => {
           console.log(res.data);

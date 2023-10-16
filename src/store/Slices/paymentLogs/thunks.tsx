@@ -7,7 +7,7 @@ interface Log {
   payment: number;
 }
 
-const URL = '/plan/acttivity/payment';
+const URL = 'http://api.route-master.org/plan/acttivity/payment';
 
 export const postLogs = createAsyncThunk(
   'form/postLogs',

@@ -57,7 +57,9 @@ function PlanColumn(): JSX.Element {
 
   useEffect(() => {
     axios
-      .get<Activity[]>(`/plan/activity/list?planGroupId=${planGroupId}`)
+      .get<Activity[]>(
+        `http://api.route-master.org/plan/activity/list?planGroupId=${planGroupId}`,
+      )
       .then((res) => {
         const newactivities = [...activities];
         res.data.forEach((activity) => {
@@ -114,11 +116,13 @@ function PlanColumn(): JSX.Element {
     const dataToDelete = { ...targetActivity };
 
     axios
-      .post('/plan/activity', dataToSend)
+      .post('http://api.route-master.org/plan/activity', dataToSend)
       .then((res) => res.data)
       .catch((err) => console.log(err));
     axios
-      .delete('/plan/activity', { data: dataToDelete })
+      .delete('http://api.route-master.org/plan/activity', {
+        data: dataToDelete,
+      })
       .then((res) => res.data)
       .catch((err) => console.log(err));
   };

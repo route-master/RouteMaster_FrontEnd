@@ -10,7 +10,7 @@ interface PlanObj {
   endDate: string;
 }
 
-const requestURL = '/plan/group';
+const requestURL = `http://api.route-master.org/plan/group`;
 
 export const fetchPlan = createAsyncThunk('/plans/fetch', async () => {
   const response = await axios.get(requestURL, {
