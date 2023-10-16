@@ -8,7 +8,7 @@ export const fetchAttractionsByType = createAsyncThunk(
   async (arg: { type: string; page: number }) => {
     let requestURL;
     if (arg.type === 'stay') {
-      requestURL = `${process.env.REACT_APP_API_URL}/attraction/search/${arg.type}?numOfRows=${NumOfRows}&pageNo=${arg.page}&arrange=A&areaCode=1&sigunguCode=1`;
+      requestURL = `/attraction/search/${arg.type}?numOfRows=${NumOfRows}&pageNo=${arg.page}&arrange=A&areaCode=1&sigunguCode=1`;
     } else if (arg.type === 'event') {
       requestURL = `${process.env.REACT_APP_API_URL}/attraction/search/${arg.type}?numOfRows=${NumOfRows}&pageNo=${arg.page}&arrange=A&eventStartDate=20230701&areaCode=1&sigunguCode=1`;
     } else {
