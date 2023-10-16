@@ -13,14 +13,13 @@ function Main(): JSX.Element {
   const profilesState = useAppSelector((state) => state.profile.profiles);
 
   useEffect(() => {
-    dispatch(getMyProfile());
     console.log(profilesState[0]);
     if (profilesState[0]) {
       console.log(profilesState[0].profile.birthDate);
       const birthDate: number = +profilesState[0].profile.birthDate;
       setAge(Math.floor(birthDate / 10) * 10);
     }
-  }, [dispatch, profilesState]);
+  }, [profilesState]);
 
   return (
     <div className={styles.container}>
