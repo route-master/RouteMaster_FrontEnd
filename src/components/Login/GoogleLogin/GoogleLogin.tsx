@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import SocailGoogle from 'react-google-login';
 import { gapi } from 'gapi-script';
 import { useEffect } from 'react';
@@ -20,8 +21,8 @@ function GoogleLogin({ variant }: Props): JSX.Element {
   const navigate = useNavigate();
 
   const tokens = useAppSelector((state) => state.auth.tokens);
-  const isLoading = useAppSelector((state) => state.auth.loading);
-  const error = useAppSelector((state) => state.auth.error);
+  // const isLoading = useAppSelector((state) => state.auth.loading);
+  // const error = useAppSelector((state) => state.auth.error);
   const success = useAppSelector((state) => state.auth.success);
   const isLogin = useAppSelector((state) => state.auth.isLogin);
 
@@ -57,6 +58,7 @@ function GoogleLogin({ variant }: Props): JSX.Element {
   };
 
   const onFailure = (res: any) => {
+    // eslint-disable-next-line no-console
     console.log(res);
   };
 

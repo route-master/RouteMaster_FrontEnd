@@ -46,13 +46,4 @@ function SearchBar(): JSX.Element {
   );
 }
 
-const top100Films = [
-  { label: '서울', year: 1994 },
-  { label: '경기', year: 1972 },
-  { label: '부산', year: 1974 },
-  { label: '일본', year: 2008 },
-  { label: '중국', year: 1957 },
-  { label: '미국', year: 1993 },
-];
-
 export default SearchBar;

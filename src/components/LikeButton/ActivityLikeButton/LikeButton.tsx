@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 import EmptyHeart from 'assets/images/emptyheart.png';
 import FullHeart from 'assets/images/fullheart.png';
 import styles from './LikeButton.module.css';
