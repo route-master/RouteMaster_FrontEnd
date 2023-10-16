@@ -17,6 +17,7 @@ export const fetchAttractionsByType = createAsyncThunk(
 
     const response = await axios.get(requestURL, {
       headers: { 'Content-Type': 'application/json' },
+      'Allow-Access-Control': `http://api.route-master.org`,
     });
     if (!response) {
       throw new Error('Network response was not ok');
