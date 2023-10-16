@@ -8,7 +8,7 @@ export const fetchAttractionsByType = createAsyncThunk(
   async (arg: { type: string; page: number }) => {
     let requestURL;
     if (arg.type === 'stay') {
-      requestURL = `/attraction/search/${arg.type}?numOfRows=${NumOfRows}&pageNo=${arg.page}&arrange=A&areaCode=1&sigunguCode=1`;
+      requestURL = `'http://api.router-master.org'/attraction/search/${arg.type}?numOfRows=${NumOfRows}&pageNo=${arg.page}&arrange=A&areaCode=1&sigunguCode=1`;
     } else if (arg.type === 'event') {
       requestURL = `http://api.route-master.org/attraction/search/${arg.type}?numOfRows=${NumOfRows}&pageNo=${arg.page}&arrange=A&eventStartDate=20230701&areaCode=1&sigunguCode=1`;
     } else {
