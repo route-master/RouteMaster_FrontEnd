@@ -55,34 +55,7 @@ function LikeBtnModal({
   setIsListClicked,
 }: Props): JSX.Element {
   const dispatch = useAppDispatch();
-  // const { plans } = useAppSelector((state) => state.plans);
-  // Test data
-  const plans = [
-    {
-      id: '1',
-      name: '테스트',
-      beginDate: '2021-10-01',
-      endDate: '2021-10-03',
-      thumbnail: 'https://picsum.photos/200/300',
-      activities: [],
-    },
-    {
-      id: '2',
-      name: '테스트2',
-      beginDate: '2021-10-01',
-      endDate: '2021-10-03',
-      thumbnail: 'https://picsum.photos/200/300',
-      activities: [],
-    },
-    {
-      id: '3',
-      name: '테스트3',
-      beginDate: '2021-10-01',
-      endDate: '2021-10-03',
-      thumbnail: 'https://picsum.photos/200/300',
-      activities: [],
-    },
-  ];
+  const { plans } = useAppSelector((state) => state.plans);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const { pagetype } = useParams<{ pagetype: string }>();
 
