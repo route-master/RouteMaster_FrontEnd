@@ -36,7 +36,7 @@ function Main(): JSX.Element {
         <h1>추천 검색어</h1>
         <RecommendCardContainer type="내주변" />
         <RecommendCardContainer type="나이별" age={age} />
-        <RecommendCardContainer type="날씨별" />
+        <RecommendCardContainer type="내주변" />
       </div>
     </div>
   );
