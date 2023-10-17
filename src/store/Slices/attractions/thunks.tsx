@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const NumOfRows = 10;
+const baseURL = 'http://api.route-master.org';
 
 interface Region {
   Region_Code: number;
@@ -45,9 +46,9 @@ export const fetchAttractionsByType = createAsyncThunk(
   }) => {
     let requestURL;
     if (arg.type === 'stay') {
-      requestURL = `/attraction/search/${arg.type}?numOfRows=${NumOfRows}&pageNo=${arg.page}&arrange=A&areaCode=1&sigunguCode=1`;
+      requestURL = `${baseURL}/attraction/search/${arg.type}?numOfRows=${NumOfRows}&pageNo=${arg.page}&arrange=A&areaCode=1&sigunguCode=1`;
     } else if (arg.type === 'event') {
-      requestURL = `/attraction/search/${arg.type}?numOfRows=${NumOfRows}&pageNo=${arg.page}&arrange=A&eventStartDate=20230701&areaCode=1&sigunguCode=1`;
+      requestURL = `${baseURL}/attraction/search/${arg.type}?numOfRows=${NumOfRows}&pageNo=${arg.page}&arrange=A&eventStartDate=20230701&areaCode=1&sigunguCode=1`;
     } else if (arg.type === 'keyword') {
       requestURL = `/attraction/search/keyword-based?numOfRows=${NumOfRows}&pageNo=${
         arg.page
@@ -55,7 +56,7 @@ export const fetchAttractionsByType = createAsyncThunk(
         arg.keyword
       }&areaCode=${getRegionCodeByName(arg.keyword!) || 1}&sigunguCode=1`;
     } else {
-      requestURL = `/attraction/search/${arg.type}/keyword-based?numOfRows=${NumOfRows}&pageNo=${arg.page}&keyword=%EC%84%9C%EC%9A%B8`;
+      requestURL = `${baseURL}/attraction/search/${arg.type}/keyword-based?numOfRows=${NumOfRows}&pageNo=${arg.page}&keyword=%EC%84%9C%EC%9A%B8`;
     }
 
     const response = await axios.get(requestURL, {

@@ -50,7 +50,7 @@ function ActivityCardModal({ id, paymentInfo }: Props): JSX.Element {
 
     const activityId = id;
     axios
-      .post('/plan/activity/payment', {
+      .post('http://api.route-master.org/plan/activity/payment', {
         id: activityId,
         // eslint-disable-next-line object-shorthand
         logs: updatedLogs,
@@ -78,7 +78,7 @@ function ActivityCardModal({ id, paymentInfo }: Props): JSX.Element {
 
     // Get participants from plan group
     axios
-      .get<PlanObj>(`/plan/group/${planGroupId}`)
+      .get<PlanObj>(`http://api.route-master.org/plan/group/${planGroupId}`)
       .then((res) => {
         setMember(res.data.participants);
       })

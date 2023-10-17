@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
+import DetailHeader from 'components/DetailHeader/DetailHeader';
 import PhotoGrid from 'components/PhotoGrid/PhotoGrid';
 import FacilitiesInfo from 'components/FacilitiesInfo/FacilitiesInfo';
 import HotelDetailInfo from 'components/DetailInfo/Hotel/DetailInfo';
@@ -58,12 +59,13 @@ function HotelDetails(): JSX.Element {
   const queryParams = new URLSearchParams(useLocation().search);
   const mapX: string = queryParams.get('mapX') ?? '';
   const mapY: string = queryParams.get('mapY') ?? '';
+  const title: string = queryParams.get('title') ?? '';
 
   useEffect(() => {
     const fetchFacilityDetails = async () => {
       try {
         const response = await axios.get<DetailsResponse>(
-          `/attraction/detail/stay?contentId=${param.id}`,
+          `http://api.route-master.org/attraction/detail/stay?contentId=${param.id}`,
         );
         setData(response.data.detail);
       } catch (e) {
@@ -94,6 +96,7 @@ function HotelDetails(): JSX.Element {
 
   return (
     <div className={styles.container}>
+      <DetailHeader title={title} />
       <div className={styles.photo_grid}>
         <PhotoGrid photos={photos} />
       </div>

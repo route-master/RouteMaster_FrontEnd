@@ -48,8 +48,6 @@ export const getReviewByContentId = createAsyncThunk(
       throw Error('리뷰 불러오기 실패');
     }
 
-    console.log(response.data);
-
     return response.data;
   },
 );

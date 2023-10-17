@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import EmailAuth from '../../components/Login/EmailAuth/EmailAuth';
-import GoogleLogin from '../../components/Login/GoogleLogin/GoogleLogin';
 import KakaoLogin from '../../components/Login/KakaoLogin/KakaoLogin';
 import styles from './Auth.module.css';
 
@@ -27,7 +26,6 @@ function Login(): JSX.Element {
         </Link>
       </h1>
       <EmailAuth variant={variant} setVariant={setVariant} />
-      <GoogleLogin variant={variant} />
       <KakaoLogin variant={variant} />
       <div className={styles.btn} onClick={toggleVariant} aria-hidden="true">
         {variant === 'LOGIN' ? '회원가입' : '로그인'}

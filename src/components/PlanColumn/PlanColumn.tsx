@@ -39,36 +39,6 @@ interface Log {
   payment: number;
 }
 
-const testData: Activity[] = [
-  {
-    createdAt: '2021-10-14T14:24:37.618Z',
-    updatedAt: '2021-10-14T14:24:37.618Z',
-    id: '1',
-    planGroupId: '1',
-    writer: 'test1',
-    name: 'test1',
-    description: '1',
-    beginDate: '2023-10-14T14:24:37.618Z',
-    endDate: '2023-10-14T14:24:37.618Z',
-    mapInfo: { lat: 37.5, lng: 127.5 },
-    thumbnailImageUrl:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS56QpW4f453ZbCRrFu2yMwkkIJZEUmXgKYvw&usqp=CAU',
-    paymentInfo: {
-      paymentLogs: [
-        { paid: 'test1', participants: ['test1', 'test2'], payment: 10000 },
-      ],
-    },
-    activityType: 'HOTEL',
-    referenceType: '',
-    referenceId: '',
-    planPaymentInfo: {
-      paymentLogs: [
-        { paid: 'test1', participants: ['test1', 'test2'], payment: 10000 },
-      ],
-    },
-  },
-];
-
 function PlanColumn(): JSX.Element {
   const dispatch = useDispatch();
   const activities = useSelector((state: RootState) => state.activities);
@@ -87,7 +57,9 @@ function PlanColumn(): JSX.Element {
 
   useEffect(() => {
     axios
-      .get<Activity[]>(`/plan/activity/list?planGroupId=${planGroupId}`)
+      .get<Activity[]>(
+        `http://api.route-master.org/plan/activity/list?planGroupId=${planGroupId}`,
+      )
       .then((res) => {
         const newactivities = [...activities];
         res.data.forEach((activity) => {
@@ -96,11 +68,6 @@ function PlanColumn(): JSX.Element {
         dispatch(setActivities(newactivities));
       })
       .catch((err) => {
-        const newactivities = [...activities];
-        testData.forEach((activity) => {
-          newactivities[getHour(activity.beginDate)] = activity;
-        });
-        dispatch(setActivities(newactivities));
         console.log(err);
       });
   }, []);
@@ -149,11 +116,13 @@ function PlanColumn(): JSX.Element {
     const dataToDelete = { ...targetActivity };
 
     axios
-      .post('/plan/activity', dataToSend)
+      .post('http://api.route-master.org/plan/activity', dataToSend)
       .then((res) => res.data)
       .catch((err) => console.log(err));
     axios
-      .delete('/plan/activity', { data: dataToDelete })
+      .delete('http://api.route-master.org/plan/activity', {
+        data: dataToDelete,
+      })
       .then((res) => res.data)
       .catch((err) => console.log(err));
   };

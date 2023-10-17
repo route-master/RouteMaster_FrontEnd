@@ -14,6 +14,7 @@ type Variant = 'LOGIN' | 'REGISTER';
 
 interface Props {
   variant: Variant;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setVariant: any;
 }
 
@@ -45,6 +46,7 @@ function EmailAuth({ variant, setVariant }: Props): JSX.Element {
         if (error) {
           toast.error('이메일이나 비밀번호를 다시한번 확인해주세요!!');
         } else if (!isLoading) {
+          // eslint-disable-next-line no-console
           console.log(tokens);
         }
       }
