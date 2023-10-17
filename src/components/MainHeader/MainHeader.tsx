@@ -1,9 +1,16 @@
 import { Link } from 'react-router-dom';
+import { useAppSelector } from 'store/hooks';
+import { useEffect } from 'react';
 import SearchBar from '../SearchBar/SearchBar';
 import LogoImage from '../../assets/images/logo_green.png';
 import styles from './MainHeader.module.css';
 
 function MainHeader(): JSX.Element {
+  const profile = useAppSelector((state) => state.profile.profiles[0]);
+
+  useEffect(() => {
+    console.log(profile);
+  }, [profile]);
   return (
     <header className={styles.container}>
       <div className={styles.logo_container}>
@@ -36,9 +43,15 @@ function MainHeader(): JSX.Element {
       <div className={styles.searchbar}>
         <SearchBar />
       </div>
-      <button id="login-btn" type="button" className={styles.login_btn}>
-        <Link to="/login">Login</Link>
-      </button>
+      {profile ? (
+        <button id="login-btn" type="button" className={styles.login_btn}>
+          <Link to="/logout">logout</Link>
+        </button>
+      ) : (
+        <button id="login-btn" type="button" className={styles.login_btn}>
+          <Link to="/login">login</Link>
+        </button>
+      )}
     </header>
   );
 }
