@@ -1,10 +1,15 @@
 import { Link, useParams } from 'react-router-dom';
-import useInfiniteScroll from 'hooks/useInfiniteScroll';
+import { Hotel } from 'utils/filter';
+import { useEffect } from 'react';
 import AttractionItem from './AttractionItem';
 import styles from './AttractionList.module.css';
 
-function AttractionList(): JSX.Element {
-  const { data, isLoading } = useInfiniteScroll();
+interface Props {
+  data: Hotel[];
+  isLoading: boolean;
+}
+
+function AttractionList({ data, isLoading }: Props): JSX.Element {
   const param = useParams<{ pagetype: string }>();
 
   return (

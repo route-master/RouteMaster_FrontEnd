@@ -42,6 +42,10 @@ function App(): JSX.Element {
             <Route path="/plan-list/plan/:planGroupId" element={<Plan />} />
             <Route path="/attractions/:pagetype" element={<Attractions />} />
             <Route
+              path="/attractions/:pagetype/:keyword"
+              element={<Attractions />}
+            />
+            <Route
               path="attractions/stay/details/:id"
               element={<HotelDetails />}
             />

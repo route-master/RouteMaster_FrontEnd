@@ -5,7 +5,10 @@ import { fetchAttractionsByType } from 'store/Slices/attractions/thunks';
 import { resetState } from 'store/Slices/attractions/slice';
 
 function useInfiniteScroll() {
-  const { pagetype } = useParams<string>();
+  const { pagetype, keyword } = useParams<{
+    pagetype: string;
+    keyword: string;
+  }>();
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.attractionsThunk.attractions);
   const isLoading = useAppSelector((state) => state.attractionsThunk.isLoading);
@@ -20,7 +23,14 @@ function useInfiniteScroll() {
   useEffect(() => {
     if (pagetype) {
       dispatch(resetState());
-      dispatch(fetchAttractionsByType({ type: pagetype, page: 1 }));
+      dispatch(
+        fetchAttractionsByType({
+          type: pagetype,
+          page: 1,
+          keyword,
+          contentTypeId: 14,
+        }),
+      );
     }
   }, [pagetype]);
 
@@ -36,7 +46,14 @@ function useInfiniteScroll() {
         scrollHeight - innerHeight - scrollTop < 10 &&
         hasNextPage
       ) {
-        dispatch(fetchAttractionsByType({ type: 'stay', page: currentPage }));
+        dispatch(
+          fetchAttractionsByType({
+            type: 'stay',
+            page: currentPage,
+            keyword,
+            contentTypeId: 14,
+          }),
+        );
       }
       if (err) {
         // eslint-disable-next-line no-alert

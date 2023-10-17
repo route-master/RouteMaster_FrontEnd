@@ -4,16 +4,24 @@ import styles from './SideFilteringBar.module.css';
 
 interface Props {
   type: string;
+  selectedFilters: { [key: string]: string[] };
+  handleFilterChange: (category: string, newSelectedFilters: string[]) => void;
 }
 
-function SideFilteringBar({ type }: Props): JSX.Element {
+function SideFilteringBar({
+  type,
+  selectedFilters,
+  handleFilterChange,
+}: Props): JSX.Element {
   type Dict = { category: string; options: string[] };
   const [dict, setDict] = useState<Dict[]>([]);
+
   useEffect(() => {
-    if (type === 'hotels') {
+    if (type === 'stay') {
       setDict([
         { category: '등급별', options: ['4성', '3성', '2성'] },
         { category: '타입별', options: ['호텔', '모텔', '한옥'] },
+        { category: '부가시설', options: ['헬스장', '취사가능'] },
       ]);
     } else if (type === 'activities') {
       setDict([
@@ -33,12 +41,15 @@ function SideFilteringBar({ type }: Props): JSX.Element {
       ]);
     }
   }, []);
+
   const filteringBoxes = dict.map((element) => {
     return (
       <FilteringBox
         key={element.category}
         category={element.category}
         options={element.options}
+        selectedFilters={selectedFilters[element.category] || []}
+        onFilterChange={handleFilterChange}
       />
     );
   });
