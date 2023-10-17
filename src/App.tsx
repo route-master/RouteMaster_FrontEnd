@@ -14,6 +14,7 @@ import CheckProfile from 'pages/CheckProfile/CheckProfile';
 import SetProfile from 'pages/SetProfile/SetProfile';
 import PlanList from 'pages/PlanList/PlanList';
 import EventDetails from 'pages/AttractionsDetails/Event/Details';
+import Logout from 'pages/Logout/logout';
 
 declare global {
   interface Window {
@@ -28,6 +29,7 @@ function App(): JSX.Element {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />} />
+          <Route path="/logout" element={<Logout />} />
           <Route path="/login" element={<Auth />} />
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/check_profile" element={<CheckProfile />} />

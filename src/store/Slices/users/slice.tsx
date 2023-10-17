@@ -53,7 +53,7 @@ const userSlice = createSlice({
     loginSuccess: (state, action) => {
       state.tokens = action.payload.tokens;
     },
-    logout: (state) => {
+    logoutS: (state) => {
       state.tokens = emptyTokens;
     },
   },
@@ -107,5 +107,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { loginSuccess, logout } = userSlice.actions;
+export const { loginSuccess, logoutS } = userSlice.actions;
 export default userSlice.reducer;
