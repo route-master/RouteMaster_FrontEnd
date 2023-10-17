@@ -17,7 +17,7 @@ function SideFilteringBar({
   const [dict, setDict] = useState<Dict[]>([]);
 
   useEffect(() => {
-    if (type === 'hotels') {
+    if (type === 'stay') {
       setDict([
         { category: '등급별', options: ['4성', '3성', '2성'] },
         { category: '타입별', options: ['호텔', '모텔', '한옥'] },

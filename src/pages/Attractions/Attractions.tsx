@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import AttractionList from 'components/AttractionList/AttractionList';
 import SideFilteringBar from 'components/SideFilteringBar/SideFilteringBar';
 import { useEffect, useState } from 'react';
@@ -26,28 +27,33 @@ function Attractions(): JSX.Element {
   };
 
   useEffect(() => {
-    const filtered = filterHotels(data, selectedFilters);
-    console.log(filtered);
-    // setResult(filtered);
+    filterHotels(data, selectedFilters)
+      .then((value) => {
+        console.log('asd', value);
+        setResult(value);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, [selectedFilters]);
 
   useEffect(() => {
     if (!isLoading) {
       setResult(data);
     }
-  }, [data, isLoading]);
+  }, [isLoading]);
 
   return (
     <div className={styles.container}>
       <div className={styles.sidebar}>
         <SideFilteringBar
-          type="hotels"
+          type={param.pagetype!}
           selectedFilters={selectedFilters}
           handleFilterChange={handleFilterChange}
         />
       </div>
       <div className={styles.list}>
-        <AttractionList data={data} isLoading={isLoading} />
+        <AttractionList data={result} isLoading={isLoading} />
       </div>
     </div>
   );

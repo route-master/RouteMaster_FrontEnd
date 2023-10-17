@@ -13,7 +13,7 @@ function SearchBar(): JSX.Element {
   const handleClick = () => {
     const keyword = inputRef.current?.value;
     if (keyword) {
-      navigate(`/attractions/keyword`);
+      navigate(`/attractions/keyword/${keyword}`);
     }
   };
 

@@ -66,6 +66,10 @@ export const filterHotels = async (
 ) => {
   const result: Hotel[] = [];
 
+  if (!selectedFilters) {
+    return data;
+  }
+
   for (const hotel of data) {
     let detail: AttractionDetails;
 
@@ -76,7 +80,6 @@ export const filterHotels = async (
 
       if (response && response.data && response.data.detail) {
         detail = response.data.detail;
-        console.log(detail);
       } else {
         throw new Error('Error when loading detail');
       }
@@ -92,8 +95,6 @@ export const filterHotels = async (
       result.push(hotel);
     }
   }
-
-  console.log(result);
 
   return result;
 };
