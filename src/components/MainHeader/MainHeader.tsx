@@ -9,8 +9,10 @@ function MainHeader(): JSX.Element {
   const profile = useAppSelector((state) => state.profile.profiles[0]);
 
   useEffect(() => {
+    // eslint-disable-next-line no-console
     console.log(profile);
   }, [profile]);
+
   return (
     <header className={styles.container}>
       <div className={styles.logo_container}>

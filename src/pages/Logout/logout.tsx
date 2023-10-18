@@ -16,7 +16,7 @@ function Logout(): JSX.Element {
   localStorage.setItem('accessToken', '');
 
   useEffect(() => {
-    if (!profilesState  ) {
+    if (!profilesState) {
       navigate('/');
     }
   });

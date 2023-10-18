@@ -54,7 +54,7 @@ export const fetchAttractionsByType = createAsyncThunk(
         arg.page
       }&arrange=A&contentTypeId=${arg.contentTypeId}&keyword=${
         arg.keyword
-      }&areaCode=${getRegionCodeByName(arg.keyword!) || 1}&sigunguCode=1`;
+      }&areaCode=${getRegionCodeByName(arg.keyword ?? '') || 1}&sigunguCode=1`;
     } else {
       requestURL = `${baseURL}/attraction/search/${arg.type}/keyword-based?numOfRows=${NumOfRows}&pageNo=${arg.page}&keyword=%EC%84%9C%EC%9A%B8`;
     }

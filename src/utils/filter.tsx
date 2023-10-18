@@ -84,6 +84,7 @@ export const filterHotels = async (
         throw new Error('Error when loading detail');
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error);
       continue; // Skip this hotel if there was an error
     }

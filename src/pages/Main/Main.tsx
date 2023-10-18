@@ -1,14 +1,12 @@
 /* eslint-disable no-console */
 import { Link } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { getMyProfile } from 'store/Slices/users/thunks';
+import { useAppSelector } from 'store/hooks';
 import { useEffect, useState } from 'react';
 import MainHeader from 'components/MainHeader/MainHeader';
 import RecommendCardContainer from 'components/RecommendCard/RecommendCardContainer';
 import styles from './Main.module.css';
 
 function Main(): JSX.Element {
-  const dispatch = useAppDispatch();
   const [age, setAge] = useState(20); // default age = 20
   const profilesState = useAppSelector((state) => state.profile.profiles);
 

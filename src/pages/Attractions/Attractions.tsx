@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import AttractionList from 'components/AttractionList/AttractionList';
 import SideFilteringBar from 'components/SideFilteringBar/SideFilteringBar';
@@ -29,7 +30,6 @@ function Attractions(): JSX.Element {
   useEffect(() => {
     filterHotels(data, selectedFilters)
       .then((value) => {
-        console.log('asd', value);
         setResult(value);
       })
       .catch((err) => {

@@ -1,6 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
 import { Hotel } from 'utils/filter';
-import { useEffect } from 'react';
 import AttractionItem from './AttractionItem';
 import styles from './AttractionList.module.css';
 
