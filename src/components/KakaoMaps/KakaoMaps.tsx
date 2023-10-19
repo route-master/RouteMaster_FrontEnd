@@ -104,7 +104,7 @@ function KakaoMaps({ map, setMap, keyword }: Props): JSX.Element {
                 </a>
                 <div className={styles.likebtn}>
                   <LikeButton
-                    title={marker.content.name}
+                    title={marker.content}
                     mapObj={{
                       lat: parseFloat(marker.position.lat),
                       lng: parseFloat(marker.position.lng),
