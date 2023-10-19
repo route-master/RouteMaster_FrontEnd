@@ -38,10 +38,11 @@ function Modalcontent({ setModalOpen }: Props): JSX.Element {
       id: null,
       name: title,
       description: desc,
-      thumbnailimageUrl: '',
+      thumbnailImageUrl: '',
       beginDate: beginDateInput.toISOString(),
-      endDate: endDateInput.toISOString(),
+      endDate: endDateInput.toISOString()
     };
+    console.log(data);
     dispatch(postPlan({ planObj: data }));
     e.preventDefault();
     e.stopPropagation();

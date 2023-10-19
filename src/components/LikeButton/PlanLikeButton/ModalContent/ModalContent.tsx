@@ -58,6 +58,11 @@ function LikeBtnModal({
   const { plans } = useAppSelector((state) => state.plans);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const { pagetype } = useParams<{ pagetype: string }>();
+  const header = {
+    'Content-Type': 'application/json',
+    'Allow-Access-Control': 'http://34.64.158.170:30000',
+    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+  };
 
   useEffect(() => {
     if (!plans) {
@@ -77,6 +82,7 @@ function LikeBtnModal({
     axios
       .get<Response>(
         `http://api.route-master.org/attraction/detail/common/contentId=${contentId}`,
+        { headers: header },
       )
       .then((res) => {
         const attraction = { ...res.data.attractions[0] };
@@ -85,19 +91,22 @@ function LikeBtnModal({
         // Post activity
         axios
           .post(`http://api.route-master.org/plan/activity`, {
-            id: null,
-            planGroupId: id,
-            name: attraction.title,
-            description: attraction.address,
-            beginDate: myBeginDate,
-            endDate: myEndDate,
-            mapInfo: {
-              lat: attraction.mapY,
-              lng: attraction.mapX,
+            headers: header,
+            data: {
+              id: null,
+              planGroupId: id,
+              name: attraction.title,
+              description: attraction.address,
+              beginDate: myBeginDate,
+              endDate: myEndDate,
+              mapInfo: {
+                lat: attraction.mapY,
+                lng: attraction.mapX,
+              },
+              activityType: pagetype?.toUpperCase(),
+              referenceType: 'TOUR_API',
+              referenceId: attraction.contentId.toString(),
             },
-            activityType: pagetype?.toUpperCase(),
-            referenceType: 'TOUR_API',
-            referenceId: attraction.contentId.toString(),
           })
           .catch((err) => {
             console.log(err);
@@ -111,7 +120,9 @@ function LikeBtnModal({
   const removeActivity = (id: string) => {
     // Get activities
     axios
-      .get(`http://api.route-master.org/plan/activity/planGroupId=${id}`)
+      .get(`http://api.route-master.org/plan/activity/planGroupId=${id}`, {
+        headers: header,
+      })
       .then((res) => {
         const activities = res.data;
         // Delete activity
@@ -122,6 +133,9 @@ function LikeBtnModal({
         axios
           .delete(
             `http://api.route-master.org/plan/activity/${targetActivity[0].id}`,
+            {
+              headers: header,
+            },
           )
           .then(() => {
             console.log('delete success');

@@ -41,6 +41,11 @@ function ActivityCardModal({ id, paymentInfo }: Props): JSX.Element {
   const paymentRefs = useRef<React.RefObject<HTMLInputElement>[]>([
     React.createRef(),
   ]);
+  const header = {
+    'Content-Type': 'application/json',
+    'Allow-Access-Control': 'http://34.64.158.170:30000',
+    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+  };
 
   const handleSubmit = () => {
     const updatedLogs = logs.map((log, index) => ({
@@ -51,9 +56,12 @@ function ActivityCardModal({ id, paymentInfo }: Props): JSX.Element {
     const activityId = id;
     axios
       .post('http://api.route-master.org/plan/activity/payment', {
-        id: activityId,
-        // eslint-disable-next-line object-shorthand
-        logs: updatedLogs,
+        headers: header,
+        data: {
+          id: activityId,
+          // eslint-disable-next-line object-shorthand
+          logs: updatedLogs,
+        },
       })
       .catch((err) => console.log(err));
   };
@@ -78,7 +86,9 @@ function ActivityCardModal({ id, paymentInfo }: Props): JSX.Element {
 
     // Get participants from plan group
     axios
-      .get<PlanObj>(`http://api.route-master.org/plan/group/${planGroupId}`)
+      .get<PlanObj>(`http://api.route-master.org/plan/group/${planGroupId}`, {
+        headers: header,
+      })
       .then((res) => {
         setMember(res.data.participants);
       })

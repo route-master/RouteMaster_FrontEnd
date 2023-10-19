@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import store, { RootState } from 'store/store';
 import { setActivities } from 'store/Slices/activitiesSlice';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import Menu from './Menu/Menu';
 import PlanInfoBox from './PlanInfoBox/PlanInfoBox';
@@ -42,8 +42,13 @@ interface Log {
 function PlanColumn(): JSX.Element {
   const dispatch = useDispatch();
   const activities = useSelector((state: RootState) => state.activities);
+  const header = {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+  }
 
-  const planGroupId = '1';
+  const { planGroupId } = useParams<{ planGroupId: string }>();
 
   const getHour = (date: string) => {
     const hour = new Date(date).getUTCHours();
@@ -59,6 +64,7 @@ function PlanColumn(): JSX.Element {
     axios
       .get<Activity[]>(
         `http://api.route-master.org/plan/activity/list?planGroupId=${planGroupId}`,
+        { headers: header },
       )
       .then((res) => {
         const newactivities = [...activities];
@@ -116,11 +122,15 @@ function PlanColumn(): JSX.Element {
     const dataToDelete = { ...targetActivity };
 
     axios
-      .post('http://api.route-master.org/plan/activity', dataToSend)
+      .post('http://api.route-master.org/plan/activity', {
+        headers: header,
+        data: dataToSend,
+      })
       .then((res) => res.data)
       .catch((err) => console.log(err));
     axios
       .delete('http://api.route-master.org/plan/activity', {
+        headers: header,
         data: dataToDelete,
       })
       .then((res) => res.data)

@@ -55,21 +55,47 @@ interface Props {
 }
 
 function ActivityLikeButton({ title, mapObj }: Props): JSX.Element {
-  const { id } = useParams<{ id: string }>();
+  const { planGroupId } = useParams<{ planGroupId: string }>();
   const [imgSrc, setImgSrc] = useState<string>('');
+  const header = {
+    'Content-Type': 'application/json',
+    'Allow-Access-Control': 'http://34.64.158.170:30000',
+    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+  };
+
+  console.log(localStorage.getItem('accessToken'));
 
   const addActivity = () => {
     axios
-      .get<PlanObj>(`/plan/group/${id}`)
+      .get<PlanObj>(`/plan/group/${planGroupId}`, { headers: header })
       .then((res) => {
+        const mydata = {
+          // eslint-disable-next-line object-shorthand
+          planGroupId: planGroupId,
+          name: title,
+          mapInfo: mapObj,
+          beginDate: res.data.beginDate,
+          endDate: res.data.endDate,
+          activityType: 'UNKNOWN',
+          referenceType: 'KAKAO',
+          referenceId: planGroupId,
+        };
+        console.log('data: ', mydata);
         axios
           .post('/plan/activity', {
-            id: null,
-            planGroupId: id,
-            name: title,
-            mapInfo: mapObj,
-            beginDate: res.data.beginDate,
-            endDate: res.data.endDate,
+            headers: header,
+            data: {
+              id: null,
+              // eslint-disable-next-line object-shorthand
+              planGroupId: planGroupId,
+              name: title,
+              mapInfo: mapObj,
+              beginDate: res.data.beginDate,
+              endDate: res.data.endDate,
+              activityType: 'UNKNOWN',
+              referenceType: 'KAKAO',
+              referenceId: planGroupId,
+            },
           })
           .catch((err) => {
             console.log(err);
@@ -83,13 +109,19 @@ function ActivityLikeButton({ title, mapObj }: Props): JSX.Element {
 
   const removeActivity = () => {
     axios
-      .get<Activity[]>(`/plan/activily/list/${id}`)
+      .get<Activity[]>(`/plan/activity/list/${planGroupId}`, {
+        headers: header,
+      })
       .then((res) => {
         res.data.forEach((activity: Activity) => {
           if (activity.mapInfo === mapObj) {
-            axios.delete(`/plan/activity/${activity.id}`).catch((err) => {
-              console.log(err);
-            });
+            axios
+              .delete(`/plan/activity/${activity.id}`, {
+                headers: header,
+              })
+              .catch((err) => {
+                console.log(err);
+              });
           }
         });
       })
@@ -109,7 +141,9 @@ function ActivityLikeButton({ title, mapObj }: Props): JSX.Element {
     // When first rendering, check if the activity is in the plan
     if (imgSrc === '') {
       axios
-        .get<Activity[]>(`/plan/activily/list/${id}`)
+        .get<Activity[]>(`/plan/activity/list/${planGroupId}`, {
+          headers: header,
+        })
         .then((res) => {
           res.data.forEach((activity: Activity) => {
             if (activity.mapInfo === mapObj) {
