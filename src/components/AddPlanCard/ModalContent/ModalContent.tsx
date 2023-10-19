@@ -40,8 +40,9 @@ function Modalcontent({ setModalOpen }: Props): JSX.Element {
       description: desc,
       thumbnailImageUrl: '',
       beginDate: beginDateInput.toISOString(),
-      endDate: endDateInput.toISOString()
+      endDate: endDateInput.toISOString(),
     };
+    // eslint-disable-next-line no-console
     console.log(data);
     dispatch(postPlan({ planObj: data }));
     e.preventDefault();
