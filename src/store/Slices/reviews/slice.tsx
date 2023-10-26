@@ -6,7 +6,7 @@ interface Review {
   userId: string;
   contentId: string;
   reviewComment: number;
-  rating: string;
+  rating: number;
   imageUrl: string;
 }
 

@@ -20,7 +20,7 @@ function AttractionList({ data, isLoading }: Props): JSX.Element {
           key={`link-${item.contentId}`}
         >
           <AttractionItem
-            id={item.contentId}
+            contentId={item.contentId}
             thumb={item.thumbnailImage}
             title={item.title}
           />

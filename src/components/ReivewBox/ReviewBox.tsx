@@ -1,6 +1,6 @@
 import ReviewComponent from './ReviewList/ReviewList';
 import ReviewForm from './ReviewForm/ReviewForm';
-import styles from './ReviewBox.module.css'
+import styles from './ReviewBox.module.css';
 
 function ReviewBox(): JSX.Element {
   return (

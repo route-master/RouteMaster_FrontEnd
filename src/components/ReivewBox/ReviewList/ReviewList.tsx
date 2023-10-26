@@ -11,9 +11,9 @@ interface Props {
 function Review(props: Props): JSX.Element {
   const { contentId } = props;
 
-  const reviews = useAppSelector((state: RootState) => state.review.reviews);
-  const loading = useAppSelector((state: RootState) => state.review.loading);
-  const error = useAppSelector((state: RootState) => state.review.error);
+  const reviews = useAppSelector((state: RootState) => state.reviews.reviews);
+  const loading = useAppSelector((state: RootState) => state.reviews.loading);
+  const error = useAppSelector((state: RootState) => state.reviews.error);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -32,7 +32,7 @@ function Review(props: Props): JSX.Element {
     <div>
       <h1>Reviews</h1>
       <ul>
-        {reviews.map((review, index) => (
+        {reviews.map((review) => (
           <li key={review.id}>
             {/* <p>Name: {review.name}</p> */}
             <p>Rating: {review.rating}</p>
