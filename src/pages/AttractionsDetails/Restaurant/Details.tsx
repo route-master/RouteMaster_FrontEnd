@@ -5,6 +5,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import DetailHeader from 'components/DetailHeader/DetailHeader';
 import PhotoGrid from 'components/PhotoGrid/PhotoGrid';
 import DetailInfo from 'components/DetailInfo/Restaurant/DetailInfo';
+import ReviewBox from 'components/ReivewBox/ReviewBox';
 
 interface Detail {
   creditcardInfo: string;
@@ -87,6 +88,9 @@ function RestaurantDetails(): JSX.Element {
           mapY={parseFloat(mapY)}
         />
       )}
+      <div>
+        <ReviewBox />
+      </div>
     </div>
   );
 }

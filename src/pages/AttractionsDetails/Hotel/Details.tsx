@@ -6,6 +6,7 @@ import DetailHeader from 'components/DetailHeader/DetailHeader';
 import PhotoGrid from 'components/PhotoGrid/PhotoGrid';
 import FacilitiesInfo from 'components/FacilitiesInfo/FacilitiesInfo';
 import HotelDetailInfo from 'components/DetailInfo/Hotel/DetailInfo';
+import ReviewBox from 'components/ReivewBox/ReviewBox';
 import styles from './Details.module.css';
 
 interface AttractionDetails {
@@ -114,6 +115,9 @@ function HotelDetails(): JSX.Element {
             mapY={mapY}
           />
         )}
+      </div>
+      <div>
+        <ReviewBox />
       </div>
     </div>
   );

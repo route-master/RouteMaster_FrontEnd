@@ -5,6 +5,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import DetailHeader from 'components/DetailHeader/DetailHeader';
 import PhotoGrid from 'components/PhotoGrid/PhotoGrid';
 import DetailInfo from 'components/DetailInfo/Event/DetailInfo';
+import ReviewBox from 'components/ReivewBox/ReviewBox';
 
 interface Attraction {
   title: string;
@@ -97,6 +98,9 @@ function EventDetails(): JSX.Element {
           mapY={parseFloat(mapY)}
         />
       )}
+      <div>
+        <ReviewBox />
+      </div>
     </div>
   );
 }
