@@ -20,7 +20,10 @@ function AttractionItem({ contentId, thumb, title }: Props): JSX.Element {
   useEffect(() => {
     dispatch(getReviewByContentId({ contentId: contentId.toString() }));
     const average: number = reviews.reduce(
-      (acc, review) => acc + review.rating,
+      (acc, review) => {
+        if (review.contentId === contentId.toString()) acc += review.rating;
+        return acc;
+      },
       // eslint-disable-next-line prettier/prettier
       0
     );
