@@ -6,7 +6,7 @@ function ReviewBox(): JSX.Element {
   return (
     <div className={styles.container}>
       <h1>리뷰</h1>
-      <ReviewForm contentId="1" userId="1" />
+      <ReviewForm userId="1" />
       <ReviewComponent contentId="1" />
     </div>
   );

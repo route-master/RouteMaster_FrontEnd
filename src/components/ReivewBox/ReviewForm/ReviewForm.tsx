@@ -1,7 +1,9 @@
 /* eslint-disable no-console */
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../../store/hooks';
 import { saveReview } from '../../../store/Slices/reviews/thunks';
+import Rating from '../../Rating/Rating';
 import styles from './ReviewForm.module.css';
 
 interface Review {
@@ -13,12 +15,12 @@ interface Review {
 }
 
 interface Props {
-  contentId: string;
   userId: string;
 }
 
 function ReviewForm(props: Props): JSX.Element {
-  const { contentId, userId } = props;
+  const { id } = useParams<{ id: string }>();
+  const { userId } = props;
 
   const dispatch = useAppDispatch();
 
@@ -35,7 +37,9 @@ function ReviewForm(props: Props): JSX.Element {
   const handleReviewSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!image || !reviewText) {
+    if (!image || !reviewText || !rating) {
+      // eslint-disable-next-line no-alert
+      alert('별점과 리뷰를 모두 입력해주세요.');
       return;
     }
 
@@ -48,9 +52,11 @@ function ReviewForm(props: Props): JSX.Element {
       // const uploadResponse = await dispatch();
 
       // Create a new review object with text, rating, and image URL
+      if (id === undefined) return;
+
       const newReview: Review = {
         userId,
-        contentId,
+        contentId: id,
         reviewComment: reviewText,
         // imageUrl: uploadResponse.payload.imageUrl,
         imageUrl: '',
@@ -76,16 +82,7 @@ function ReviewForm(props: Props): JSX.Element {
         <div className={styles.wrapper}>
           <div className={styles.left}>
             <div>
-              <label htmlFor="rating">Rating:</label>
-              <input
-                type="number"
-                id="rating"
-                min={1}
-                max={5}
-                value={rating}
-                onChange={(e) => setRating(Number(e.target.value))}
-                required
-              />
+              <Rating rating={rating} setRating={setRating} />
             </div>
             <div className={styles.textarea}>
               <textarea
