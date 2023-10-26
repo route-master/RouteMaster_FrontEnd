@@ -1,8 +1,9 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-console */
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppDispatch } from 'store/hooks';
-import { saveReview } from 'store/Slices/reviews/thunks';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { saveReview, getReviewByContentId } from 'store/Slices/reviews/thunks';
 import Rating from 'components/Rating/Rating';
 import styles from './ReviewForm.module.css';
 
@@ -14,15 +15,12 @@ interface Review {
   rating: number;
 }
 
-interface Props {
-  userId: string;
-}
-
-function ReviewForm(props: Props): JSX.Element {
+function ReviewForm(): JSX.Element {
   const { id } = useParams<{ id: string }>();
-  const { userId } = props;
 
   const dispatch = useAppDispatch();
+  const isLogin = useAppSelector((state) => state.auth.isLogin);
+  const profilesState = useAppSelector((state) => state.profile.profiles);
 
   const [reviewText, setReviewText] = useState('');
   const [rating, setRating] = useState(0);
@@ -38,7 +36,6 @@ function ReviewForm(props: Props): JSX.Element {
     e.preventDefault();
 
     if (!image || !reviewText || !rating) {
-      // eslint-disable-next-line no-alert
       alert('별점과 리뷰를 모두 입력해주세요.');
       return;
     }
@@ -49,13 +46,16 @@ function ReviewForm(props: Props): JSX.Element {
 
     try {
       // Upload the image and get the image URL
-      // const uploadResponse = await dispatch();
-
-      // Create a new review object with text, rating, and image URL
       if (id === undefined) return;
 
+      if (isLogin === null || !profilesState[0]) {
+        alert('로그인 전에는 리뷰를 쓸 수 없습니다. 로그인 후 이용해주세요.');
+        return;
+      }
+
+      const currentUserId = profilesState[0].profile.id;
       const newReview: Review = {
-        userId,
+        userId: currentUserId,
         contentId: id,
         reviewComment: reviewText,
         // imageUrl: uploadResponse.payload.imageUrl,
@@ -64,7 +64,10 @@ function ReviewForm(props: Props): JSX.Element {
       };
 
       // Dispatch an action to add the new review
-      dispatch(saveReview(newReview));
+      const res = dispatch(saveReview(newReview));
+      if (res && (await res).type.endsWith('fulfilled')) {
+        dispatch(getReviewByContentId({ contentId: id }));
+      }
 
       // Clear the form
       setReviewText('');
