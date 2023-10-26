@@ -41,8 +41,8 @@ function AttractionItem({ contentId, thumb, title }: Props): JSX.Element {
         <h2>{title}</h2>
         <div className={styles.price_and_review}>
           <div>
-            <h3>총 {rate}개의 리뷰</h3>
-            <Rating isReadonly rating={Math.round(rate)} />
+            <h3>총 별점: {rate}</h3>
+            <Rating isReadOnly mysize="large" rating={Math.round(rate)} />
           </div>
         </div>
       </div>

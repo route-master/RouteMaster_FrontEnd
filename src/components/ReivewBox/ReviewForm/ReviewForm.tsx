@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppDispatch } from '../../../store/hooks';
-import { saveReview } from '../../../store/Slices/reviews/thunks';
-import Rating from '../../Rating/Rating';
+import { useAppDispatch } from 'store/hooks';
+import { saveReview } from 'store/Slices/reviews/thunks';
+import Rating from 'components/Rating/Rating';
 import styles from './ReviewForm.module.css';
 
 interface Review {
@@ -82,7 +82,7 @@ function ReviewForm(props: Props): JSX.Element {
         <div className={styles.wrapper}>
           <div className={styles.left}>
             <div>
-              <Rating rating={rating} setRating={setRating} />
+              <Rating mysize="large" rating={rating} setRating={setRating} />
             </div>
             <div className={styles.textarea}>
               <textarea

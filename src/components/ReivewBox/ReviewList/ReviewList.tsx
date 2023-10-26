@@ -1,15 +1,14 @@
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { RootState } from 'store/store';
 import { getReviewByContentId } from 'store/Slices/reviews/thunks';
-import { useEffect } from 'react';
-import styles from './Review.module.css';
 
-interface Props {
-  contentId: string;
-}
+import Rating from 'components/Rating/Rating';
+import styles from './ReviewList.module.css';
 
-function Review(props: Props): JSX.Element {
-  const { contentId } = props;
+function ReviewList(): JSX.Element {
+  const { id } = useParams<{ id: string }>();
 
   const reviews = useAppSelector((state: RootState) => state.reviews.reviews);
   const loading = useAppSelector((state: RootState) => state.reviews.loading);
@@ -17,7 +16,7 @@ function Review(props: Props): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getReviewByContentId({ contentId }));
+    if (id) dispatch(getReviewByContentId({ contentId: id }));
   }, [dispatch]);
 
   if (loading === 'loading') {
@@ -28,15 +27,23 @@ function Review(props: Props): JSX.Element {
     return <div>Error: {error}</div>;
   }
 
+  if (reviews.length === 0) {
+    return (
+      <div className={styles.noreview}>
+        리뷰가 아직 없습니다. 리뷰를 작성해 경험을 공유해보세요!
+      </div>
+    );
+  }
+
   return (
-    <div>
-      <h1>Reviews</h1>
-      <ul>
+    <div className={styles.container}>
+      <h3>리뷰 목록</h3>
+      <ul className={styles.ul}>
         {reviews.map((review) => (
-          <li key={review.id}>
+          <li key={review.id} className={styles.li}>
             {/* <p>Name: {review.name}</p> */}
-            <p>Rating: {review.rating}</p>
-            <p>Review: {review.reviewComment}</p>
+            <Rating isReadOnly mysize="small" rating={review.rating} />
+            <p className={styles.comment}>{review.reviewComment}</p>
             {/* <img src={review.image} alt={`Image for ${review.name}`} /> */}
           </li>
         ))}
@@ -45,4 +52,4 @@ function Review(props: Props): JSX.Element {
   );
 }
 
-export default Review;
+export default ReviewList;

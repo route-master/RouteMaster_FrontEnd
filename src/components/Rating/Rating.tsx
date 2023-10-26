@@ -20,13 +20,14 @@ const StyledRating = styled(Rating)({
 });
 
 interface Props {
-  isReadonly?: boolean;
+  isReadOnly?: boolean;
+  mysize: 'small' | 'medium' | 'large';
   rating?: number;
   setRating?: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export default function CustomizedRating(Props: Props) {
-  const { isReadonly, rating, setRating } = Props;
+  const { isReadOnly, mysize, rating, setRating } = Props;
 
   const handleChange = (newValue: number | null) => {
     if (setRating) setRating(Number(newValue));
@@ -40,7 +41,7 @@ export default function CustomizedRating(Props: Props) {
     >
       <StyledRating
         name="customized-color"
-        readOnly={isReadonly}
+        readOnly={isReadOnly}
         value={rating}
         getLabelText={(value: number) =>
           `${value} Heart${value !== 1 ? 's' : ''}`
@@ -49,7 +50,7 @@ export default function CustomizedRating(Props: Props) {
         icon={<FavoriteIcon fontSize="inherit" />}
         emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
         onChange={(e, newValue) => handleChange(newValue)}
-        size="large"
+        size={mysize}
       />
     </Box>
   );
