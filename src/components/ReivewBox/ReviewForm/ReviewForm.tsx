@@ -1,6 +1,8 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
-import { useAppDispatch } from '../../store/hooks';
-import { saveReview } from '../../store/Slices/reviews/thunks';
+import { useAppDispatch } from '../../../store/hooks';
+import { saveReview } from '../../../store/Slices/reviews/thunks';
+import styles from './ReviewForm.module.css';
 
 interface Review {
   userId: string;
@@ -69,38 +71,46 @@ function ReviewForm(props: Props): JSX.Element {
 
   return (
     <form onSubmit={handleReviewSubmit}>
-      <div>
-        <label htmlFor="reviewText">Review Text:</label>
-        <textarea
-          id="reviewText"
-          value={reviewText}
-          onChange={(e) => setReviewText(e.target.value)}
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="rating">Rating:</label>
-        <input
-          type="number"
-          id="rating"
-          min={1}
-          max={5}
-          value={rating}
-          onChange={(e) => setRating(Number(e.target.value))}
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="image">Upload Image:</label>
-        <input
-          type="file"
-          id="image"
-          accept="image/*"
-          onChange={handleImageChange}
-        />
-      </div>
-      <div>
-        <button type="submit">Submit Review</button>
+      <div className={styles.container}>
+        <h3> 리뷰 작성하기 </h3>
+        <div className={styles.wrapper}>
+          <div className={styles.left}>
+            <div>
+              <label htmlFor="rating">Rating:</label>
+              <input
+                type="number"
+                id="rating"
+                min={1}
+                max={5}
+                value={rating}
+                onChange={(e) => setRating(Number(e.target.value))}
+                required
+              />
+            </div>
+            <div className={styles.textarea}>
+              <textarea
+                id="reviewText"
+                value={reviewText}
+                onChange={(e) => setReviewText(e.target.value)}
+                required
+              />
+            </div>
+          </div>
+          <div className={styles.right}>
+            <div>
+              <label htmlFor="image">Upload Image:</label>
+              <input
+                type="file"
+                id="image"
+                accept="image/*"
+                onChange={handleImageChange}
+              />
+            </div>
+          </div>
+        </div>
+        <div className={styles.submitbtn}>
+          <button type="submit">Submit Review</button>
+        </div>
       </div>
     </form>
   );
