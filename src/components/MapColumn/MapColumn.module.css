@@ -10,6 +10,12 @@
 .searchbar {
     position: absolute;
     top: 255px;
-    right: 50px;
+    right: 200px;
     z-index: 1;
+}
+
+@media screen and (max-width: 1024px) {
+    .searchbar {
+        right: 100px;
+    }
 }
