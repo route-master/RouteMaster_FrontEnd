@@ -28,7 +28,7 @@ function Login(): JSX.Element {
       <EmailAuth variant={variant} setVariant={setVariant} />
       <KakaoLogin variant={variant} />
       <div className={styles.btn} onClick={toggleVariant} aria-hidden="true">
-        {variant === 'LOGIN' ? '회원가입' : '로그인'}
+        <p>{variant === 'LOGIN' ? '회원가입' : '로그인'}</p>
       </div>
       <ToastContainer />
     </div>
