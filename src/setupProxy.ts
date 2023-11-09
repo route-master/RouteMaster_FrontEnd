@@ -1,15 +1,18 @@
+/* eslint-disable import/no-import-module-exports */
+/* eslint-disable func-names */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { createProxyMiddleware } from 'http-proxy-middleware';
 
-module.exports = (app) => {
+module.exports = (app: any) => {
   app.use(
-    createProxyMiddleware('/auth', {
+    createProxyMiddleware(['/user', '/privacy'], {
       target: 'http://auth.route-master.org/v1',
       changeOrigin: true,
     }),
   );
   app.use(
-    '^/((?!auth).)*$', // /auth를 제외한 모든 경로에 대한 정규 표현식
-    createProxyMiddleware({
+    createProxyMiddleware(['/plan', '/attraction', '/file', '/weather'], {
       target: 'http://api.route-master.org',
       changeOrigin: true,
     }),

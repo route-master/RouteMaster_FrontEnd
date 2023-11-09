@@ -81,6 +81,5 @@
     "@svgr/webpack": "$@svgr/webpack",
     "react-dom": "^18.2.0",
     "typescript": "^5.0.4"
-  },
-  "proxy": "http://api.route-master.org"
+  }
 }
