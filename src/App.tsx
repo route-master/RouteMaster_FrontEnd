@@ -15,6 +15,7 @@ import SetProfile from 'pages/SetProfile/SetProfile';
 import PlanList from 'pages/PlanList/PlanList';
 import EventDetails from 'pages/AttractionsDetails/Event/Details';
 import Logout from 'pages/Logout/logout';
+import Privacy from 'pages/Privacy/Privacy';
 
 declare global {
   interface Window {
@@ -40,6 +41,7 @@ function App(): JSX.Element {
         </Routes>
         <Routes>
           <Route element={<Layout />}>
+            <Route path="/terms-of-use" element={<Privacy />} />
             <Route path="/plan-list" element={<PlanList />} />
             <Route path="/plan-list/plan/:planGroupId" element={<Plan />} />
             <Route path="/attractions/:pagetype" element={<Attractions />} />
