@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from 'store/store';
 import { fetchPlan, postPlan, deletePlan } from './thunks';
 
 interface PlanObj {
@@ -67,3 +68,6 @@ const plansSlice = createSlice({
 });
 
 export default plansSlice.reducer;
+export const selectPlanById = (state: RootState, planId: string) => {
+  return state.plans.plans.find((plan) => plan.id === planId);
+};
