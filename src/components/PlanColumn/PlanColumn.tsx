@@ -6,9 +6,10 @@ import store, { RootState } from 'store/store';
 import { setActivities } from 'store/Slices/activitiesSlice';
 import { Link, useParams } from 'react-router-dom';
 
+import AvatarGroup from 'components/CustomAvatarGroup/CustomAvatarGroup';
+import ActivityCard from 'components/ActivityCard/ActivityCard';
 import Menu from './Menu/Menu';
 import PlanInfoBox from './PlanInfoBox/PlanInfoBox';
-import ActivityCard from '../ActivityCard/ActivityCard';
 import DragTargetLine from './DragTargetLine/DragTargetLine';
 import styles from './PlanColumn.module.css';
 
@@ -141,9 +142,7 @@ function PlanColumn(): JSX.Element {
     <div className={styles.container}>
       <div className={styles.title_section}>
         <div className={styles.top}>
-          <button className={styles.invite} type="button">
-            그룹 초대
-          </button>
+          <AvatarGroup />
           <Menu />
         </div>
 

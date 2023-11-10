@@ -81,7 +81,7 @@ const profilesSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getUserProfileList.fulfilled, (state, action) => {
-        state.profiles = action.payload;
+        state.profiles = [{ profile: action.payload, access: {} as access }];
         state.isLoading = false;
       })
       .addCase(getUserProfileList.rejected, (state, action) => {
