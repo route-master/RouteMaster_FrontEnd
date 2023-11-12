@@ -30,6 +30,7 @@
     "http-proxy-middleware": "^2.0.6",
     "prettier": "^2.8.7",
     "react": "^18.2.0",
+    "react-copy-to-clipboard": "^5.1.0",
     "react-datepicker": "^4.18.0",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
@@ -72,6 +73,7 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@svgr/webpack": "^7.0.0",
     "@testing-library/react": "^14.0.0",
+    "@types/react-copy-to-clipboard": "^5.0.7",
     "jest": "^27.5.1",
     "kakao.maps.d.ts": "^0.1.38",
     "react-scripts": "5.0.1"
