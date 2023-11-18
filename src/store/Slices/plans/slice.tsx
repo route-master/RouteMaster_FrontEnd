@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from 'store/store';
-import { fetchPlan, postPlan, deletePlan } from './thunks';
+import { fetchPlan, postPlan, deletePlan, joinPlan } from './thunks';
 
 interface PlanObj {
   createdAt: string;
@@ -61,6 +61,16 @@ const plansSlice = createSlice({
         state.loading = false;
       })
       .addCase(deletePlan.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || '';
+      })
+      .addCase(joinPlan.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(joinPlan.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(joinPlan.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || '';
       });

@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useAppDispatch } from 'store/hooks';
 import { deletePlan } from 'store/Slices/plans/thunks';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
@@ -19,6 +20,7 @@ function PlanMenu(): JSX.Element {
 
   const { planGroupId } = useParams<{ planGroupId: string }>();
   const dispatch = useAppDispatch();
+  const inviteUrl = `${window.location.origin}/invite/${planGroupId}`;
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -26,6 +28,7 @@ function PlanMenu(): JSX.Element {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const handleDelete = () => {
     if (
       confirm('삭제된 플랜은 복구될 수 없습니다. 삭제하시겠습니까?') &&
@@ -65,6 +68,12 @@ function PlanMenu(): JSX.Element {
           },
         }}
       >
+        <CopyToClipboard
+          text={inviteUrl}
+          onCopy={() => alert('링크가 복사되었습니다! 친구에게 공유해보세요!')}
+        >
+          <MenuItem onClick={handleClose}>새 멤버 초대하기</MenuItem>
+        </CopyToClipboard>
         {options.map((option) => (
           <MenuItem
             key={option.title}
