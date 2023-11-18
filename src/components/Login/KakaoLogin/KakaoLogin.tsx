@@ -18,7 +18,7 @@ interface Props {
 }
 
 function KakaoLogin({ variant }: Props): JSX.Element {
-  const kakaoClientId = '04e51adfeb37816173428908a9f46ab6';
+  const kakaoClientId = process.env.REACT_APP_KAKAO_CLIENT_ID || '';
 
   const tokens = useAppSelector((state) => state.auth.tokens);
   // const isLoading = useAppSelector((state) => state.auth.loading);
