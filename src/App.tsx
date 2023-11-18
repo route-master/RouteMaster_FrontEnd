@@ -3,7 +3,6 @@ import './App.css';
 import Layout from 'components/Layout/Layout';
 import Calculation from 'pages/Calculation/Calculation';
 import CalculationDetail from 'pages/Calculation/Detail/Detail';
-import Profile from 'pages/Profile/Profile';
 import HotelDetails from 'pages/AttractionsDetails/Hotel/Details';
 import RestaurantDetails from 'pages/AttractionsDetails/Restaurant/Details';
 import Main from 'pages/Main/Main';
@@ -32,7 +31,6 @@ function App(): JSX.Element {
           <Route path="/" element={<Main />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/login" element={<Auth />} />
-          <Route path="/profile/:id" element={<Profile />} />
           <Route path="/check_profile" element={<CheckProfile />} />
           <Route path="/set_profile" element={<SetProfile />} />
           {/* <Route path="/restaurant" element={<Restaurant />} /> */}
