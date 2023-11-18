@@ -5,7 +5,7 @@ const baseURL = 'http://34.64.158.170:30100';
 const baseHeader = {
   'Content-Type': 'application/json',
   'Allow-Access-Control': 'http://34.64.158.170:30100',
-  Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+  Authorization: ``,
 };
 
 export const changeBaseHeader = () => {
@@ -232,6 +232,7 @@ export const getUserProfile = createAsyncThunk(
 export const getUserProfileList = createAsyncThunk(
   'user/profile/list',
   async (arg: { ids: string[] }) => {
+    changeBaseHeader();
     let requestURL = `${baseURL}/v1/user/info/profile/list?`;
     // eslint-disable-next-line no-return-assign
     arg.ids.forEach((id) => (requestURL += `baseUserIds=${id}&`));
@@ -251,7 +252,7 @@ export const getUserProfileList = createAsyncThunk(
 
 export const getMyProfile = createAsyncThunk('user/profile/me', async () => {
   const requestURL = `${baseURL}/v1/user/info/profile/me`;
-
+  changeBaseHeader();
   const response = await axios({
     url: requestURL,
     method: 'GET',
@@ -266,6 +267,7 @@ export const getMyProfile = createAsyncThunk('user/profile/me', async () => {
 export const getNicknameById = createAsyncThunk(
   'user/nickname/id',
   async (arg: { id: string }) => {
+    changeBaseHeader();
     const requestURL = `${baseURL}/v1/user/info/profile/nickname/${arg.id}`;
 
     const response = await axios({
