@@ -8,7 +8,7 @@ import styles from './Main.module.css';
 function Main(): JSX.Element {
   const [age, setAge] = useState(20); // default age = 20
   const profilesState = useAppSelector(
-    (state) => state.profile.profiles[0].profile,
+    (state) => state.profile.profiles[0]?.profile,
   );
 
   // set age
