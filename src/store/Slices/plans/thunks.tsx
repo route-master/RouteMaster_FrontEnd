@@ -12,7 +12,7 @@ interface PlanObj {
 
 const header = {
   'Content-Type': 'application/json',
-  'Allow-Access-Control': 'http://34.64.158.170:30000',
+  'Allow-Access-Control': 'http://34.64.158.170:3000',
   Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
 };
 
@@ -46,6 +46,37 @@ export const deletePlan = createAsyncThunk(
   '/plans/delete',
   async (arg: { planId: number }) => {
     const response = await axios.delete(`${requestURL}/${arg.planId}`, {
+      headers: header,
+    });
+    if (!response) {
+      throw new Error('Network response was not ok');
+    }
+  },
+);
+
+export const joinPlan = createAsyncThunk(
+  '/plans/invite',
+  async (arg: { id: string; planId: string }) => {
+    const response = await axios.post(
+      `${requestURL}/${arg.planId}/invite?invite=${arg.id}`,
+      { id: arg.planId, invite: arg.id },
+      { headers: header },
+    );
+
+    if (!response) {
+      throw new Error('Network response was not ok');
+    }
+  },
+);
+
+export const leavePlan = createAsyncThunk(
+  '/plans/exit',
+  async (arg: { id: string; planId: string }) => {
+    const response = await axios.post(`${requestURL}/${arg.id}/exit`, {
+      data: {
+        id: arg.id,
+        invite: arg.planId,
+      },
       headers: header,
     });
     if (!response) {

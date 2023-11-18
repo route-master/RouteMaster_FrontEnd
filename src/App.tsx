@@ -15,6 +15,7 @@ import SetProfile from 'pages/SetProfile/SetProfile';
 import PlanList from 'pages/PlanList/PlanList';
 import EventDetails from 'pages/AttractionsDetails/Event/Details';
 import Logout from 'pages/Logout/logout';
+import Invite from 'pages/Invite/Invite';
 
 declare global {
   interface Window {
@@ -37,6 +38,7 @@ function App(): JSX.Element {
           {/* <Route path="/restaurant" element={<Restaurant />} /> */}
           <Route path="/check_profile" element={<CheckProfile />} />
           <Route path="/set_profile" element={<SetProfile />} />
+          <Route path="/invite/:planGroupId" element={<Invite />} />
         </Routes>
         <Routes>
           <Route element={<Layout />}>
