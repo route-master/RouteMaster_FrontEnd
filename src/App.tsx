@@ -32,14 +32,11 @@ function App(): JSX.Element {
           <Route path="/logout" element={<Logout />} />
           <Route path="/login" element={<Auth />} />
           <Route path="/check_profile" element={<CheckProfile />} />
-          <Route path="/set_profile" element={<SetProfile />} />
-          {/* <Route path="/restaurant" element={<Restaurant />} /> */}
-          <Route path="/check_profile" element={<CheckProfile />} />
-          <Route path="/set_profile" element={<SetProfile />} />
           <Route path="/invite/:planGroupId" element={<Invite />} />
         </Routes>
         <Routes>
           <Route element={<Layout />}>
+            <Route path="/set_profile" element={<SetProfile />} />
             <Route path="/plan-list" element={<PlanList />} />
             <Route path="/plan-list/plan/:planGroupId" element={<Plan />} />
             <Route path="/attractions/:pagetype" element={<Attractions />} />
