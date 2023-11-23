@@ -81,7 +81,7 @@ const profilesSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getUserProfileList.fulfilled, (state, action) => {
-        state.profiles = action.payload;
+        state.profiles = [{ profile: action.payload, access: {} as access }];
         state.isLoading = false;
       })
       .addCase(getUserProfileList.rejected, (state, action) => {
@@ -102,8 +102,7 @@ const profilesSlice = createSlice({
       .addCase(getNicknameById.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getNicknameById.fulfilled, (state, action) => {
-        state.profiles = [action.payload];
+      .addCase(getNicknameById.fulfilled, (state) => {
         state.isLoading = false;
       })
       .addCase(getNicknameById.rejected, (state, action) => {
@@ -113,8 +112,7 @@ const profilesSlice = createSlice({
       .addCase(getNickNamesById.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getNickNamesById.fulfilled, (state, action) => {
-        state.profiles = action.payload;
+      .addCase(getNickNamesById.fulfilled, (state) => {
         state.isLoading = false;
       })
       .addCase(getNickNamesById.rejected, (state, action) => {

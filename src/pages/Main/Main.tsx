@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { Link } from 'react-router-dom';
 import { useAppSelector } from 'store/hooks';
 import { useEffect, useState } from 'react';
@@ -8,13 +7,14 @@ import styles from './Main.module.css';
 
 function Main(): JSX.Element {
   const [age, setAge] = useState(20); // default age = 20
-  const profilesState = useAppSelector((state) => state.profile.profiles);
+  const profilesState = useAppSelector(
+    (state) => state.profile.profiles[0]?.profile,
+  );
 
+  // set age
   useEffect(() => {
-    console.log(profilesState[0]);
-    if (profilesState[0]) {
-      console.log(profilesState[0].profile.birthDate);
-      const birthDate: number = +profilesState[0].profile.birthDate;
+    if (profilesState) {
+      const birthDate: number = +profilesState.birthDate;
       setAge(Math.floor(birthDate / 10) * 10);
     }
   }, [profilesState]);
