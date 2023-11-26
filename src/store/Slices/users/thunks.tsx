@@ -74,6 +74,7 @@ export const checkCodeEmail = createAsyncThunk(
 export const updatePassword = createAsyncThunk(
   'user/email/update/password',
   async (arg: { password: string }) => {
+    changeBaseHeader();
     const requestURL = `${baseURL}/v1/user/email/update/password`;
 
     const response = await axios({
@@ -85,7 +86,6 @@ export const updatePassword = createAsyncThunk(
     if (!response) {
       throw new Error('비밀번호 변경 실패');
     }
-    return response.data.username;
   },
 );
 
@@ -194,7 +194,6 @@ export const setProfile = createAsyncThunk(
     access: {
       birthDate: boolean;
       profileImageUrl: boolean;
-      phoneNumber: boolean;
     };
   }) => {
     const requestURL = `${baseURL}/v1/user/info/profile`;
@@ -251,6 +250,7 @@ export const getUserProfileList = createAsyncThunk(
 );
 
 export const getMyProfile = createAsyncThunk('user/profile/me', async () => {
+  changeBaseHeader();
   const requestURL = `${baseURL}/v1/user/info/profile/me`;
   changeBaseHeader();
   const response = await axios({
