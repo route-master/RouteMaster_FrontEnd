@@ -2,7 +2,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
 interface Props {
-  members: string[];
+  members: { id: string; nickname: string }[];
   currentLog: Log;
   handleChange: (updatedLog: Log) => void;
 }
@@ -14,9 +14,13 @@ interface Log {
 }
 
 function PaidInput({ members, currentLog, handleChange }: Props): JSX.Element {
+  const defaultValue: string =
+    members.find((m) => m.id === currentLog.paid)?.nickname || '';
+
   const handlePaidChange = (e: React.SyntheticEvent, value: string | null) => {
+    const foundPaid = members.find((m) => m.nickname === value);
     const updatedLog: Log = {
-      paid: value || '',
+      paid: foundPaid?.id || '',
       participants: currentLog.participants,
       payment: currentLog.payment,
     };
@@ -27,9 +31,9 @@ function PaidInput({ members, currentLog, handleChange }: Props): JSX.Element {
     <Autocomplete
       freeSolo
       limitTags={1}
-      value={currentLog.paid}
+      defaultValue={defaultValue || null}
       id="controlled-demo"
-      options={members}
+      options={members.map((member) => member.nickname)}
       getOptionLabel={(option) => option}
       onChange={(e, value) => handlePaidChange(e, value)}
       renderInput={(params) => (

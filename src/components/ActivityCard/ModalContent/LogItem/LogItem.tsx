@@ -4,7 +4,7 @@ import OwedInput from '../OwedInput/OwedInput';
 import styles from './LogItem.module.css';
 
 interface Props {
-  members: string[];
+  members: { id: string; nickname: string }[];
   currentLog: Log;
   index: number;
   handleChange: (index: number, updatedLog: Log) => void;
@@ -44,7 +44,7 @@ function LogItem({
         type="number"
         min="0"
         ref={paymentRef}
-        defaultValue={paymentRef.current?.value}
+        defaultValue={paymentRef?.current?.value}
         className={styles.payment_input}
         placeholder="금액을 입력 해주세요!"
       />

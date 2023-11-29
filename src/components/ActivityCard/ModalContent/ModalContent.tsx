@@ -1,22 +1,13 @@
 /* eslint-disable no-console */
 import axios from 'axios';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { selectPlanById } from 'store/Slices/plans/slice';
+import { getNickNamesById } from 'store/Slices/users/thunks';
+import { RootState } from 'store/store';
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import LogItem from './LogItem/LogItem';
 import styles from './ModalContent.module.css';
-
-interface PlanObj {
-  createdAt: string;
-  updatedAt: string;
-  id: string;
-  writer: string;
-  name: string;
-  description: string;
-  thumbnailimageUrl: string;
-  participants: string[];
-  beginDate: string;
-  endDate: string;
-}
 
 interface PaymentLogs {
   paymentLogs: Log[];
@@ -33,14 +24,16 @@ interface Props {
 }
 
 function ActivityCardModal({ id, paymentInfo }: Props): JSX.Element {
+  const dispatch = useAppDispatch();
   const { planGroupId } = useParams<{ planGroupId: string }>();
-  const [member, setMember] = useState<string[]>([]);
+  const [member, setMember] = useState<{ id: string; nickname: string }[]>([]);
   const [logs, setLogs] = useState<Log[]>([
     { paid: '', participants: [], payment: 0 },
   ]);
   const paymentRefs = useRef<React.RefObject<HTMLInputElement>[]>([
     React.createRef(),
   ]);
+
   const header = {
     'Content-Type': 'application/json',
     'Allow-Access-Control': 'http://34.64.158.170:30000',
@@ -80,23 +73,34 @@ function ActivityCardModal({ id, paymentInfo }: Props): JSX.Element {
     });
   };
 
+  const fetchedPlan = useAppSelector((state: RootState) =>
+    planGroupId ? selectPlanById(state, planGroupId) : null,
+  );
+
   useEffect(() => {
     const { paymentLogs } = paymentInfo;
     setLogs(paymentLogs);
 
-    // Get participants from plan group
-    axios
-      .get<PlanObj>(`http://api.route-master.org/plan/group/${planGroupId}`, {
-        headers: header,
-      })
-      .then((res) => {
-        setMember(res.data.participants);
-      })
-      .catch((err) => {
-        // test data
-        setMember(['test1', 'test2', 'test3']);
-        console.log(err);
-      });
+    // Get participants' nicknames from plan group
+    if (fetchedPlan) {
+      dispatch(getNickNamesById({ ids: fetchedPlan?.participants }))
+        .unwrap()
+        .then((res) => {
+          const members = res.nicknames.map(
+            (nickObj: { id: string; baseUserId: string; nickname: string }) => {
+              return {
+                id: nickObj.baseUserId,
+                nickname: nickObj.nickname,
+              };
+            },
+          );
+          setMember(members);
+          console.log(members);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, []);
 
   return (
