@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
-import axios from 'axios';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { selectPlanById } from 'store/Slices/plans/slice';
 import { getNickNamesById } from 'store/Slices/users/thunks';
+import { postLogs } from 'store/Slices/paymentLogs/thunks';
 import { RootState } from 'store/store';
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
@@ -19,11 +19,11 @@ interface Log {
 }
 
 interface Props {
-  id: string;
+  activityId: string;
   paymentInfo: PaymentLogs;
 }
 
-function ActivityCardModal({ id, paymentInfo }: Props): JSX.Element {
+function ActivityCardModal({ activityId, paymentInfo }: Props): JSX.Element {
   const dispatch = useAppDispatch();
   const { planGroupId } = useParams<{ planGroupId: string }>();
   const [member, setMember] = useState<{ id: string; nickname: string }[]>([]);
@@ -34,29 +34,13 @@ function ActivityCardModal({ id, paymentInfo }: Props): JSX.Element {
     React.createRef(),
   ]);
 
-  const header = {
-    'Content-Type': 'application/json',
-    'Allow-Access-Control': 'http://34.64.158.170:30000',
-    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-  };
-
   const handleSubmit = () => {
     const updatedLogs = logs.map((log, index) => ({
       ...log,
       payment: parseInt(paymentRefs.current[index]?.current?.value ?? '0', 10),
     }));
 
-    const activityId = id;
-    axios
-      .post('http://api.route-master.org/plan/activity/payment', {
-        headers: header,
-        data: {
-          id: activityId,
-          // eslint-disable-next-line object-shorthand
-          logs: updatedLogs,
-        },
-      })
-      .catch((err) => console.log(err));
+    dispatch(postLogs({ logs: updatedLogs, id: activityId }));
   };
 
   const addLog = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -95,7 +79,6 @@ function ActivityCardModal({ id, paymentInfo }: Props): JSX.Element {
             },
           );
           setMember(members);
-          console.log(members);
         })
         .catch((err) => {
           console.log(err);
