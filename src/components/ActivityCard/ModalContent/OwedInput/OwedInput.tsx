@@ -36,6 +36,7 @@ function OwedInput({ members, currentLog, handleChange }: Props): JSX.Element {
     };
     handleChange(updatedLog);
   };
+
   return (
     <Autocomplete
       freeSolo

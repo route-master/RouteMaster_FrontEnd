@@ -9,23 +9,21 @@ interface Log {
 
 const header = {
   'Content-Type': 'application/json',
-  'Allow-Access-Control': 'http://34.64.158.170:30000',
   Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
 };
 
-const URL = 'http://api.route-master.org/plan/acttivity/payment';
+const URL = 'http://api.route-master.org/plan/activity/payment';
 
 export const postLogs = createAsyncThunk(
   'form/postLogs',
   async (arg: { logs: Log[]; id: string }) => {
     const mydata = {
       id: arg.id,
-      paymentInfo: arg.logs,
+      paymentInfo: { paymentLogs: arg.logs },
     };
 
-    const response = await axios.post(URL, {
+    const response = await axios.post(URL, mydata, {
       headers: header,
-      data: mydata,
     });
 
     if (!response) {

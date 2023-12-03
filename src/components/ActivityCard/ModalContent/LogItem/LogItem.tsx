@@ -44,7 +44,7 @@ function LogItem({
         type="number"
         min="0"
         ref={paymentRef}
-        defaultValue={paymentRef?.current?.value}
+        defaultValue={currentLog.payment}
         className={styles.payment_input}
         placeholder="금액을 입력 해주세요!"
       />
