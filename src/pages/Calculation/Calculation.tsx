@@ -22,18 +22,6 @@ function Calculation(): JSX.Element {
   const [data, setData] = useState<CalcObject[]>([]);
   const [total, setTotal] = useState<number>(0);
   const myname = 'test';
-  const testData = [
-    {
-      sender: 'test',
-      receiver: 'test2',
-      amount: 10000,
-    },
-    {
-      sender: 'test',
-      receiver: 'test3',
-      amount: 1012456000,
-    },
-  ];
 
   const plan = useAppSelector(
     (state: RootState) => planGroupId && selectPlanById(state, planGroupId),
@@ -102,8 +90,10 @@ function Calculation(): JSX.Element {
   return (
     <div className={styles.container}>
       {plan && <TotalPrice title={plan.name} price={total} />}
-      <PriceList data={testData} />
-      <CalButton handleClick={handleCalculation} />
+      {data ? <PriceList data={data} /> : <div> 정산할 비용이 없습니다. </div>}
+      <div>
+        <CalButton handleClick={handleCalculation} />
+      </div>
     </div>
   );
 }
