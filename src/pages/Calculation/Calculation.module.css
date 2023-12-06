@@ -1,9 +1,11 @@
 .container {
-  height: calc(100vh - 250px);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  height: 100%;
   width: 60%;
   margin: 0 auto;
 }
-
 
 @media screen and (max-width: 1024px) {
   .container {
