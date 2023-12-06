@@ -9,6 +9,7 @@ interface Log {
 
 const header = {
   'Content-Type': 'application/json',
+  'Allow-Access-Control': 'http://34.64.158.170:3000',
   Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
 };
 
