@@ -159,7 +159,7 @@ function EmailAuth({ variant, setVariant }: Props): JSX.Element {
         type="submit"
         onClick={authWithEmail}
       >
-        {variant === 'LOGIN' ? 'Login' : 'Register'}
+        {variant === 'LOGIN' ? '이메일로 로그인하기' : '회원가입 완료'}
       </button>
       <ToastContainer />
     </div>
