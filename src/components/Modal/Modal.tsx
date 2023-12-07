@@ -34,6 +34,7 @@ function Modal({
       ref={bgRef}
       className={styles.background}
       onClick={(e) => closeModal(e)}
+      data-testid="modal-background"
     >
       <div className={styles.container} style={size}>
         <div className={styles.closebtn_wrapper}>
