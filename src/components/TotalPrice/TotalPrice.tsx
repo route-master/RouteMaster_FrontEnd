@@ -10,7 +10,7 @@ function TotalPrice({ title, price }: Props): JSX.Element {
     <div className={styles.container}>
       <div className={styles.title}>{title}</div>
       <div className={styles.price}>
-        총 비용:
+        값아야 할 비용:
         <span className={styles.price_style}>₩ {price.toLocaleString()} </span>
       </div>
     </div>

@@ -285,18 +285,19 @@ export const getNicknameById = createAsyncThunk(
 export const getNickNamesById = createAsyncThunk(
   'user/nickname/list',
   async (arg: { ids: string[] }) => {
-    const requestURL = `${baseURL}/v1/user/info/profile/nickname/list`;
+    changeBaseHeader();
+    const queryParams = arg.ids.map((id) => `baseUserIds=${id}`).join('&');
+    const requestURL = `${baseURL}/v1/user/info/profile/nickname/list?${queryParams}`;
 
     const response = await axios({
       url: requestURL,
       method: 'GET',
       headers: { ...baseHeader },
-      data: arg,
     });
     if (!response) {
       throw new Error('failed to load nicknames');
     }
-    return response.data.nicknames;
+    return response.data;
   },
 );
 

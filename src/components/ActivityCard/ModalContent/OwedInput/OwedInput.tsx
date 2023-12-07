@@ -9,7 +9,7 @@ const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 interface Props {
-  members: string[];
+  members: { id: string; nickname: string }[];
   currentLog: Log;
   handleChange: (updatedLog: Log) => void;
 }
@@ -21,21 +21,29 @@ interface Log {
 }
 
 function OwedInput({ members, currentLog, handleChange }: Props): JSX.Element {
+  const defaultValue: string[] = currentLog.participants.map((p) => {
+    const foundMember = members.find((m) => m.id === p);
+    if (foundMember) return foundMember.nickname;
+    return '';
+  });
+
   const handleOwedChange = (e: SyntheticEvent, value: string[] | null) => {
+    const foundOwed = members.filter((m) => value?.includes(m.nickname));
     const updatedLog: Log = {
       paid: currentLog.paid,
-      participants: value || [],
+      participants: foundOwed.map((o) => o.id) || [],
       payment: currentLog.payment,
     };
     handleChange(updatedLog);
   };
+
   return (
     <Autocomplete
       freeSolo
       multiple
       id="checkboxes-tags-demo"
-      options={members}
-      defaultValue={currentLog.participants}
+      options={members.map((member) => member.nickname)}
+      defaultValue={defaultValue.filter((d) => d !== '')}
       disableCloseOnSelect
       getOptionLabel={(option) => option}
       renderOption={(props, option, { selected }) => (

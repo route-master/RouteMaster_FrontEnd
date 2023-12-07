@@ -86,7 +86,10 @@ function ActivityCard({ activity }: Props): JSX.Element {
         {modalOpen && (
           <Modal
             Content={
-              <ModalContent id={id} paymentInfo={activity.paymentInfo} />
+              <ModalContent
+                activityId={id}
+                paymentInfo={activity.paymentInfo}
+              />
             }
             setModalOpen={setModalOpen}
             mywidth="600px"

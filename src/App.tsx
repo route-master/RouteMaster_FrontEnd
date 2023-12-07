@@ -56,7 +56,7 @@ function App(): JSX.Element {
               path="/attractions/restaurant/details/:id"
               element={<RestaurantDetails />}
             />
-            <Route path="/calculate/:id" element={<Calculation />} />
+            <Route path="/calculate/:planGroupId" element={<Calculation />} />
             <Route
               path="/calculate/:id/:name"
               element={<CalculationDetail />}
