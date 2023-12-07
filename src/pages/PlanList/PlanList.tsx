@@ -10,12 +10,13 @@ import styles from './PlanList.module.css';
 
 function PlanList(): JSX.Element {
   const dispatch = useAppDispatch();
-  const plans = useAppSelector((state: RootState) => state.plans.plans);
+  const { plans, loading } = useAppSelector((state: RootState) => state.plans);
 
   useEffect(() => {
-    // add fetch func later
     dispatch(fetchPlan());
-  }, []);
+  }, [dispatch]);
+
+  if (loading) return <div>loading...</div>;
 
   return (
     <div className={styles.container}>
@@ -24,17 +25,18 @@ function PlanList(): JSX.Element {
         <div className={styles.make_plan}>
           <AddPlanCard />
         </div>
-        {plans.map((p) => (
-          <Link to={`/plan-list/plan/${p.id}`} key={p.id}>
-            <PlanCard
-              key={p.id}
-              title={p.name}
-              writer={p.writer}
-              participants={p.participants}
-              imgsrc={p.thumbnailimageUrl}
-            />
-          </Link>
-        ))}
+        {plans.length > 0 &&
+          plans.map((p) => (
+            <Link to={`/plan-list/plan/${p.id}`} key={p.id}>
+              <PlanCard
+                key={p.id}
+                title={p.name}
+                writer={p.writer}
+                participants={p.participants}
+                imgsrc={p.thumbnailimageUrl}
+              />
+            </Link>
+          ))}
       </div>
     </div>
   );
