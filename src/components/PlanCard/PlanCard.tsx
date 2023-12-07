@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { useAppDispatch } from 'store/hooks';
 import { getNickNamesById } from 'store/Slices/users/thunks';
 import { useEffect, useState } from 'react';
 import defaultImg from 'assets/images/logo_black.png';
