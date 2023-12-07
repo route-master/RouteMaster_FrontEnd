@@ -82,33 +82,31 @@ function Modalcontent({ setModalOpen }: Props): JSX.Element {
         <div>
           <div>여행 일정 선택</div>
           <div className={styles.datepickers_wrapper} onClick={handleClick}>
-            <label htmlFor="beginDate">
-              <DatePicker
-                id="beginDate"
-                showIcon
-                dateFormat="yyyy-MM-dd"
-                selectsStart
-                selected={beginDateInput}
-                endDate={endDateInput}
-                calendarClassName={styles.calendar}
-                onChange={(date: Date) => setBeginDateInput(date)}
-              />
-            </label>
+            <DatePicker
+              aria-labelledby="beginDateLabel"
+              id="beginDate"
+              showIcon
+              dateFormat="yyyy-MM-dd"
+              selectsStart
+              selected={beginDateInput}
+              endDate={endDateInput}
+              calendarClassName={styles.calendar}
+              onChange={(date: Date) => setBeginDateInput(date)}
+            />
             -
-            <label htmlFor="endDate">
-              <DatePicker
-                id="endDate"
-                showIcon
-                dateFormat="yyyy-MM-dd"
-                selected={endDateInput}
-                minDate={beginDateInput}
-                startDate={beginDateInput}
-                endDate={endDateInput}
-                calendarClassName={styles.calendar}
-                onChange={(date: Date) => setEndDateInput(date)}
-                selectsEnd
-              />
-            </label>
+            <DatePicker
+              aria-labelledby="endDateLabel"
+              id="endDate"
+              showIcon
+              dateFormat="yyyy-MM-dd"
+              selected={endDateInput}
+              minDate={beginDateInput}
+              startDate={beginDateInput}
+              endDate={endDateInput}
+              calendarClassName={styles.calendar}
+              onChange={(date: Date) => setEndDateInput(date)}
+              selectsEnd
+            />
           </div>
         </div>
         <button
