@@ -14,7 +14,7 @@ interface PostActivity {
 const baseURL = 'http://api.route-master.org/plan/activity';
 const baseHeader = {
   'Content-Type': 'application/json',
-  'Allow-Access-Control': `${baseURL}`,
+  'Allow-Access-Control': 'http://api.route-master.org',
   Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
 };
 
