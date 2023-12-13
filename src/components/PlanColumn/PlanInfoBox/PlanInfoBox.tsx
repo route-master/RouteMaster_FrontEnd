@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { useAppDispatch } from 'store/hooks';
 import { getNicknameById } from 'store/Slices/users/thunks';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './PlanInfoBox.module.css';
 
 interface Props {
@@ -13,9 +13,14 @@ function PlanInfoBox({ title, writer }: Props): JSX.Element {
   const dispatch = useAppDispatch();
   const planGroupId = useParams<{ planGroupId: string }>();
   const [writerNickname, setWriterNickname] = useState('');
-  dispatch(getNicknameById({ id: writer }))
-    .unwrap()
-    .then((res) => setWriterNickname(res.nickname));
+
+  useEffect(() => {
+    if (planGroupId && writer) {
+      dispatch(getNicknameById(writer))
+        .unwrap()
+        .then((res) => setWriterNickname(res.nickname));
+    }
+  }, [dispatch, writer, planGroupId]);
 
   return (
     <div className={styles.container}>

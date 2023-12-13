@@ -54,7 +54,6 @@ function PlanColumn(): JSX.Element {
   const plan = useAppSelector((state: RootState) =>
     planGroupId ? selectPlanById(state, planGroupId) : null,
   );
-  console.log(plan);
 
   const getHour = (date: string) => {
     const hour = new Date(date).getUTCHours();
