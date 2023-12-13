@@ -16,7 +16,7 @@ function PlanInfoBox({ title, writer }: Props): JSX.Element {
 
   useEffect(() => {
     if (planGroupId && writer) {
-      dispatch(getNicknameById(writer))
+      dispatch(getNicknameById({ id: writer }))
         .unwrap()
         .then((res) => setWriterNickname(res.nickname));
     }

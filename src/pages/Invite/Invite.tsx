@@ -30,7 +30,7 @@ function Invite(): JSX.Element {
   // fetch writer's nickname
   useEffect(() => {
     if (plan) {
-      dispatch(getNicknameById(plan.writer))
+      dispatch(getNicknameById({ id: plan.writer }))
         .unwrap()
         .then((data) => {
           setWriter(data.nickname);
