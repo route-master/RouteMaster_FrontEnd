@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
 import { useEffect } from 'react';
 import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppSelector, useAppDispatch } from 'store/hooks';
 import store, { RootState } from 'store/store';
+import { selectPlanById } from 'store/Slices/plans/slice';
 import { setActivities } from 'store/Slices/activitiesSlice';
 import { useParams } from 'react-router-dom';
 
@@ -41,8 +42,8 @@ interface Log {
 }
 
 function PlanColumn(): JSX.Element {
-  const dispatch = useDispatch();
-  const activities = useSelector((state: RootState) => state.activities);
+  const dispatch = useAppDispatch();
+  const activities = useAppSelector((state: RootState) => state.activities);
   const header = {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
@@ -50,6 +51,10 @@ function PlanColumn(): JSX.Element {
   };
 
   const { planGroupId } = useParams<{ planGroupId: string }>();
+  const plan =
+    planGroupId &&
+    useAppSelector((state: RootState) => selectPlanById(state, planGroupId));
+  console.log(plan);
 
   const getHour = (date: string) => {
     const hour = new Date(date).getUTCHours();
@@ -138,6 +143,10 @@ function PlanColumn(): JSX.Element {
       .catch((err) => console.log(err));
   };
 
+  const getYYYYMMDD = (date: string) => {
+    return date.split('T')[0];
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.title_section}>
@@ -145,11 +154,14 @@ function PlanColumn(): JSX.Element {
           <AvatarGroup />
           <Menu />
         </div>
-
         <PlanInfoBox />
       </div>
       <div className={styles.date_section}>
-        <p>6월 1일 ~ 6월 30일</p>
+        <p>
+          <b>{plan && getYYYYMMDD(plan.beginDate)}</b>
+          {' - '}
+          <b>{plan && getYYYYMMDD(plan.endDate)}</b>
+        </p>
       </div>
       <div className={styles.card_section}>
         <ul className={styles.line_container}>
