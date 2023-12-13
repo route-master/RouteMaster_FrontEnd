@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import store, { RootState } from 'store/store';
 import { setActivities } from 'store/Slices/activitiesSlice';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import AvatarGroup from 'components/CustomAvatarGroup/CustomAvatarGroup';
 import ActivityCard from 'components/ActivityCard/ActivityCard';
@@ -147,11 +147,6 @@ function PlanColumn(): JSX.Element {
         </div>
 
         <PlanInfoBox />
-        <Link to={`/calculate/${planGroupId}`}>
-          <button type="button" className={styles.calculation_btn}>
-            여행 정산하기
-          </button>
-        </Link>
       </div>
       <div className={styles.date_section}>
         <p>6월 1일 ~ 6월 30일</p>
