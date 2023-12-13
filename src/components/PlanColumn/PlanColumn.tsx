@@ -51,9 +51,9 @@ function PlanColumn(): JSX.Element {
   };
 
   const { planGroupId } = useParams<{ planGroupId: string }>();
-  const plan =
-    planGroupId &&
-    useAppSelector((state: RootState) => selectPlanById(state, planGroupId));
+  const plan = useAppSelector((state: RootState) =>
+    planGroupId ? selectPlanById(state, planGroupId) : null,
+  );
   console.log(plan);
 
   const getHour = (date: string) => {
@@ -154,7 +154,7 @@ function PlanColumn(): JSX.Element {
           <AvatarGroup />
           <Menu />
         </div>
-        <PlanInfoBox />
+        <PlanInfoBox title={plan?.name || ''} writer={plan?.writer || ''} />
       </div>
       <div className={styles.date_section}>
         <p>
