@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import store, { RootState } from 'store/store';
 import { selectPlanById } from 'store/Slices/plans/slice';
-import { setActivities } from 'store/Slices/activitiesSlice';
+import { setActivities } from 'store/Slices/activities/slice';
 import { useParams } from 'react-router-dom';
 
 import AvatarGroup from 'components/CustomAvatarGroup/CustomAvatarGroup';
