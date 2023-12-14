@@ -44,7 +44,7 @@ export const postPlan = createAsyncThunk(
 
 export const deletePlan = createAsyncThunk(
   '/plans/delete',
-  async (arg: { planId: number }) => {
+  async (arg: { planId: string }) => {
     const response = await axios.delete(`${requestURL}/${arg.planId}`, {
       headers: header,
     });
