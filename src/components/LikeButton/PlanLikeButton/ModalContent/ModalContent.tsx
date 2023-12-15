@@ -55,7 +55,7 @@ function LikeBtnModal({
   setIsListClicked,
 }: Props): JSX.Element {
   const dispatch = useAppDispatch();
-  const { plans } = useAppSelector((state) => state.plans);
+  const plans = useAppSelector((state) => state.plans.plans);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const { pagetype } = useParams<{ pagetype: string }>();
   const header = {
@@ -65,10 +65,8 @@ function LikeBtnModal({
   };
 
   useEffect(() => {
-    if (!plans) {
-      dispatch(fetchPlan());
-    }
-  }, []);
+    dispatch(fetchPlan());
+  }, [dispatch]);
 
   const addPlan = (e: React.MouseEvent) => {
     e.stopPropagation();
