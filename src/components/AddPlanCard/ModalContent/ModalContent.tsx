@@ -3,7 +3,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState } from 'react';
 import { useAppDispatch } from 'store/hooks';
-import { postPlan } from 'store/Slices/plans/thunks';
+import { fetchPlan, postPlan } from 'store/Slices/plans/thunks';
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -20,7 +20,7 @@ function Modalcontent({ setModalOpen }: Props): JSX.Element {
   const [beginDateInput, setBeginDateInput] = useState<Date>();
   const [endDateInput, setEndDateInput] = useState<Date>();
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = () => {
     if (!title) {
       alert('여행 이름을 입력해주세요');
       return;
@@ -38,15 +38,12 @@ function Modalcontent({ setModalOpen }: Props): JSX.Element {
       id: null,
       name: title,
       description: desc,
-      thumbnailImageUrl: '',
+      thumbnailImageUrl: null,
       beginDate: beginDateInput.toISOString(),
       endDate: endDateInput.toISOString(),
     };
-    // eslint-disable-next-line no-console
-    console.log(data);
-    dispatch(postPlan({ planObj: data }));
-    e.preventDefault();
-    e.stopPropagation();
+
+    dispatch(postPlan({ planObj: data })).then(() => dispatch(fetchPlan()));
     setModalOpen(false);
   };
 
