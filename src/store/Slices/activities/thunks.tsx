@@ -4,8 +4,10 @@ import axios from 'axios';
 interface PostActivity {
   planGroupId: string;
   name: string;
+  description?: string;
   beginDate: string;
   endDate: string;
+  mapInfo?: { lat: number; lng: number };
   activityType: 'HOTEL' | 'RESTAURANT' | 'ACTIVITY' | 'UNKNOWN';
   referenceType: 'TOUR_API' | 'KAKAO_MAP';
   referenceId: string; // 액티비티 id

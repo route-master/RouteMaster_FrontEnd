@@ -10,15 +10,11 @@ function useInfiniteScroll() {
     keyword: string;
   }>();
   const dispatch = useAppDispatch();
-  const data = useAppSelector((state) => state.attractionsThunk.attractions);
-  const isLoading = useAppSelector((state) => state.attractionsThunk.isLoading);
-  const currentPage = useAppSelector(
-    (state) => state.attractionsThunk.currentPage,
-  );
-  const hasNextPage = useAppSelector(
-    (state) => state.attractionsThunk.hasNextPage,
-  );
-  const err = useAppSelector((state) => state.attractionsThunk.error);
+  const data = useAppSelector((state) => state.attractions.attractions);
+  const isLoading = useAppSelector((state) => state.attractions.isLoading);
+  const currentPage = useAppSelector((state) => state.attractions.currentPage);
+  const hasNextPage = useAppSelector((state) => state.attractions.hasNextPage);
+  const err = useAppSelector((state) => state.attractions.error);
 
   useEffect(() => {
     if (pagetype) {
