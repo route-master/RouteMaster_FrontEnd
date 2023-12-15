@@ -1,10 +1,11 @@
 /* eslint-disable no-console */
 import { useEffect } from 'react';
-import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppSelector, useAppDispatch } from 'store/hooks';
 import store, { RootState } from 'store/store';
-import { setActivities } from 'store/Slices/activitiesSlice';
-import { Link, useParams } from 'react-router-dom';
+import { selectPlanById } from 'store/Slices/plans/slice';
+import { setActivities } from 'store/Slices/activities/slice';
+import { fetchActivities, addActivity } from 'store/Slices/activities/thunks';
+import { useParams } from 'react-router-dom';
 
 import AvatarGroup from 'components/CustomAvatarGroup/CustomAvatarGroup';
 import ActivityCard from 'components/ActivityCard/ActivityCard';
@@ -25,9 +26,9 @@ interface Activity {
   endDate: string;
   mapInfo: { lat: number; lng: number };
   thumbnailImageUrl: string;
-  activityType: string;
+  activityType: 'HOTEL' | 'RESTAURANT' | 'ACTIVITY' | 'UNKNOWN';
   paymentInfo: PaymentLogs;
-  referenceType: string;
+  referenceType: 'TOUR_API' | 'KAKAO_MAP';
   referenceId: string;
   planPaymentInfo?: PaymentLogs;
 }
@@ -41,51 +42,37 @@ interface Log {
 }
 
 function PlanColumn(): JSX.Element {
-  const dispatch = useDispatch();
-  const activities = useSelector((state: RootState) => state.activities);
-  const header = {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-  };
-
+  const dispatch = useAppDispatch();
   const { planGroupId } = useParams<{ planGroupId: string }>();
 
+  const plan = useAppSelector((state: RootState) =>
+    planGroupId ? selectPlanById(state, planGroupId) : null,
+  );
+
   const getHour = (date: string) => {
-    const hour = new Date(date).getUTCHours();
+    const hour = new Date(date).getHours();
     return hour;
   };
   const updateHour = (date: string, hour: number) => {
     const newDate = new Date(date);
-    newDate.setUTCHours(hour);
+    newDate.setUTCHours(hour); // Use UTC function because of toISOString
     return newDate.toISOString();
   };
 
   useEffect(() => {
-    axios
-      .get<Activity[]>(
-        `http://api.route-master.org/plan/activity/list?planGroupId=${planGroupId}`,
-        { headers: header },
-      )
-      .then((res) => {
-        const newactivities = [...activities];
-        res.data.forEach((activity) => {
-          newactivities[getHour(activity.beginDate)] = activity;
-        });
-        dispatch(setActivities(newactivities));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    if (planGroupId) dispatch(fetchActivities({ id: planGroupId }));
+  }, [dispatch, planGroupId]);
+
+  const activities = useAppSelector(
+    (state: RootState) => state.activities.activities,
+  );
 
   const handleDropComponent = (
     draggedActivity: Activity,
     targetLineId: number,
   ) => {
-    console.log('handleDropComponent');
-    const currentActivities = store.getState().activities;
-
+    const currentActivities = store.getState().activities.activities;
+    console.log(currentActivities);
     const targetActivity: Activity | undefined | object =
       currentActivities.find(
         (activity) => 'id' in activity && activity.id === draggedActivity.id,
@@ -99,15 +86,20 @@ function PlanColumn(): JSX.Element {
       );
     }
 
-    // 타겟 라인이 현재 라인과 다르면 업데이트
+    // Update activities if the target line is not a current line
     const updatedActivity = { ...targetActivity } as Activity;
 
     const beginDate = getHour(updatedActivity.beginDate);
-    if (targetLineId !== beginDate)
+    if (targetLineId !== beginDate) {
       updatedActivity.beginDate = updateHour(
         updatedActivity.beginDate,
         targetLineId,
       );
+      updatedActivity.endDate = updateHour(
+        updatedActivity.beginDate,
+        targetLineId + 1,
+      );
+    }
 
     const newActivities = currentActivities.map((activity) => {
       if (!('id' in activity) || activity.id !== draggedActivity.id)
@@ -116,26 +108,19 @@ function PlanColumn(): JSX.Element {
     });
 
     newActivities[targetLineId] = updatedActivity;
+
     dispatch(setActivities(newActivities));
 
-    // post and delete
+    // Make a post request
     const dataToSend = { ...updatedActivity };
-    const dataToDelete = { ...targetActivity };
 
-    axios
-      .post('http://api.route-master.org/plan/activity', {
-        headers: header,
-        data: dataToSend,
-      })
-      .then((res) => res.data)
-      .catch((err) => console.log(err));
-    axios
-      .delete('http://api.route-master.org/plan/activity', {
-        headers: header,
-        data: dataToDelete,
-      })
-      .then((res) => res.data)
-      .catch((err) => console.log(err));
+    dispatch(addActivity({ activityObj: dataToSend })).then(() => {
+      if (planGroupId) dispatch(fetchActivities({ id: planGroupId }));
+    });
+  };
+
+  const getYYYYMMDD = (date: string) => {
+    return date.split('T')[0];
   };
 
   return (
@@ -145,35 +130,34 @@ function PlanColumn(): JSX.Element {
           <AvatarGroup />
           <Menu />
         </div>
-
-        <PlanInfoBox />
-        <Link to={`/calculate/${planGroupId}`}>
-          <button type="button" className={styles.calculation_btn}>
-            여행 정산하기
-          </button>
-        </Link>
+        <PlanInfoBox title={plan?.name || ''} writer={plan?.writer || ''} />
       </div>
       <div className={styles.date_section}>
-        <p>6월 1일 ~ 6월 30일</p>
+        <p>
+          <b>{plan && getYYYYMMDD(plan.beginDate)}</b>
+          {' - '}
+          <b>{plan && getYYYYMMDD(plan.endDate)}</b>
+        </p>
       </div>
       <div className={styles.card_section}>
         <ul className={styles.line_container}>
-          {activities.map((activity, index) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <li key={index} className={styles.li}>
-              <DragTargetLine
-                lineId={index}
-                onDropComponent={handleDropComponent}
-              />
-              {'id' in activity ? (
-                <div className={styles.activitycard_wrapper}>
-                  <ActivityCard activity={activity} />
-                </div>
-              ) : (
-                '\u00A0'
-              )}
-            </li>
-          ))}
+          {activities &&
+            activities.map((activity, index) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <li key={index} className={styles.li}>
+                <DragTargetLine
+                  lineId={index}
+                  onDropComponent={handleDropComponent}
+                />
+                {'id' in activity ? (
+                  <div className={styles.activitycard_wrapper}>
+                    <ActivityCard activity={activity} />
+                  </div>
+                ) : (
+                  '\u00A0'
+                )}
+              </li>
+            ))}
         </ul>
       </div>
     </div>

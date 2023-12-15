@@ -252,7 +252,7 @@ export const getUserProfileList = createAsyncThunk(
 export const getMyProfile = createAsyncThunk('user/profile/me', async () => {
   changeBaseHeader();
   const requestURL = `${baseURL}/v1/user/info/profile/me`;
-  changeBaseHeader();
+
   const response = await axios({
     url: requestURL,
     method: 'GET',

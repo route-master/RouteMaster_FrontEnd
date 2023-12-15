@@ -34,7 +34,7 @@ function PlanMenu(): JSX.Element {
       confirm('삭제된 플랜은 복구될 수 없습니다. 삭제하시겠습니까?') &&
       planGroupId
     ) {
-      dispatch(deletePlan({ planId: parseInt(planGroupId, 10) }));
+      dispatch(deletePlan({ planId: planGroupId }));
       location.href = '/plan-list';
     }
   };
