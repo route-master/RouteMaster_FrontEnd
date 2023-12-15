@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 interface PostActivity {
-  planId: string;
+  planGroupId: string;
   name: string;
   beginDate: string;
   endDate: string;
@@ -10,18 +10,43 @@ interface PostActivity {
   referenceType: 'TOUR_API' | 'KAKAO_MAP';
   referenceId: string; // 액티비티 id
 }
+interface UpdateActivity {
+  createdAt: string | null;
+  updatedAt: string | null;
+  id: string;
+  planGroupId: string;
+  writer: string;
+  name: string | null;
+  description: string;
+  beginDate: string;
+  endDate: string;
+  mapInfo: { lat: number; lng: number } | null;
+  thumbnailImageUrl: string | null;
+  activityType: 'HOTEL' | 'RESTAURANT' | 'ACTIVITY' | 'UNKNOWN';
+  paymentInfo: PaymentLogs;
+  referenceType: string;
+  referenceId: string;
+  planPaymentInfo?: PaymentLogs;
+}
+interface PaymentLogs {
+  paymentLogs: Log[];
+}
+interface Log {
+  paid: string;
+  participants: string[];
+  payment: number;
+}
 
 const baseURL = 'http://api.route-master.org/plan/activity';
 const baseHeader = {
   'Content-Type': 'application/json',
-  'Allow-Access-Control': 'http://api.route-master.org',
   Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
 };
 
 export const fetchActivities = createAsyncThunk(
   'activities/fetch',
-  async () => {
-    const response = await axios.get(`${baseURL}/list`, {
+  async (arg: { id: string }) => {
+    const response = await axios.get(`${baseURL}/list?planGroupId=${arg.id}`, {
       headers: baseHeader,
     });
     if (!response) {
@@ -33,7 +58,7 @@ export const fetchActivities = createAsyncThunk(
 
 export const addActivity = createAsyncThunk(
   'activities/add',
-  async (arg: { activityObj: PostActivity }) => {
+  async (arg: { activityObj: PostActivity | UpdateActivity }) => {
     const response = await axios.post(baseURL, arg.activityObj, {
       headers: baseHeader,
     });
