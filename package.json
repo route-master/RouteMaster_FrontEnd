@@ -48,7 +48,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -71,12 +71,18 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/preset-env": "^7.24.4",
+    "@babel/preset-react": "^7.24.1",
     "@svgr/webpack": "^7.0.0",
     "@testing-library/react": "^14.0.0",
     "@types/react-copy-to-clipboard": "^5.0.7",
+    "babel-jest": "^29.7.0",
     "jest": "^27.5.1",
     "kakao.maps.d.ts": "^0.1.38",
-    "react-scripts": "5.0.1"
+    "react-scripts": "5.0.1",
+    "react-test-renderer": "^18.2.0",
+    "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.2"
   },
   "overrides": {
     "react": "^18.2.0",
