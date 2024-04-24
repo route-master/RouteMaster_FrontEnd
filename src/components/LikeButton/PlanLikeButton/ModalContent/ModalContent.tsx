@@ -7,21 +7,21 @@ import { RootState } from 'store/store';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { fetchPlan } from 'store/Slices/plans/thunks';
 import { selectAttractionById } from 'store/Slices/attractions/slice';
-import { addActivity } from 'store/Slices/activities/thunks';
+import { addActivity, deleteActivity } from 'store/Slices/activities/thunks';
 import Modal from 'components/Modal/Modal';
 import AddPlanCardModalContent from 'components/AddPlanCard/ModalContent/ModalContent';
 import styles from './ModalContent.module.css';
 
 interface Props {
-  type: string;
+  setParentModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   contentId: number;
-  setIsListClicked: React.Dispatch<React.SetStateAction<boolean>>;
+  isAdded: boolean;
 }
 
 function LikeBtnModal({
+  setParentModalOpen,
   contentId,
-  type,
-  setIsListClicked,
+  isAdded,
 }: Props): JSX.Element {
   const dispatch = useAppDispatch();
   const plans = useAppSelector((state) => state.plans.plans);
@@ -51,7 +51,7 @@ function LikeBtnModal({
   );
 
   const handleAddActivity = (planId: string) => {
-    // Get attraction
+    // Get info
     const myBeginDate = plans.filter((plan) => plan.id === planId)[0].beginDate;
     const myEndDate = plans.filter((plan) => plan.id === planId)[0].endDate;
     let myActivityType: 'HOTEL' | 'ACTIVITY' | 'RESTAURANT';
@@ -101,6 +101,8 @@ function LikeBtnModal({
             },
           )
           .then(() => {
+            setModalOpen(true);
+            document.body.style.overflow = 'hidden';
             console.log('delete success');
           })
           .catch((err) => {
@@ -113,11 +115,10 @@ function LikeBtnModal({
   };
 
   const handleClick = (e: React.MouseEvent<HTMLLIElement>, id: string) => {
-    e.stopPropagation();
-    e.preventDefault();
-    if (type === 'add') handleAddActivity(id);
+    if (!isAdded) handleAddActivity(id);
     else removeActivity(id);
-    setIsListClicked(true);
+    setParentModalOpen(false);
+    document.body.style.overflow = 'unset';
   };
 
   return (
@@ -132,7 +133,7 @@ function LikeBtnModal({
               </li>
             ))}
         </ul>
-        {type === 'add' && (
+        {!isAdded && (
           <button
             type="button"
             onClick={(e) => addPlan(e)}

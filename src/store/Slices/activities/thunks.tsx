@@ -12,13 +12,13 @@ interface PostActivity {
   referenceType: 'TOUR_API' | 'KAKAO_MAP';
   referenceId: string; // 액티비티 id
 }
-interface UpdateActivity {
+interface Activity {
   createdAt: string | null;
   updatedAt: string | null;
   id: string;
   planGroupId: string;
   writer: string;
-  name: string | null;
+  name: string;
   description: string;
   beginDate: string;
   endDate: string;
@@ -26,9 +26,9 @@ interface UpdateActivity {
   thumbnailImageUrl: string | null;
   activityType: 'HOTEL' | 'RESTAURANT' | 'ACTIVITY' | 'UNKNOWN';
   paymentInfo: PaymentLogs;
-  referenceType: string;
+  referenceType: 'TOUR_API' | 'KAKAO_MAP';
   referenceId: string;
-  planPaymentInfo?: PaymentLogs;
+  planPaymentInfo: PaymentLogs;
 }
 interface PaymentLogs {
   paymentLogs: Log[];
@@ -54,13 +54,13 @@ export const fetchActivities = createAsyncThunk(
     if (!response) {
       throw new Error('Network response was not ok');
     }
-    return response.data;
+    return response.data as Activity[];
   },
 );
 
 export const addActivity = createAsyncThunk(
   'activities/add',
-  async (arg: { activityObj: PostActivity | UpdateActivity }) => {
+  async (arg: { activityObj: PostActivity | Activity }) => {
     const response = await axios.post(baseURL, arg.activityObj, {
       headers: baseHeader,
     });

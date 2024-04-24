@@ -1,4 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { RootState } from 'store/store';
+import { fetchPlan } from 'store/Slices/plans/thunks';
+import { fetchActivities } from 'store/Slices/activities/thunks';
 import EmptyHeart from 'assets/images/emptyheart.png';
 import FullHeart from 'assets/images/fullheart.png';
 import Modal from 'components/Modal/Modal';
@@ -10,24 +14,44 @@ interface Props {
 }
 
 function LikeButton({ contentId }: Props): JSX.Element {
+  const dispatch = useAppDispatch();
+  const isLogin = useAppSelector((state: RootState) => state.auth.isLogin);
   const [imgSrc, setImgSrc] = useState<string>(EmptyHeart);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const [isListClicked, setIsListClicked] = useState<boolean>(false);
-  const [type, setType] = useState<string>('add');
+  const [isAdded, setIsAdded] = useState<boolean>(false);
+
+  const plans = useAppSelector((state: RootState) => state.plans.plans);
 
   useEffect(() => {
-    if (isListClicked) {
-      if (type === 'add') {
-        setImgSrc(FullHeart);
-        setType('remove');
-      } else if (type === 'remove') {
-        setImgSrc(EmptyHeart);
-        setType('add');
-      }
-      setModalOpen(false);
-      setIsListClicked(false);
+    if (isLogin) dispatch(fetchPlan());
+  }, [dispatch]);
+
+  useEffect(() => {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const plan of plans) {
+      dispatch(fetchActivities({ id: plan.id }))
+        .unwrap()
+        .then((activities) => {
+          if (
+            activities.find(
+              (activity) =>
+                activity.referenceType === 'TOUR_API' &&
+                activity.referenceId === contentId.toString(),
+            )
+          )
+            setIsAdded(true);
+        });
+      if (isAdded) break;
     }
-  }, [isListClicked]);
+  }, []);
+
+  useEffect(() => {
+    if (isAdded) {
+      setImgSrc(FullHeart);
+    } else {
+      setImgSrc(EmptyHeart);
+    }
+  }, [isAdded]);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -45,8 +69,8 @@ function LikeButton({ contentId }: Props): JSX.Element {
           setModalOpen={setModalOpen}
           Content={
             <ModalContent
-              type={type}
-              setIsListClicked={setIsListClicked}
+              setParentModalOpen={setModalOpen}
+              isAdded={isAdded}
               contentId={contentId}
             />
           }
