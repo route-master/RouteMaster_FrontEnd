@@ -1,0 +1,21 @@
+.body {
+    width: 70%;
+    height: 100%;
+    margin: 0;
+    z-index: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.searchbar {
+    position: absolute;
+    top: 255px;
+    right: 200px;
+    z-index: 1;
+}
+
+@media screen and (max-width: 1024px) {
+    .searchbar {
+        right: 100px;
+    }
+}

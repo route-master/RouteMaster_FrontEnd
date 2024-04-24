@@ -1,0 +1,14 @@
+.container {
+  font-size: 3rem;
+}
+
+.price {
+  font-size: 2rem;
+  text-align: left;
+}
+
+.price_style {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-left: 0.5rem;
+}

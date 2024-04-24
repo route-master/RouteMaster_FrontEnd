@@ -1,0 +1,37 @@
+.container {
+  width: 80%;
+  height: 100%;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  text-align: start;
+  align-items: center;
+  gap: 30px;
+  border: 1px solid gray;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  padding: 0 20px 0 0;
+}
+
+.container img {
+  inset: 0px;
+  border-radius: 10px 0 0 10px;
+}
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.contents {
+  display: flex;
+  flex-direction: column;
+}
+
+.sub_wrap {
+  display: flex;
+  gap: 30px;
+}

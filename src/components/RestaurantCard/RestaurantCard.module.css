@@ -1,0 +1,43 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  margin-top: 30px;
+}
+
+.image_card {
+  width: 100%;
+}
+
+.image_card img {
+  inset: 0px;
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
+  width: 100%;
+  z-index: 1;
+  top: 0;
+}
+
+.content {
+  padding: 5px;
+  text-align: start;
+  color: black;
+}
+
+.location {
+  color: black;
+}
+
+.rate {
+  color: orange;
+}
+
+.name {
+  color: black;
+}
+
+.description {
+  color: black;
+}

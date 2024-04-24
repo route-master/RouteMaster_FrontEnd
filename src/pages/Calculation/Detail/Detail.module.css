@@ -1,0 +1,11 @@
+.container {
+  min-height: calc(100vh - 250px);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin: 30px;
+  text-align: start;
+  font-weight: 800;
+  font-size: 1.75rem;
+  letter-spacing: 3px;
+}

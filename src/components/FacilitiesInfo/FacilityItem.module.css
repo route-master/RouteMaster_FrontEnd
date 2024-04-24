@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 1rem;
+    text-align: center;
+}
+
+.img_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5rem;
+    height: 5rem;
+    background-color: rgb(193, 255, 228);
+    color: white;
+    border-radius: 5px;
+}
+
+.img {
+    width: 80%;
+    height: 80%;
+}

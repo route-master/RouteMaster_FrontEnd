@@ -1,0 +1,16 @@
+.paper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 2px 4px;
+}
+
+.input {
+    margin-left: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .paper {
+        width: 100%;
+    }
+}

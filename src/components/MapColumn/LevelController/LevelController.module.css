@@ -1,0 +1,55 @@
+.container {
+    position: absolute;
+    bottom:10px;
+    right:200px;
+    width:36px;
+    height:72px;
+    overflow:hidden;
+    z-index:1;
+    box-shadow: 0 0 10px rgba(0,0,0,.5);
+    border: #bfbfbf;
+    background-color:#f5f5f5;
+}
+
+.zoomin {
+    display:block;
+    width:36px;
+    height:36px;
+    text-align:center;
+    cursor:pointer;
+    border: none;
+    border-radius: 3px 3px 0 0;
+}
+.zoomin::after {
+    position: absolute;
+    width: 26px;
+    height: 0;
+    left: 5px;
+    top: 36px;
+    border-top: 1px solid black;
+    content: "";
+    z-index: 1000;
+}
+
+.zoomout {
+    display:block;
+    width:36px;
+    height:36px;
+    text-align:center;
+    cursor:pointer;
+    border: none;
+    border-radius: 0 0 3px 3px;
+}
+
+.icon {
+    width:15px;
+    height:15px;
+    padding:0;
+    border:none;
+}         
+
+@media screen and (max-width: 1024px) {
+    .container {
+        right: 100px;
+    }
+}
