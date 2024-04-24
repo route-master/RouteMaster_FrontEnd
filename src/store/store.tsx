@@ -11,7 +11,7 @@ import logsReducer from './Slices/paymentLogs/slice';
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    attractionsThunk: attractionsReducer,
+    attractions: attractionsReducer,
     privacy: privacyReducer,
     profile: profileReducer,
     activities: activitiesReducer,

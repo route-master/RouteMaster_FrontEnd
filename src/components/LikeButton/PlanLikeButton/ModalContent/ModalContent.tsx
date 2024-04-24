@@ -3,61 +3,33 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { RootState } from 'store/store';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { fetchPlan } from 'store/Slices/plans/thunks';
+import { selectAttractionById } from 'store/Slices/attractions/slice';
+// import { addActivity, deleteActivity } from 'store/Slices/activities/thunks';
+import { addActivity } from 'store/Slices/activities/thunks';
 import Modal from 'components/Modal/Modal';
 import AddPlanCardModalContent from 'components/AddPlanCard/ModalContent/ModalContent';
 import styles from './ModalContent.module.css';
 
 interface Props {
-  type: string;
+  setParentModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   contentId: number;
-  setIsListClicked: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-interface Attraction {
-  title: string;
-  largeCategory: string;
-  mediumCategory: string;
-  smallCategory: string;
-  mapX: number;
-  mapY: number;
-  areaCode: number;
-  sigunguCode: number;
-  mapLevel: number;
-  address: string;
-  detailAddress: string;
-  contentId: number;
-  contentTypeId: number;
-  copyrightType: string;
-  image: string;
-  thumbnailImage: string;
-  createdTime: string;
-  modifiedTime: string;
-  bookTour: boolean;
-  tel: string;
-  benikia: boolean;
-  goodStay: boolean;
-  hanok: boolean;
-}
-interface Response {
-  resultcode: string;
-  resultMessage: string;
-  attractions: Attraction[];
-  numOfRows: number;
-  pageNo: number;
-  totalCount: number;
+  isAdded: boolean;
 }
 
 function LikeBtnModal({
+  setParentModalOpen,
   contentId,
-  type,
-  setIsListClicked,
+  isAdded,
 }: Props): JSX.Element {
   const dispatch = useAppDispatch();
-  const { plans } = useAppSelector((state) => state.plans);
+  const plans = useAppSelector((state) => state.plans.plans);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const { pagetype } = useParams<{ pagetype: string }>();
+  const { pagetype } = useParams<{
+    pagetype: 'stay' | 'event' | 'restaurant';
+  }>();
   const header = {
     'Content-Type': 'application/json',
     'Allow-Access-Control': 'http://34.64.158.170:30000',
@@ -65,10 +37,8 @@ function LikeBtnModal({
   };
 
   useEffect(() => {
-    if (!plans) {
-      dispatch(fetchPlan());
-    }
-  }, []);
+    dispatch(fetchPlan());
+  }, [dispatch]);
 
   const addPlan = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -77,44 +47,38 @@ function LikeBtnModal({
     document.body.style.overflow = 'hidden';
   };
 
-  const addActivity = (id: string) => {
-    // Get attraction
-    axios
-      .get<Response>(
-        `http://api.route-master.org/attraction/detail/common/contentId=${contentId}`,
-        { headers: header },
-      )
-      .then((res) => {
-        const attraction = { ...res.data.attractions[0] };
-        const myBeginDate = plans.filter((plan) => plan.id === id)[0].beginDate;
-        const myEndDate = plans.filter((plan) => plan.id === id)[0].endDate;
-        // Post activity
-        axios
-          .post(`http://api.route-master.org/plan/activity`, {
-            headers: header,
-            data: {
-              id: null,
-              planGroupId: id,
-              name: attraction.title,
-              description: attraction.address,
-              beginDate: myBeginDate,
-              endDate: myEndDate,
-              mapInfo: {
-                lat: attraction.mapY,
-                lng: attraction.mapX,
-              },
-              activityType: pagetype?.toUpperCase(),
-              referenceType: 'TOUR_API',
-              referenceId: attraction.contentId.toString(),
+  const targetAttraction = useAppSelector((state: RootState) =>
+    selectAttractionById(state, contentId),
+  );
+
+  const handleAddActivity = (planId: string) => {
+    // Get info
+    const myBeginDate = plans.filter((plan) => plan.id === planId)[0].beginDate;
+    const myEndDate = plans.filter((plan) => plan.id === planId)[0].endDate;
+    let myActivityType: 'HOTEL' | 'ACTIVITY' | 'RESTAURANT';
+    if (pagetype === 'stay') myActivityType = 'HOTEL';
+    else if (pagetype === 'event') myActivityType = 'ACTIVITY';
+    else myActivityType = 'RESTAURANT';
+
+    if (targetAttraction)
+      dispatch(
+        addActivity({
+          activityObj: {
+            planGroupId: planId,
+            name: targetAttraction.title,
+            description: targetAttraction.address,
+            beginDate: myBeginDate,
+            endDate: myEndDate,
+            mapInfo: {
+              lat: targetAttraction.mapY,
+              lng: targetAttraction.mapX,
             },
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+            activityType: myActivityType,
+            referenceType: 'TOUR_API',
+            referenceId: targetAttraction.contentId.toString(),
+          },
+        }),
+      );
   };
 
   const removeActivity = (id: string) => {
@@ -138,6 +102,8 @@ function LikeBtnModal({
             },
           )
           .then(() => {
+            setModalOpen(true);
+            document.body.style.overflow = 'hidden';
             console.log('delete success');
           })
           .catch((err) => {
@@ -150,11 +116,10 @@ function LikeBtnModal({
   };
 
   const handleClick = (e: React.MouseEvent<HTMLLIElement>, id: string) => {
-    e.stopPropagation();
-    e.preventDefault();
-    if (type === 'add') addActivity(id);
+    if (!isAdded) handleAddActivity(id);
     else removeActivity(id);
-    setIsListClicked(true);
+    setParentModalOpen(false);
+    document.body.style.overflow = 'unset';
   };
 
   return (
@@ -169,7 +134,7 @@ function LikeBtnModal({
               </li>
             ))}
         </ul>
-        {type === 'add' && (
+        {!isAdded && (
           <button
             type="button"
             onClick={(e) => addPlan(e)}

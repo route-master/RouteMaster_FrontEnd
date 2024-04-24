@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import { fetchActivities, addActivity, deleteActivity } from './thunks';
 
 interface Activity {
-  createdAt: string;
-  updatedAt: string;
+  createdAt: string | null;
+  updatedAt: string | null;
   id: string;
   planGroupId: string;
   writer: string;
@@ -11,8 +11,8 @@ interface Activity {
   description: string;
   beginDate: string;
   endDate: string;
-  mapInfo: { lat: number; lng: number };
-  thumbnailImageUrl: string;
+  mapInfo: { lat: number; lng: number } | null;
+  thumbnailImageUrl: string | null;
   activityType: 'HOTEL' | 'RESTAURANT' | 'ACTIVITY' | 'UNKNOWN';
   paymentInfo: PaymentLogs;
   referenceType: 'TOUR_API' | 'KAKAO_MAP';

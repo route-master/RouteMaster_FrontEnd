@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from 'store/store';
 import { fetchAttractionsByType } from './thunks';
 
 interface Attraction {
@@ -72,4 +73,9 @@ const attractionsSlice = createSlice({
 });
 
 export const { resetState } = attractionsSlice.actions;
+export const selectAttractionById = (state: RootState, id: number) => {
+  return state.attractions.attractions.find(
+    (attraction) => attraction.contentId === id,
+  );
+};
 export default attractionsSlice.reducer;

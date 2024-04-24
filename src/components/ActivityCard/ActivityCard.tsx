@@ -6,8 +6,8 @@ import ModalContent from './ModalContent/ModalContent';
 import styles from './ActivityCard.module.css';
 
 interface Activity {
-  createdAt: string;
-  updatedAt: string;
+  createdAt: string | null;
+  updatedAt: string | null;
   id: string;
   planGroupId: string;
   writer: string;
@@ -15,13 +15,13 @@ interface Activity {
   description: string;
   beginDate: string;
   endDate: string;
-  mapInfo: { lat: number; lng: number };
-  thumbnailImageUrl: string;
-  activityType: string;
+  mapInfo: { lat: number; lng: number } | null;
+  thumbnailImageUrl: string | null;
+  activityType: 'HOTEL' | 'RESTAURANT' | 'ACTIVITY' | 'UNKNOWN';
   paymentInfo: PaymentLogs;
-  referenceType: string;
+  referenceType: 'TOUR_API' | 'KAKAO_MAP';
   referenceId: string;
-  planPaymentInfo?: PaymentLogs;
+  planPaymentInfo: PaymentLogs;
 }
 interface PaymentLogs {
   paymentLogs: Log[];
@@ -73,7 +73,7 @@ function ActivityCard({ activity }: Props): JSX.Element {
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div ref={dragRef} className={styles.container} style={containerStyle}>
-      <img src={thumbnailImageUrl} alt="" className={styles.thumb} />
+      <img src={thumbnailImageUrl || ''} alt="" className={styles.thumb} />
       <h3>{name}</h3>
       <div className={styles.rightside_wrapper}>
         <button
